@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SoundboardMAUI.MainPage">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+        <HorizontalStackLayout Grid.Row="0" HeightRequest="70">
+            <Image Source="jabberjaylogo.png" WidthRequest="50" HeightRequest="60" Margin="10, 10, 10, 0"/>
+            <Label Text="JaberJay" FontSize="24" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
+        </HorizontalStackLayout>
+
+        <ScrollView Grid.Row="1">
+            <FlexLayout x:Name="SoundButtonPanel"
+                        Wrap="Wrap"
+                        JustifyContent="Start"
+                        AlignItems="Start"
+                        AlignContent="Start"
+                        Margin="10">
+            </FlexLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="2">
+            <Button x:Name="addSound"
+                    Text="Add Sound"
+                    Clicked="AddSoundButton_Clicked"
+                    Margin="10, 10, 10, 0" />
+
+            <HorizontalStackLayout Margin="5, 0, 0, 0">
+                <Label Text="v0.1.0-beta" HorizontalOptions="CenterAndExpand" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+        
+</ContentPage>
