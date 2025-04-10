@@ -1,7 +1,7 @@
 To set up app:
 
 1. Download and install voicemeeter
-2. Download the JaberJay.zip file
+2. Download the JabberJay.zip file
 3. Set input 1 to your microphone, and then select B (you can also select A if you wish to hear your voice)
 4. Set Hardware out A1 as your speakers (if you wish to hear the sounds through your speakers)
 5. Open JabberJay (JabberJay.exe)
