@@ -6,7 +6,7 @@
     <Grid RowDefinitions="Auto, *, Auto">
         <HorizontalStackLayout Grid.Row="0" HeightRequest="70">
             <Image Source="jabberjaylogo.png" WidthRequest="50" HeightRequest="60" Margin="10, 10, 10, 0"/>
-            <Label Text="JaberJay" FontSize="24" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
+            <Label Text="JabberJay" FontSize="24" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
         </HorizontalStackLayout>
 
         <ScrollView Grid.Row="1">
@@ -26,7 +26,7 @@
                     Margin="10, 10, 10, 0" />
 
             <HorizontalStackLayout Margin="5, 0, 0, 0">
-                <Label Text="v0.1.0-beta" HorizontalOptions="CenterAndExpand" />
+                <Label Text="v0.1.1-beta" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </Grid>
