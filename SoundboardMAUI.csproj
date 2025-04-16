@@ -32,7 +32,7 @@
 
         <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
         <WindowsPackageType>None</WindowsPackageType>
-
+        <NeutralLanguage>en</NeutralLanguage>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
@@ -63,18 +63,27 @@
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Maui.Core" Version="9.1.1" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="H.NotifyIcon" Version="2.3.0" />
+        <PackageReference Include="H.NotifyIcon.Maui" Version="2.1.4" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250310001" />
+        <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
         <PackageReference Include="NAudio" Version="1.10.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="Plugin.Maui.Audio" Version="3.1.0" />
+        <PackageReference Include="System.Windows.Extensions" Version="10.0.0-preview.3.25171.5" />
     </ItemGroup>
 
     <ItemGroup>
       <Reference Include="Microsoft.Maui">
         <HintPath>..\..\Users\CharlesShaw\.nuget\packages\microsoft.maui.core\9.0.14\lib\net9.0-windows10.0.19041\Microsoft.Maui.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiPlatformSpecificFolder Remove="Platforms\Tizen\" />
     </ItemGroup>
 
 </Project>

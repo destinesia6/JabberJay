@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Maui.Core;
+using H.NotifyIcon;
 using Microsoft.Extensions.Logging;
-using SoundboardMAUI.WinUI;
+using H.NotifyIcon.Core;
+using App = SoundboardMAUI.App;
 
-namespace SoundboardMAUI;
+namespace JabberJay;
 
 public static class MauiProgram
 {
@@ -11,6 +13,7 @@ public static class MauiProgram
     var builder = MauiApp.CreateBuilder();
     builder
       .UseMauiApp<App>()
+      .UseNotifyIcon()
       .ConfigureFonts(fonts =>
       {
         fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -19,6 +22,8 @@ public static class MauiProgram
 
     builder.Services.AddSingleton<IKeyboardListener, KeyboardListenerWinUI>();
     builder.Services.AddTransient<MainPage>();
+    
+    AppClosingHandler.HandleAppClosing(builder);
       
 #if DEBUG
     builder.Logging.AddDebug();

@@ -1,36 +1,37 @@
 ﻿#if WINDOWS
-    using NAudio.Wave;
-    using SoundboardMAUI.WinUI;
-    using Windows.System;
+using Windows.System;
 #endif
-using Plugin.Maui.Audio;
 using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Platform;
+using NAudio.Wave;
 using Newtonsoft.Json;
+using SoundboardMAUI;
+using CommunityToolkit.Mvvm.Input;
 using Border = Microsoft.Maui.Controls.Border;
 using Button = Microsoft.Maui.Controls.Button;
+using Color = Microsoft.Maui.Graphics.Color;
 using ColumnDefinition = Microsoft.Maui.Controls.ColumnDefinition;
 using Grid = Microsoft.Maui.Controls.Grid;
 using Path = System.IO.Path;
+using Rectangle = Microsoft.Maui.Controls.Shapes.Rectangle;
 
-namespace SoundboardMAUI;
+namespace JabberJay;
 
 public partial class MainPage : ContentPage
 {
-    private IAudioPlayer currentPlayer;
-    private string SoundsFolderName = "Sounds";
-    private string BindingsFile = "Bindings.json";
+    private readonly string _soundsFolderName = "Sounds";
+    private readonly string _bindingsFile = "Bindings.json";
     private int _voicemeeterInputDeviceIndex = -1;
     private readonly IKeyboardListener _keyboardListener; // Used to bind new keys
-    private GlobalKeyboardListener _globalKeyboardListener; // Used to detect input from bound keys
+    private GlobalKeyboardListener? _globalKeyboardListener; // Used to detect input from bound keys
     private string _currentlyBindingFilePath;
     private Dictionary<string, SoundButton> _soundButtons = new(); // Store key bindings
     
     public MainPage(IKeyboardListener keyboardListener)
     {
         InitializeComponent();
-        BindingsFile = Path.Combine(FileSystem.AppDataDirectory, BindingsFile);
-        SoundsFolderName = Path.Combine(FileSystem.AppDataDirectory, SoundsFolderName);
+        _bindingsFile = Path.Combine(FileSystem.AppDataDirectory, _bindingsFile);
+        _soundsFolderName = Path.Combine(FileSystem.AppDataDirectory, _soundsFolderName);
         _keyboardListener = keyboardListener;
         _keyboardListener.KeyDown += OnBindKeyDown;
         for (int n = 0; n < WaveOut.DeviceCount; n++)
@@ -43,10 +44,13 @@ public partial class MainPage : ContentPage
             }
         }
         LoadSoundButtons();
-        ColorButton(addSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
+        ColorButton(AddSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
         StartGlobalListener();
+        BindingContext = this;
+        PageContainer.Children.Remove(TrayPopup);
+        AppClosingHandler.PageHide += ShowTrayIcon;
     }
-
+    
     private async void AddSoundButton_Clicked(object sender, EventArgs e)
     {
         try
@@ -64,7 +68,7 @@ public partial class MainPage : ContentPage
             if (result != null)
             {
                 string sourceFilePath = result.FullPath;
-                string destinationFolderPath = Path.Combine(FileSystem.AppDataDirectory, SoundsFolderName);
+                string destinationFolderPath = Path.Combine(FileSystem.AppDataDirectory, _soundsFolderName);
 
                 // Ensure the directory exists
                 if (!Directory.Exists(destinationFolderPath))
@@ -90,14 +94,14 @@ public partial class MainPage : ContentPage
 
     private async void LoadSoundButtons()
     {
-        Dictionary<string, SoundButton> bindings = new();
+        Dictionary<string, SoundButton>? bindings = new();
         
         //Loads bindings
-        if (File.Exists(BindingsFile))
+        if (File.Exists(_bindingsFile))
         {
             try
             {
-                string json = File.ReadAllText(BindingsFile);
+                string json = await File.ReadAllTextAsync(_bindingsFile);
                 bindings = JsonConvert.DeserializeObject<Dictionary<string, SoundButton>>(json);
             }
             catch (JsonException ex)
@@ -107,16 +111,16 @@ public partial class MainPage : ContentPage
         }
         
         // Loads sounds
-        if (Directory.Exists(SoundsFolderName))
+        if (Directory.Exists(_soundsFolderName))
         {
             try
             {
-                string[] mp3Files = Directory.GetFiles(SoundsFolderName, "*.mp3");
+                string[] mp3Files = Directory.GetFiles(_soundsFolderName, "*.mp3");
                 foreach (string filePath in mp3Files)
                 {
-                    if (bindings.TryGetValue(filePath, out SoundButton sound))
+                    if (bindings != null && bindings.TryGetValue(filePath, out SoundButton? sound))
                     {
-                        CreateSoundButton(filePath, sound.binding);
+                        CreateSoundButton(filePath, sound.Binding);
                     }
                     else
                     {
@@ -132,7 +136,7 @@ public partial class MainPage : ContentPage
         else
         {
             // Create the directory if it doesn't exist (optional, AddSoundButton will also create it)
-            Directory.CreateDirectory(SoundsFolderName);
+            Directory.CreateDirectory(_soundsFolderName);
         }
     }
 
@@ -153,7 +157,7 @@ public partial class MainPage : ContentPage
         SoundButton newSound = new()
         {
             // Border for the sound button
-            play = new Border
+            Play = new Border
             {
                 StrokeShape = new RoundRectangle
                 {
@@ -169,7 +173,7 @@ public partial class MainPage : ContentPage
                     Margin = new Thickness(0) // Remove internal margin
                 }
             },
-            bind = new Border
+            Bind = new Border
             {
                 StrokeShape = new Rectangle(),
                 StrokeThickness = 1,
@@ -182,7 +186,7 @@ public partial class MainPage : ContentPage
                     Margin = new Thickness(0) // Remove margin
                 }
             },
-            remove = new Border
+            Remove = new Border
             {
                 StrokeShape = new RoundRectangle
                 {
@@ -201,24 +205,24 @@ public partial class MainPage : ContentPage
                     Command = new Command(() => RemoveSoundButton(container, filePath))
                 }
             },
-            binding = binding
+            Binding = binding
         };
 
-        ColorButton(newSound.play, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
-        Grid.SetColumn(newSound.play, 0);
-        container.Children.Add(newSound.play);
-        ColorButton(newSound.bind, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
-        ((Button)newSound.bind.Content).Clicked += StartKeyBinding;
-        Grid.SetColumn(newSound.bind, 1);
-        container.Children.Add(newSound.bind);
-        ColorButton(newSound.remove, Colors.LightCoral, Color.FromArgb("#ff2b2b"));
-        Grid.SetColumn(newSound.remove, 2);
-        container.Children.Add(newSound.remove);
+        ColorButton(newSound.Play, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
+        Grid.SetColumn(newSound.Play, 0);
+        container.Children.Add(newSound.Play);
+        ColorButton(newSound.Bind, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
+        ((Button)newSound.Bind.Content).Clicked += StartKeyBinding;
+        Grid.SetColumn(newSound.Bind, 1);
+        container.Children.Add(newSound.Bind);
+        ColorButton(newSound.Remove, Colors.LightCoral, Color.FromArgb("#ff2b2b"));
+        Grid.SetColumn(newSound.Remove, 2);
+        container.Children.Add(newSound.Remove);
         _soundButtons.Add(filePath, newSound);
         SoundButtonPanel.Add(container);
     }
 
-    private void StartKeyBinding(object sender, EventArgs e)
+    private void StartKeyBinding(object? sender, EventArgs e)
     {
         if (sender is Button { CommandParameter: string filePath } bindButton)
         {
@@ -229,18 +233,17 @@ public partial class MainPage : ContentPage
         }
     }
     
-    private void OnBindKeyDown(object sender, KeyEventArgs e)
+    private void OnBindKeyDown(object? sender, KeyEventArgs e)
     {
         SoundButton selectedSound = _soundButtons[_currentlyBindingFilePath];
-        Button bindButton = selectedSound.bind.Content as Button;
-        bindButton.Text = e.KeyCode;
-        selectedSound.binding = e.KeyCode;
+        if (selectedSound.Bind.Content is Button bindButton && e.KeyCode != null) bindButton.Text = e.KeyCode;
+        selectedSound.Binding = e.KeyCode;
         _keyboardListener.StopListening();
         StartGlobalListener();
         try
         {
-            string json = JsonConvert.SerializeObject(_soundButtons.Where(sound => sound.Value.binding != null).ToDictionary(sound => sound.Key, sound => sound.Value));
-            File.WriteAllText(BindingsFile, json);
+            string json = JsonConvert.SerializeObject(_soundButtons.Where(sound => sound.Value.Binding != null).ToDictionary(sound => sound.Key, sound => sound.Value));
+            File.WriteAllText(_bindingsFile, json);
         }
         catch (Exception exception)
         {
@@ -312,7 +315,7 @@ public partial class MainPage : ContentPage
 
     private void HandleKeyPress(VirtualKey key)
     {
-        foreach (KeyValuePair<string, SoundButton> sound in _soundButtons.Where(sound => sound.Value.binding == key.ToString()))
+        foreach (KeyValuePair<string, SoundButton> sound in _soundButtons.Where(sound => sound.Value.Binding == key.ToString()))
         {
             PlaySound(sound.Key);
             break;
@@ -379,14 +382,32 @@ public partial class MainPage : ContentPage
         }
     }
 
+    private void ShowTrayIcon(object sender, EventArgs e)
+    {
+        PageContainer.Children.Add(TrayPopup);
+    }
+    
+    [RelayCommand] 
+    public void ShowWindow()
+    {
+        AppClosingHandler.ShowApp();
+        TrayPopup.IsEnabled = false;
+    }
+
+    [RelayCommand]
+    public void CloseApp()
+    {
+        Application.Current.Quit();
+    }
+
     private class SoundButton
     {
         [JsonIgnore]
-        public Border play;
+        public required Border Play;
         [JsonIgnore]
-        public Border bind;
+        public required Border Bind;
         [JsonIgnore]
-        public Border remove;
-        public string? binding;
+        public required Border Remove;
+        public string? Binding;
     }
 }

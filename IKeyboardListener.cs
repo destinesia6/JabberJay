@@ -1,4 +1,4 @@
-namespace SoundboardMAUI;
+namespace JabberJay;
 
 public interface IKeyboardListener
 {

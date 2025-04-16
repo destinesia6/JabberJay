@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using Windows.System;
 
-namespace SoundboardMAUI.WinUI;
+namespace JabberJay;
 
 public class GlobalKeyboardListener : IDisposable
 {
