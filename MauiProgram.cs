@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui.Core;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
 using H.NotifyIcon;
 using Microsoft.Extensions.Logging;
 using H.NotifyIcon.Core;
@@ -14,6 +15,7 @@ public static class MauiProgram
     builder
       .UseMauiApp<App>()
       .UseNotifyIcon()
+      .UseMauiCommunityToolkit()
       .ConfigureFonts(fonts =>
       {
         fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

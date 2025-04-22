@@ -5,8 +5,15 @@ using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Platform;
 using NAudio.Wave;
 using Newtonsoft.Json;
-using SoundboardMAUI;
+using YoutubeDLSharp;
+using YoutubeDLSharp.Options;
+using System.Diagnostics;
+using System.Drawing.Drawing2D;
+using ABI.Windows.Web.Http.Diagnostics;
+using CommunityToolkit.Maui.ApplicationModel;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Input;
+using YoutubeDLSharp.Metadata;
 using Border = Microsoft.Maui.Controls.Border;
 using Button = Microsoft.Maui.Controls.Button;
 using Color = Microsoft.Maui.Graphics.Color;
@@ -26,14 +33,57 @@ public partial class MainPage : ContentPage
     private GlobalKeyboardListener? _globalKeyboardListener; // Used to detect input from bound keys
     private string _currentlyBindingFilePath;
     private Dictionary<string, SoundButton> _soundButtons = new(); // Store key bindings
+    private string _ytDlpPath = "";
+    private string _windowsPath = "";
     
     public MainPage(IKeyboardListener keyboardListener)
     {
         InitializeComponent();
+        _soundsFolderName = Path.Combine(FileSystem.AppDataDirectory, _soundsFolderName);
         _bindingsFile = Path.Combine(FileSystem.AppDataDirectory, _bindingsFile);
         _soundsFolderName = Path.Combine(FileSystem.AppDataDirectory, _soundsFolderName);
         _keyboardListener = keyboardListener;
         _keyboardListener.KeyDown += OnBindKeyDown;
+        InitializeExternalToolsAsync();
+        LoadSoundButtons();
+        ColorButton(AddSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
+        ColorButton(ImportSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
+        StartGlobalListener();
+        BindingContext = this;
+        PageContainer.Children.Remove(TrayPopup);
+        AppClosingHandler.PageHide += ShowTrayIcon;
+    }
+
+    private async void InitializeExternalToolsAsync()
+    {
+        try
+        {
+            string windowsPath = Path.Combine(AppContext.BaseDirectory, "Platforms", "Windows");
+            string ytDlpPath = Path.Combine(windowsPath, "yt-dlp.exe");
+            string ffmpegPath = Path.Combine(windowsPath, "ffmpeg.exe");
+            string ffmprobePath = Path.Combine(windowsPath, "ffprobe.exe");
+            if (File.Exists(ytDlpPath) && File.Exists(ffmpegPath) && File.Exists(ffmprobePath))
+            {
+                _ytDlpPath = ytDlpPath;
+                _windowsPath = windowsPath;
+            }
+            else
+            {
+                await DisplayAlert("Error", "Could not find import tools. Import feature disabled", "OK");
+                ImportSound.IsEnabled = false;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            await DisplayAlert("Error", "Error finding import tools. Import feature disabled", "OK");
+            ImportSound.IsEnabled = false;
+        }
+        SetVoicemeeterOutputDevice();
+    }
+    
+    private void SetVoicemeeterOutputDevice()
+    {
         for (int n = 0; n < WaveOut.DeviceCount; n++)
         {
             WaveOutCapabilities deviceInfo = WaveOut.GetCapabilities(n);
@@ -43,12 +93,6 @@ public partial class MainPage : ContentPage
                 break;
             }
         }
-        LoadSoundButtons();
-        ColorButton(AddSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
-        StartGlobalListener();
-        BindingContext = this;
-        PageContainer.Children.Remove(TrayPopup);
-        AppClosingHandler.PageHide += ShowTrayIcon;
     }
     
     private async void AddSoundButton_Clicked(object sender, EventArgs e)
@@ -57,6 +101,7 @@ public partial class MainPage : ContentPage
         {
             FileResult? result = await FilePicker.PickAsync(new PickOptions
             {
+                PickerTitle = "Select an MP3 sound file",
                 FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
                 {
                     { DevicePlatform.WinUI, [".mp3"] },
@@ -68,16 +113,16 @@ public partial class MainPage : ContentPage
             if (result != null)
             {
                 string sourceFilePath = result.FullPath;
-                string destinationFolderPath = Path.Combine(FileSystem.AppDataDirectory, _soundsFolderName);
 
                 // Ensure the directory exists
-                if (!Directory.Exists(destinationFolderPath))
+                if (!Directory.Exists(_soundsFolderName))
                 {
-                    Directory.CreateDirectory(destinationFolderPath);
+                    Directory.CreateDirectory(_soundsFolderName);
                 }
 
                 string fileName = Path.GetFileName(sourceFilePath);
-                string destinationFilePath = Path.Combine(destinationFolderPath, fileName);
+                string sanitizedFileName = string.Join("_", fileName.Split(Path.GetInvalidFileNameChars())); // Protects against invalid file names
+                string destinationFilePath = Path.Combine(_soundsFolderName, sanitizedFileName);
 
                 // Move the file
                 File.Move(sourceFilePath, destinationFilePath, true); // Overwrite if it exists
@@ -89,6 +134,154 @@ public partial class MainPage : ContentPage
         {
             await DisplayAlert("Error", $"Error picking or moving file: {ex.Message}", "OK");
         }
+    }
+
+    private async void ImportSoundButton_Clicked(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(_ytDlpPath) || !File.Exists(_ytDlpPath))
+        {
+            await DisplayAlert("Error", "yt-dlp downloader not found or configured. Please check setup.", "OK");
+            return;
+        }
+        
+        string url = await DisplayPromptAsync("Video URL", "Enter a video URL:", "Download");
+
+        if (string.IsNullOrWhiteSpace(url) || !Uri.TryCreate(url, UriKind.Absolute, out _))
+        {
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                await DisplayAlert("Error", "URL cannot be empty.", "OK");
+            }
+            else
+            {
+                await DisplayAlert("Error", "URL is not valid.", "OK");
+            }
+            return;
+        }
+        
+        // TODO: Add loading indicator
+        ProgressLayout.IsVisible = true;
+        DownloadProgressBar.Progress = 0;
+        DownloadStatusLabel.Text = "Initializing...";
+
+        try
+        {
+            YoutubeDL ytdl = new()
+            {
+                YoutubeDLPath = _ytDlpPath,
+                FFmpegPath = _windowsPath,
+                OutputFolder = _soundsFolderName,
+                OutputFileTemplate = "%(title)s.%(ext)s"
+            };
+            
+            MainThread.BeginInvokeOnMainThread(() => DownloadStatusLabel.Text = "Fetching video info...");
+            RunResult<VideoData> metaDataRes = await ytdl.RunVideoDataFetch(url, ct: new CancellationTokenSource(TimeSpan.FromMinutes(1)).Token);
+            if (!metaDataRes.Success || metaDataRes.Data == null || string.IsNullOrEmpty(metaDataRes.Data.Title))
+            {
+                await DisplayAlert("Error", "Failed to fetch metadata", "Ok");
+                return;
+            }
+
+            string newSoundName = metaDataRes.Data.Title;
+            
+            MainThread.BeginInvokeOnMainThread(() => DownloadStatusLabel.Text = "Checking existing sounds...");
+
+            if (File.Exists(Path.Combine(_soundsFolderName, $"{newSoundName}.mp3")))
+            {
+                await DisplayAlert("Already Exists", $"The sound {newSoundName} already exists", "Ok");
+                return;
+            }
+
+            MainThread.BeginInvokeOnMainThread(() => DownloadStatusLabel.Text = "Starting download...");
+            
+            OptionSet options = new()
+            {
+                ExtractAudio = true,
+                AudioFormat = AudioConversionFormat.Mp3,
+                AudioQuality = 0,
+                NoPlaylist = true,
+                Output = Path.Combine(_soundsFolderName, "%(title)s.%(ext)s")
+            };
+
+            IProgress<DownloadProgress> progress = new Progress<DownloadProgress>(HandleDownloadProgress);
+
+            RunResult<string> res = await ytdl.RunAudioDownload(url, format: AudioConversionFormat.Mp3,
+                overrideOptions: options, ct: new CancellationTokenSource(TimeSpan.FromMinutes(5)).Token,
+                progress: progress);
+
+            if (res.Success)
+            {
+                MainThread.BeginInvokeOnMainThread(() => DownloadStatusLabel.Text = "Locating File...");
+                string[] outputLines = res.Data.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
+                string? downloadedFilePath = null;
+                string destinationPrefix = "[ExtractAudio] Destination: ";
+                string potentialPathLine =
+                    outputLines.LastOrDefault(line => line.StartsWith(destinationPrefix) || line.EndsWith(".mp3"));
+                if (potentialPathLine != null)
+                {
+                    if (potentialPathLine.Contains(destinationPrefix))
+                    {
+                        downloadedFilePath = potentialPathLine
+                            .Substring(potentialPathLine.IndexOf(destinationPrefix) + destinationPrefix.Length).Trim();
+                    }
+                    else if (File.Exists(Path.Combine(_soundsFolderName, potentialPathLine)))
+                    {
+                        downloadedFilePath = Path.Combine(_soundsFolderName, potentialPathLine);
+                    }
+                }
+
+                if (string.IsNullOrEmpty(downloadedFilePath) || !File.Exists(downloadedFilePath))
+                {
+                    await DisplayAlert("Error", "Could not find downloaded file.", "OK");
+                    return;
+                }
+
+                if (File.Exists(downloadedFilePath))
+                {
+                    MainThread.BeginInvokeOnMainThread(() => DownloadStatusLabel.Text = "Adding button...");
+                    CreateSoundButton(downloadedFilePath);
+                }
+            }
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+            throw;
+        }
+        finally
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                ProgressLayout.IsVisible = false;
+            });
+        }
+
+    }
+
+    private void HandleDownloadProgress(DownloadProgress p)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            switch (p.State)
+            {
+                case DownloadState.Downloading:
+                    DownloadStatusLabel.Text = $"Downloading... {p.Progress * 100:N0}%";
+                    DownloadProgressBar.Progress = p.Progress;
+                    break;
+                case DownloadState.PostProcessing:
+                    DownloadStatusLabel.Text = "Processing audio...";
+                    DownloadProgressBar.Progress = 1;
+                    break;
+                case DownloadState.Error:
+                    DownloadStatusLabel.Text = "Error, download canceled";
+                    DownloadProgressBar.Progress = 0;
+                    break;
+                default:
+                    DownloadStatusLabel.Text = p.State.ToString();
+                    DownloadProgressBar.Progress = p.Progress;
+                    break;
+            }
+        });
     }
     
 
@@ -106,7 +299,7 @@ public partial class MainPage : ContentPage
             }
             catch (JsonException ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
             }
         }
         
@@ -118,14 +311,17 @@ public partial class MainPage : ContentPage
                 string[] mp3Files = Directory.GetFiles(_soundsFolderName, "*.mp3");
                 foreach (string filePath in mp3Files)
                 {
-                    if (bindings != null && bindings.TryGetValue(filePath, out SoundButton? sound))
+                    KeyValuePair<string, SoundButton>? bindingEntry = bindings?.FirstOrDefault(kvp => string.Equals(kvp.Key, filePath, StringComparison.OrdinalIgnoreCase));
+
+                    if (bindingEntry is { Value: not null })
                     {
-                        CreateSoundButton(filePath, sound.Binding);
+                        CreateSoundButton(filePath, bindingEntry.Value.Value.Binding);
                     }
                     else
                     {
-                        CreateSoundButton(filePath);   
+                        CreateSoundButton(filePath);
                     }
+
                 }
             }
             catch (Exception ex)
@@ -135,7 +331,7 @@ public partial class MainPage : ContentPage
         }
         else
         {
-            // Create the directory if it doesn't exist (optional, AddSoundButton will also create it)
+            // Create the directory if it doesn't exist
             Directory.CreateDirectory(_soundsFolderName);
         }
     }
@@ -148,6 +344,7 @@ public partial class MainPage : ContentPage
             {
                 new ColumnDefinition(GridLength.Star),
                 new ColumnDefinition(GridLength.Auto), // For the bind button
+                new ColumnDefinition(GridLength.Auto), // For rename button
                 new ColumnDefinition(GridLength.Auto) // For remove button
             },
             Margin = new Thickness(5), // Keep a small margin around the entire merged button
@@ -166,6 +363,7 @@ public partial class MainPage : ContentPage
                 StrokeThickness = 1, // Optional border
                 Content = new Button
                 {
+                    ClassId = "PlayButton",
                     Text = Path.GetFileNameWithoutExtension(filePath),
                     Padding = new Thickness(10),
                     Command = new Command(() => PlaySound(filePath)),
@@ -179,7 +377,22 @@ public partial class MainPage : ContentPage
                 StrokeThickness = 1,
                 Content = new Button
                 {
+                    ClassId = "BindButton",
                     Text = binding ?? "Bind Key",
+                    HeightRequest = 30,
+                    FontSize = 12,
+                    CommandParameter = filePath,
+                    Margin = new Thickness(0) // Remove margin
+                }
+            },
+            Rename = new Border
+            {
+                StrokeShape = new Rectangle(),
+                StrokeThickness = 1,
+                Content = new Button
+                {
+                    ClassId = "RenameButton",
+                    Text = "Rename",
                     HeightRequest = 30,
                     FontSize = 12,
                     CommandParameter = filePath,
@@ -196,6 +409,7 @@ public partial class MainPage : ContentPage
                 Stroke = Colors.Gray, // Optional border color
                 Content = new Button
                 {
+                    ClassId = "RemoveButton",
                     Text = "X",
                     WidthRequest = 30,
                     HeightRequest = 30,
@@ -215,8 +429,12 @@ public partial class MainPage : ContentPage
         ((Button)newSound.Bind.Content).Clicked += StartKeyBinding;
         Grid.SetColumn(newSound.Bind, 1);
         container.Children.Add(newSound.Bind);
+        ColorButton(newSound.Rename, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
+        ((Button)newSound.Rename.Content).Clicked += RenameButton;
+        Grid.SetColumn(newSound.Rename, 2);
+        container.Children.Add(newSound.Rename);
         ColorButton(newSound.Remove, Colors.LightCoral, Color.FromArgb("#ff2b2b"));
-        Grid.SetColumn(newSound.Remove, 2);
+        Grid.SetColumn(newSound.Remove, 3);
         container.Children.Add(newSound.Remove);
         _soundButtons.Add(filePath, newSound);
         SoundButtonPanel.Add(container);
@@ -249,6 +467,74 @@ public partial class MainPage : ContentPage
         {
             Console.WriteLine(exception);
             throw;
+        }
+    }
+
+    private async void RenameButton(object sender, EventArgs e)
+    {
+        if (sender is Button { CommandParameter: string filepath } renameButton)
+        {
+            if (renameButton.Parent.Parent is Grid buttonGrid)
+            {
+                RenamePopup popup = new()
+                {
+                    Anchor = renameButton
+                };
+
+                string? newName = await this.ShowPopupAsync(popup) as string;
+                if (!string.IsNullOrEmpty(newName))
+                {
+                    string newPath = Path.Combine(_soundsFolderName, newName + ".mp3");
+                    renameButton.CommandParameter = newPath;
+                    Border newPlay = new();
+                    Border newBind = new();
+                    Border newRename = new();
+                    Border newRemove = new();
+
+                    foreach (IView? child in buttonGrid.Children)
+                    {
+                        if (child is Border { Content: Button button } border)
+                        {
+                            switch (button.ClassId)
+                            {
+                                case "PlayButton":
+                                    button.Text = newName;
+                                    button.Command = new Command(() => PlaySound(newPath));
+                                    button.CommandParameter = newPath;
+                                    newPlay = border;
+                                    break;
+                                case "BindButton":
+                                    button.CommandParameter = newPath;
+                                    newBind = border;
+                                    break;
+                                case "RenameButton":
+                                    newRename = border;
+                                    break;
+                                case "RemoveButton":
+                                    button.Command = new Command(() => RemoveSoundButton(buttonGrid, newPath));
+                                    newRemove = border;
+                                    break;
+                            }
+                        }
+                    }
+
+                    if (_soundButtons.ContainsKey(filepath))
+                    {
+                        string binding = _soundButtons[filepath].Binding;
+                        _soundButtons.Remove(filepath);
+                        _soundButtons.Add(newPath, new SoundButton()
+                        {
+                            Play = newPlay,
+                            Bind = newBind,
+                            Rename = newRename,
+                            Remove = newRemove,
+                            Binding = binding
+                        });
+                    }
+
+                    File.Move(filepath, newPath);
+                }
+            }
         }
     }
     
@@ -299,7 +585,9 @@ public partial class MainPage : ContentPage
             {
                 // Remove the container (which holds both buttons) from the SoundButtonPanel
                 SoundButtonPanel.Remove(containerToRemove);
-
+                _soundButtons.Remove(filePathToRemove);
+                string json = JsonConvert.SerializeObject(_soundButtons.Where(sound => sound.Value.Binding != null).ToDictionary(sound => sound.Key, sound => sound.Value));
+                await File.WriteAllTextAsync(_bindingsFile, json);
                 // Delete the corresponding sound file from the Sounds folder
                 if (File.Exists(filePathToRemove))
                 {
@@ -384,7 +672,10 @@ public partial class MainPage : ContentPage
 
     private void ShowTrayIcon(object sender, EventArgs e)
     {
-        PageContainer.Children.Add(TrayPopup);
+        if (!PageContainer.Contains(TrayPopup))
+        {
+            PageContainer.Children.Add(TrayPopup);
+        }
     }
     
     [RelayCommand] 
@@ -406,6 +697,8 @@ public partial class MainPage : ContentPage
         public required Border Play;
         [JsonIgnore]
         public required Border Bind;
+        [JsonIgnore] 
+        public required Border Rename;
         [JsonIgnore]
         public required Border Remove;
         public string? Binding;

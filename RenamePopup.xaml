@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<toolkit:Popup
+    x:Class="JabberJay.RenamePopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Color="Transparent"
+    Size="200, 120">
+    <Frame Padding="0" BackgroundColor="#19004a" CornerRadius="15">
+        <VerticalStackLayout Padding="10">
+            <Entry
+                x:Name="NewTextEntry"
+                Placeholder="Enter new name" />
+            <HorizontalStackLayout Padding="0, 10">
+                <Grid HorizontalOptions="Fill" BackgroundColor="Transparent" VerticalOptions="Start" WidthRequest="180" Padding="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        VerticalOptions="Start"
+                        Text="Cancel"
+                        Clicked="CancelButton_Clicked"
+                        HorizontalOptions="Start" />
+                    <Button
+                        Grid.Column="1"
+                        VerticalOptions="Start"
+                        Text="OK"
+                        Clicked="OkButton_Clicked"
+                        HorizontalOptions="End"
+                        Margin="0, 0, 2, 0"/>
+                </Grid>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Frame>
+</toolkit:Popup>

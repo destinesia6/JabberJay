@@ -59,9 +59,16 @@
 
         <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+        <None Remove="Platforms\Windows\yt-dlp.exe" />
+        <MauiAsset Include="Platforms\Windows\yt-dlp.exe" />
+        <None Remove="Platforms\Windows\ffmpeg.exe" />
+        <MauiAsset Include="Platforms\Windows\ffmpeg.exe" />
+        <None Remove="Platforms\Windows\ffprobe.exe" />
+        <MauiAsset Include="Platforms\Windows\ffprobe.exe" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
         <PackageReference Include="CommunityToolkit.Maui.Core" Version="9.1.1" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="H.NotifyIcon" Version="2.3.0" />
@@ -74,6 +81,7 @@
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="Plugin.Maui.Audio" Version="3.1.0" />
         <PackageReference Include="System.Windows.Extensions" Version="10.0.0-preview.3.25171.5" />
+        <PackageReference Include="YoutubeDLSharp" Version="1.1.1" />
     </ItemGroup>
 
     <ItemGroup>
