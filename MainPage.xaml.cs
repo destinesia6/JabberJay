@@ -13,6 +13,7 @@ using ABI.Windows.Web.Http.Diagnostics;
 using CommunityToolkit.Maui.ApplicationModel;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Input;
 using YoutubeDLSharp.Metadata;
 using Border = Microsoft.Maui.Controls.Border;
 using Button = Microsoft.Maui.Controls.Button;
@@ -20,6 +21,7 @@ using Color = Microsoft.Maui.Graphics.Color;
 using ColumnDefinition = Microsoft.Maui.Controls.ColumnDefinition;
 using Grid = Microsoft.Maui.Controls.Grid;
 using Path = System.IO.Path;
+using PointerEventArgs = Microsoft.Maui.Controls.PointerEventArgs;
 using Rectangle = Microsoft.Maui.Controls.Shapes.Rectangle;
 
 namespace JabberJay;
@@ -46,8 +48,8 @@ public partial class MainPage : ContentPage
         _keyboardListener.KeyDown += OnBindKeyDown;
         InitializeExternalToolsAsync();
         LoadSoundButtons();
-        ColorButton(AddSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
-        ColorButton(ImportSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
+        SetupPointerEffects(AddSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"), Color.FromArgb("#786af7"));
+        SetupPointerEffects(ImportSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"), Color.FromArgb("#786af7"));
         StartGlobalListener();
         BindingContext = this;
         PageContainer.Children.Remove(TrayPopup);
@@ -159,7 +161,6 @@ public partial class MainPage : ContentPage
             return;
         }
         
-        // TODO: Add loading indicator
         ProgressLayout.IsVisible = true;
         DownloadProgressBar.Progress = 0;
         DownloadStatusLabel.Text = "Initializing...";
@@ -361,13 +362,11 @@ public partial class MainPage : ContentPage
                     CornerRadius = new CornerRadius(10, 0, 10, 0)
                 },
                 StrokeThickness = 1, // Optional border
-                Content = new Button
+                Content = new Label
                 {
                     ClassId = "PlayButton",
                     Text = Path.GetFileNameWithoutExtension(filePath),
-                    Padding = new Thickness(10),
-                    Command = new Command(() => PlaySound(filePath)),
-                    CommandParameter = filePath,
+                    Padding = new Thickness(10, 8, 10, 10),
                     Margin = new Thickness(0) // Remove internal margin
                 }
             },
@@ -375,13 +374,11 @@ public partial class MainPage : ContentPage
             {
                 StrokeShape = new Rectangle(),
                 StrokeThickness = 1,
-                Content = new Button
+                Content = new Label
                 {
                     ClassId = "BindButton",
                     Text = binding ?? "Bind Key",
-                    HeightRequest = 30,
-                    FontSize = 12,
-                    CommandParameter = filePath,
+                    Padding = new Thickness(10, 8, 10, 10),
                     Margin = new Thickness(0) // Remove margin
                 }
             },
@@ -389,13 +386,11 @@ public partial class MainPage : ContentPage
             {
                 StrokeShape = new Rectangle(),
                 StrokeThickness = 1,
-                Content = new Button
+                Content = new Label
                 {
                     ClassId = "RenameButton",
                     Text = "Rename",
-                    HeightRequest = 30,
-                    FontSize = 12,
-                    CommandParameter = filePath,
+                    Padding = new Thickness(10, 8, 10, 10),
                     Margin = new Thickness(0) // Remove margin
                 }
             },
@@ -407,42 +402,52 @@ public partial class MainPage : ContentPage
                 },
                 StrokeThickness = 1, // Optional border
                 Stroke = Colors.Gray, // Optional border color
-                Content = new Button
+                Content = new Label
                 {
                     ClassId = "RemoveButton",
                     Text = "X",
-                    WidthRequest = 30,
-                    HeightRequest = 30,
-                    FontSize = 12,
+                    Padding = new Thickness(10, 8, 10, 10),
                     TextColor = Colors.White,
-                    Margin = new Thickness(0), // Remove internal margin
-                    Command = new Command(() => RemoveSoundButton(container, filePath))
+                    Margin = new Thickness(0) // Remove internal margin
                 }
             },
             Binding = binding
         };
 
-        ColorButton(newSound.Play, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
+        SetupPointerEffects(newSound.Play, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"), Color.FromArgb("#786af7"));
+        var playTapGesture = new TapGestureRecognizer();
+        playTapGesture.Tapped += (sender, args) => PlaySound(filePath);
+        newSound.Play.GestureRecognizers.Add(playTapGesture);
         Grid.SetColumn(newSound.Play, 0);
         container.Children.Add(newSound.Play);
-        ColorButton(newSound.Bind, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
-        ((Button)newSound.Bind.Content).Clicked += StartKeyBinding;
+        
+        SetupPointerEffects(newSound.Bind, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"), Color.FromArgb("#786af7"));
+        var bindTapGesture = new TapGestureRecognizer();
+        bindTapGesture.Tapped += (sender, args) => StartKeyBinding(sender, filePath);
+        newSound.Bind.GestureRecognizers.Add(bindTapGesture);
         Grid.SetColumn(newSound.Bind, 1);
         container.Children.Add(newSound.Bind);
-        ColorButton(newSound.Rename, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"));
-        ((Button)newSound.Rename.Content).Clicked += RenameButton;
+        
+        SetupPointerEffects(newSound.Rename, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"), Color.FromArgb("#786af7"));
+        var renameTapGesture = new TapGestureRecognizer();
+        renameTapGesture.Tapped += (sender, args) => RenameButton(sender, filePath);
+        newSound.Rename.GestureRecognizers.Add(renameTapGesture);
         Grid.SetColumn(newSound.Rename, 2);
         container.Children.Add(newSound.Rename);
-        ColorButton(newSound.Remove, Colors.LightCoral, Color.FromArgb("#ff2b2b"));
+        
+        SetupPointerEffects(newSound.Remove, Colors.LightCoral, Color.FromArgb("#ff2b2b"), Color.FromArgb("#786af7"));
+        var removeTapGesture = new TapGestureRecognizer();
+        removeTapGesture.Tapped += (sender, args) => RemoveSoundButton(container, filePath);
+        newSound.Remove.GestureRecognizers.Add(removeTapGesture);
         Grid.SetColumn(newSound.Remove, 3);
         container.Children.Add(newSound.Remove);
         _soundButtons.Add(filePath, newSound);
         SoundButtonPanel.Add(container);
     }
 
-    private void StartKeyBinding(object? sender, EventArgs e)
+    private void StartKeyBinding(object? sender, string filePath)
     {
-        if (sender is Button { CommandParameter: string filePath } bindButton)
+        if (sender is Border { Content: Label bindButton })
         {
             _currentlyBindingFilePath = filePath;
             bindButton.Text = "Press Key..."; // Indicate waiting for key press
@@ -454,7 +459,7 @@ public partial class MainPage : ContentPage
     private void OnBindKeyDown(object? sender, KeyEventArgs e)
     {
         SoundButton selectedSound = _soundButtons[_currentlyBindingFilePath];
-        if (selectedSound.Bind.Content is Button bindButton && e.KeyCode != null) bindButton.Text = e.KeyCode;
+        if (selectedSound.Bind.Content is Label bindButton && e.KeyCode != null) bindButton.Text = e.KeyCode;
         selectedSound.Binding = e.KeyCode;
         _keyboardListener.StopListening();
         StartGlobalListener();
@@ -470,11 +475,11 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private async void RenameButton(object sender, EventArgs e)
+    private async void RenameButton(object sender, string filePath)
     {
-        if (sender is Button { CommandParameter: string filepath } renameButton)
+        if (sender is Border renameButton)
         {
-            if (renameButton.Parent.Parent is Grid buttonGrid)
+            if (renameButton.Parent is Grid buttonGrid)
             {
                 RenamePopup popup = new()
                 {
@@ -485,7 +490,6 @@ public partial class MainPage : ContentPage
                 if (!string.IsNullOrEmpty(newName))
                 {
                     string newPath = Path.Combine(_soundsFolderName, newName + ".mp3");
-                    renameButton.CommandParameter = newPath;
                     Border newPlay = new();
                     Border newBind = new();
                     Border newRename = new();
@@ -493,35 +497,55 @@ public partial class MainPage : ContentPage
 
                     foreach (IView? child in buttonGrid.Children)
                     {
-                        if (child is Border { Content: Button button } border)
+                        if (child is Border { Content: Label label } border)
                         {
-                            switch (button.ClassId)
+                            switch (label.ClassId)
                             {
                                 case "PlayButton":
-                                    button.Text = newName;
-                                    button.Command = new Command(() => PlaySound(newPath));
-                                    button.CommandParameter = newPath;
+                                    label.Text = newName;
+                                    TapGestureRecognizer oldPlayTapGesture = new();
+                                    TapGestureRecognizer newPlayTapGesture = new();
+                                    oldPlayTapGesture.Tapped += (sender, args) => PlaySound(newPath);
+                                    newPlayTapGesture.Tapped += (sender, args) => PlaySound(filePath);
+                                    border.GestureRecognizers.Remove(oldPlayTapGesture);
+                                    border.GestureRecognizers.Add(newPlayTapGesture);
                                     newPlay = border;
                                     break;
                                 case "BindButton":
-                                    button.CommandParameter = newPath;
+                                    TapGestureRecognizer oldBindTapGesture = new();
+                                    TapGestureRecognizer newBindTapGesture = new();
+                                    oldBindTapGesture.Tapped += (sender, args) => StartKeyBinding(sender, filePath);
+                                    newBindTapGesture.Tapped += (sender, args) => StartKeyBinding(sender, newPath);
+                                    border.GestureRecognizers.Remove(oldBindTapGesture);
+                                    border.GestureRecognizers.Add(newBindTapGesture);
                                     newBind = border;
                                     break;
                                 case "RenameButton":
+                                    TapGestureRecognizer oldRenameTapGesture = new();
+                                    TapGestureRecognizer newRenameTapGesture = new();
+                                    oldRenameTapGesture.Tapped += (sender, args) => RenameButton(sender, filePath);
+                                    newRenameTapGesture.Tapped += (sender, args) => RenameButton(sender, newPath);
+                                    border.GestureRecognizers.Remove(oldRenameTapGesture);
+                                    border.GestureRecognizers.Add(newRenameTapGesture);
                                     newRename = border;
                                     break;
                                 case "RemoveButton":
-                                    button.Command = new Command(() => RemoveSoundButton(buttonGrid, newPath));
+                                    TapGestureRecognizer oldRemoveTapGesture = new();
+                                    TapGestureRecognizer newRemoveTapGesture = new();
+                                    oldRemoveTapGesture.Tapped += (sender, args) => RemoveSoundButton(buttonGrid, filePath);
+                                    newRemoveTapGesture.Tapped += (sender, args) => RemoveSoundButton(buttonGrid, newPath);
+                                    border.GestureRecognizers.Remove(oldRemoveTapGesture);
+                                    border.GestureRecognizers.Add(newRemoveTapGesture);
                                     newRemove = border;
                                     break;
                             }
                         }
                     }
 
-                    if (_soundButtons.ContainsKey(filepath))
+                    if (_soundButtons.TryGetValue(filePath, out SoundButton? value))
                     {
-                        string binding = _soundButtons[filepath].Binding;
-                        _soundButtons.Remove(filepath);
+                        string? binding = value.Binding;
+                        _soundButtons.Remove(filePath);
                         _soundButtons.Add(newPath, new SoundButton()
                         {
                             Play = newPlay,
@@ -532,13 +556,45 @@ public partial class MainPage : ContentPage
                         });
                     }
 
-                    File.Move(filepath, newPath);
+                    File.Move(filePath, newPath);
                 }
             }
         }
     }
     
-    private static void ColorButton(VisualElement element, Color color, Color hoverColor)
+    private void SetupPointerEffects(View element, Color originalColor, Color? hoverColor = null, Color? pressColor = null)
+    {
+        element.BackgroundColor = originalColor; // Ensure initial color is set
+        
+        var gestureRecognizer = element.GestureRecognizers.OfType<PointerGestureRecognizer>().FirstOrDefault();
+        if (gestureRecognizer == null)
+        {
+            gestureRecognizer = new PointerGestureRecognizer();
+            if (hoverColor != null)
+            {
+                gestureRecognizer.PointerEntered += (s, e) => { element.BackgroundColor = hoverColor; };
+                gestureRecognizer.PointerExited += (s, e) => { element.BackgroundColor = originalColor; };
+            }
+
+            if (pressColor != null)
+            {
+                gestureRecognizer.PointerPressed += (s, e) =>
+                {
+                    element.BackgroundColor = pressColor;
+                };
+                
+                gestureRecognizer.PointerReleased += (s, e) =>
+                {
+                    element.BackgroundColor = hoverColor ?? originalColor;
+                };
+            }
+
+            // Add pointer released to change color back to original
+            element.GestureRecognizers.Add(gestureRecognizer);
+        }
+    }
+    
+    private static void ColorButton(VisualElement element, Color color, Color? hoverColor = null, Color? pressColor = null)
     {
         element.BackgroundColor = color;
         element.HandlerChanged += (sender, args) =>
@@ -546,30 +602,58 @@ public partial class MainPage : ContentPage
             switch (sender)
             {
                 case Button { Handler.PlatformView: Microsoft.UI.Xaml.Controls.Button buttonHandler } button:
-                    buttonHandler.PointerExited += (s, a) =>
+                    buttonHandler.PointerExited += (s, a) => { button.BackgroundColor = color; };
+                    if (hoverColor != null)
                     {
-                        button.BackgroundColor = color;
-                    };
-                    buttonHandler.PointerEntered += (s, a) =>
+                        buttonHandler.PointerEntered += (s, a) =>
+                        {
+                            Console.WriteLine("BTN HOVER");
+                            button.BackgroundColor = hoverColor;
+                        };
+                    }
+                    buttonHandler.PointerPressed += (s, a) =>
                     {
-                        button.BackgroundColor = hoverColor;
+                        Console.WriteLine("BTN PRESS");
+                        button.BackgroundColor = pressColor;
                     };
+                        
+                    
                     break;
                 case Border { Handler.PlatformView: ContentPanel borderHandler } border:
                 {
                     if (border.Content != null)
                     {
                         border.Content.BackgroundColor = color;
-                        borderHandler.PointerExited += (s, a) =>
-                        {
+                        borderHandler.PointerExited += (s, a) => {
                             border.BackgroundColor = color;
                             border.Content.BackgroundColor = color;
                         };
-                        borderHandler.PointerEntered += (s, a) =>
+                        if (hoverColor != null)
                         {
-                            border.BackgroundColor = hoverColor;
-                            border.Content.BackgroundColor = hoverColor;
-                        };
+                            borderHandler.PointerEntered += (s, a) =>
+                            {
+                                Console.WriteLine("BRD HOVER");
+                                border.BackgroundColor = hoverColor;
+                                border.Content.BackgroundColor = hoverColor;
+                            };
+                        }
+
+                        if (pressColor != null)
+                        {
+                            borderHandler.PointerPressed += (s, a) =>
+                            {
+                                Console.WriteLine("BRD PRESS");
+                                border.BackgroundColor = pressColor;
+                                border.Content.BackgroundColor = pressColor;
+                            };
+                            borderHandler.PointerReleased += (s, a) =>
+                            {
+                                Console.WriteLine("BRD Depress");
+                                border.BackgroundColor = hoverColor ?? color;
+                                border.Content.BackgroundColor = hoverColor ?? color;
+                            };
+                            
+                        }
                     }
                     break;
                 }

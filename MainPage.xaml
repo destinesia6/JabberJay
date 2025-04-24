@@ -31,14 +31,32 @@
 
         <VerticalStackLayout Grid.Row="2">
             <HorizontalStackLayout>
-                <Button x:Name="AddSound"
-                        Text="Add Sound"
-                        Clicked="AddSoundButton_Clicked"
-                        Margin="10, 10, 10, 0" />
-                <Button x:Name="ImportSound"
-                        Text="Import Sound"
-                        Clicked="ImportSoundButton_Clicked"
-                        Margin="10, 10, 10, 0" />
+                <Border x:Name="AddSound"
+                        StrokeShape="{RoundRectangle CornerRadius=10}"
+                        Margin="10, 10, 10, 0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ImportSoundButton_Clicked" />
+                    </Border.GestureRecognizers>
+                    <Label x:Name="AddSoundLabel"
+                           Text="Add Sound"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Padding="10"/>
+                </Border>
+
+                <Border x:Name="ImportSound"
+                        StrokeShape="{RoundRectangle CornerRadius=10}"
+                        Margin="10, 10, 10, 0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ImportSoundButton_Clicked" />
+                    </Border.GestureRecognizers>
+                    <Label x:Name="ImportSoundLabel"
+                           Text="Import Sound"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Padding="10"/>
+                </Border>
+                
                 <VerticalStackLayout x:Name="ProgressLayout" IsVisible="False" Margin="10,20,10,10">
                     <Label x:Name="DownloadStatusLabel" Text="Starting download..." HorizontalOptions="Center" />
                     <ProgressBar x:Name="DownloadProgressBar" Progress="0" />
@@ -47,7 +65,7 @@
             
 
             <HorizontalStackLayout Margin="5, 0, 0, 0">
-                <Label Text="v0.2.0-beta" />
+                <Label Text="v0.3.1-beta" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </Grid>
