@@ -18,19 +18,30 @@
                         <ColumnDefinition Width="1*"></ColumnDefinition>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Button
-                        Grid.Column="0"
-                        VerticalOptions="Start"
-                        Text="Cancel"
-                        Clicked="CancelButton_Clicked"
-                        HorizontalOptions="Start" />
-                    <Button
-                        Grid.Column="1"
-                        VerticalOptions="Start"
-                        Text="OK"
-                        Clicked="OkButton_Clicked"
-                        HorizontalOptions="End"
-                        Margin="0, 0, 2, 0"/>
+                    <Border x:Name="CancelButton"
+                            StrokeShape="{RoundRectangle CornerRadius=10}"
+                            Grid.Column="0"
+                            Margin="0, 0, 10, 0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="CancelButton_Clicked" />
+                        </Border.GestureRecognizers>
+                        <Label Text="Cancel"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Padding="10"/>
+                    </Border>
+                    <Border x:Name="OkButton"
+                            StrokeShape="{RoundRectangle CornerRadius=10}"
+                            Grid.Column="1"
+                            Margin="10, 0, 2, 0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OkButton_Clicked" />
+                        </Border.GestureRecognizers>
+                        <Label Text="OK"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Padding="10"/>
+                    </Border>
                 </Grid>
             </HorizontalStackLayout>
         </VerticalStackLayout>

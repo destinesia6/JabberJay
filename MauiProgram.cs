@@ -20,6 +20,7 @@ public static class MauiProgram
       {
         fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
         fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+        fonts.AddFont("fontawesome.ttf", "FontAwesome");
       });
 
     builder.Services.AddSingleton<IKeyboardListener, KeyboardListenerWinUI>();

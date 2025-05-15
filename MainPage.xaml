@@ -33,9 +33,9 @@
             <HorizontalStackLayout>
                 <Border x:Name="AddSound"
                         StrokeShape="{RoundRectangle CornerRadius=10}"
-                        Margin="10, 10, 10, 0">
+                        Margin="10, 10, 5, 0">
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ImportSoundButton_Clicked" />
+                        <TapGestureRecognizer Tapped="AddSoundButton_Clicked" />
                     </Border.GestureRecognizers>
                     <Label x:Name="AddSoundLabel"
                            Text="Add Sound"
@@ -46,7 +46,7 @@
 
                 <Border x:Name="ImportSound"
                         StrokeShape="{RoundRectangle CornerRadius=10}"
-                        Margin="10, 10, 10, 0">
+                        Margin="5, 10, 10, 0">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ImportSoundButton_Clicked" />
                     </Border.GestureRecognizers>
@@ -57,6 +57,16 @@
                            Padding="10"/>
                 </Border>
                 
+                <VerticalStackLayout Padding="5, 0, 10, 0">
+                    <Label Text="Choose an Output Device:" Padding="3, 0, 0, 0"/>
+                    <Picker x:Name="outputDevicePicker" ItemsSource="{Binding OutputDevices}" SelectedItem="{Binding SelectedOutputDevice}" ItemDisplayBinding="{Binding ProductName}" />
+                </VerticalStackLayout>
+                
+                <HorizontalStackLayout Margin="0, 16, 0, 0">
+                    <Label Text="Auto Start:"  VerticalTextAlignment="Center"/>
+                    <CheckBox x:Name="autoStartToggle" IsChecked="{Binding AutoStart}" />
+                </HorizontalStackLayout>
+                
                 <VerticalStackLayout x:Name="ProgressLayout" IsVisible="False" Margin="10,20,10,10">
                     <Label x:Name="DownloadStatusLabel" Text="Starting download..." HorizontalOptions="Center" />
                     <ProgressBar x:Name="DownloadProgressBar" Progress="0" />
@@ -65,7 +75,7 @@
             
 
             <HorizontalStackLayout Margin="5, 0, 0, 0">
-                <Label Text="v0.3.1-beta" />
+                <Label Text="v0.4.0-pre-release-test" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </Grid>

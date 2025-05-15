@@ -14,6 +14,8 @@ public partial class RenamePopup : Popup
   public RenamePopup()
   {
     InitializeComponent();
+    AnimationExtensions.SetupPointerEffects(OkButton, Color.FromArgb("#00ab0b"), Color.FromArgb("#017509"));
+    AnimationExtensions.SetupPointerEffects(CancelButton, Color.FromArgb("#c40000"), Color.FromArgb("#850000"));
     _tcs = new TaskCompletionSource<string>();
   }
 
