@@ -1,0 +1,1869 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Component Id="AboutAssets.txt" Guid="{423F7E50-40BF-4281-80E8-A3DF73DA662C}">
+                <File Id="AboutAssets.txt" KeyPath="yes" Source="SourceDir\AboutAssets.txt" />
+            </Component>
+            <Component Id="CommunityToolkit.Maui.Core.dll" Guid="{CD758BDD-2220-40F7-936C-7DC396003DDF}">
+                <File Id="CommunityToolkit.Maui.Core.dll" KeyPath="yes" Source="SourceDir\CommunityToolkit.Maui.Core.dll" />
+            </Component>
+            <Component Id="CommunityToolkit.Maui.dll" Guid="{FB30171D-3755-4509-91F8-FB01C8B6058B}">
+                <File Id="CommunityToolkit.Maui.dll" KeyPath="yes" Source="SourceDir\CommunityToolkit.Maui.dll" />
+            </Component>
+            <Component Id="CommunityToolkit.Mvvm.dll" Guid="{8671CB43-ED8B-4856-9799-A92F58DE2087}">
+                <File Id="CommunityToolkit.Mvvm.dll" KeyPath="yes" Source="SourceDir\CommunityToolkit.Mvvm.dll" />
+            </Component>
+            <Component Id="CoreMessagingXP.dll" Guid="{035A6CA9-6EE5-4C38-8268-24A6C783114C}">
+                <File Id="CoreMessagingXP.dll" KeyPath="yes" Source="SourceDir\CoreMessagingXP.dll" />
+            </Component>
+            <Component Id="dcompi.dll" Guid="{2FA6313F-583A-4386-B273-5248FFD21B33}">
+                <File Id="dcompi.dll" KeyPath="yes" Source="SourceDir\dcompi.dll" />
+            </Component>
+            <Component Id="dotnet_bot.scale_100.png" Guid="{E869A902-31F1-4A07-975F-0B69580CAE07}">
+                <File Id="dotnet_bot.scale_100.png" KeyPath="yes" Source="SourceDir\dotnet_bot.scale-100.png" />
+            </Component>
+            <Component Id="dotnet_bot.scale_125.png" Guid="{6AD54486-5501-40F9-96C2-3A8725E7AB7A}">
+                <File Id="dotnet_bot.scale_125.png" KeyPath="yes" Source="SourceDir\dotnet_bot.scale-125.png" />
+            </Component>
+            <Component Id="dotnet_bot.scale_150.png" Guid="{1434BCE5-A15A-43D2-B3B0-F64B9A4FAA83}">
+                <File Id="dotnet_bot.scale_150.png" KeyPath="yes" Source="SourceDir\dotnet_bot.scale-150.png" />
+            </Component>
+            <Component Id="dotnet_bot.scale_200.png" Guid="{72E35F72-F9D7-4029-B128-F0F9C7296D52}">
+                <File Id="dotnet_bot.scale_200.png" KeyPath="yes" Source="SourceDir\dotnet_bot.scale-200.png" />
+            </Component>
+            <Component Id="dotnet_bot.scale_400.png" Guid="{108A9737-7FE9-4127-933B-A5C8CA77C828}">
+                <File Id="dotnet_bot.scale_400.png" KeyPath="yes" Source="SourceDir\dotnet_bot.scale-400.png" />
+            </Component>
+            <Component Id="dwmcorei.dll" Guid="{C396AAEF-87E8-4A91-A451-B8CBBFEA4F87}">
+                <File Id="dwmcorei.dll" KeyPath="yes" Source="SourceDir\dwmcorei.dll" />
+            </Component>
+            <Component Id="DwmSceneI.dll" Guid="{7F5DC683-9D09-4D29-AD8C-FDEDF39D3A55}">
+                <File Id="DwmSceneI.dll" KeyPath="yes" Source="SourceDir\DwmSceneI.dll" />
+            </Component>
+            <Component Id="DWriteCore.dll" Guid="{32571A3C-01AC-4BE9-A59A-F0D9F91356AE}">
+                <File Id="DWriteCore.dll" KeyPath="yes" Source="SourceDir\DWriteCore.dll" />
+            </Component>
+            <Component Id="FluentUI.cs" Guid="{E9F692EB-65ED-48CD-922D-D29FA5952F6A}">
+                <File Id="FluentUI.cs" KeyPath="yes" Source="SourceDir\FluentUI.cs" />
+            </Component>
+            <Component Id="H.GeneratedIcons.System.Drawing.dll" Guid="{D5940364-B239-4B05-B403-48E5D606A19D}">
+                <File Id="H.GeneratedIcons.System.Drawing.dll" KeyPath="yes" Source="SourceDir\H.GeneratedIcons.System.Drawing.dll" />
+            </Component>
+            <Component Id="H.NotifyIcon.dll" Guid="{707B4F25-39A5-4888-A128-869A923E411A}">
+                <File Id="H.NotifyIcon.dll" KeyPath="yes" Source="SourceDir\H.NotifyIcon.dll" />
+            </Component>
+            <Component Id="H.NotifyIcon.Maui.dll" Guid="{49B7F2CA-8260-4729-ABD0-34D75CCD2DA5}">
+                <File Id="H.NotifyIcon.Maui.dll" KeyPath="yes" Source="SourceDir\H.NotifyIcon.Maui.dll" />
+            </Component>
+            <Component Id="JabberJay.deps.json" Guid="{0778420E-1386-4E72-BF9B-6838058F0A65}">
+                <File Id="JabberJay.deps.json" KeyPath="yes" Source="SourceDir\JabberJay.deps.json" />
+            </Component>
+            <Component Id="JabberJay.dll" Guid="{584B15FF-D971-4716-AA8C-85FFDF3F1EFD}">
+                <File Id="JabberJay.dll" KeyPath="yes" Source="SourceDir\JabberJay.dll" />
+            </Component>
+            <Component Id="JabberJay.exe" Guid="{3B045D1B-B315-4CD6-908C-89E11F2B0266}">
+                <File Id="JabberJay.exe" KeyPath="yes" Source="SourceDir\JabberJay.exe" />
+            </Component>
+            <Component Id="JabberJay.pdb" Guid="{ED35D81A-62AF-406E-AF14-CE5C26E64FD5}">
+                <File Id="JabberJay.pdb" KeyPath="yes" Source="SourceDir\JabberJay.pdb" />
+            </Component>
+            <Component Id="JabberJay.runtimeconfig.json" Guid="{24EC4073-C859-4F29-A640-B89EEF636889}">
+                <File Id="JabberJay.runtimeconfig.json" KeyPath="yes" Source="SourceDir\JabberJay.runtimeconfig.json" />
+            </Component>
+            <Component Id="jabberjayicon.ico" Guid="{C37422F6-65EA-4CB4-A298-78C376C30D47}">
+                <File Id="jabberjayicon.ico" KeyPath="yes" Source="SourceDir\jabberjayicon.ico" />
+            </Component>
+            <Component Id="jabberjayiconLargeTile.scale_100.png" Guid="{7CA268C0-6424-42E9-A6CB-82925A9C84D6}">
+                <File Id="jabberjayiconLargeTile.scale_100.png" KeyPath="yes" Source="SourceDir\jabberjayiconLargeTile.scale-100.png" />
+            </Component>
+            <Component Id="jabberjayiconLargeTile.scale_125.png" Guid="{B7202BE7-8F70-4569-BE35-9DC6585F4AE1}">
+                <File Id="jabberjayiconLargeTile.scale_125.png" KeyPath="yes" Source="SourceDir\jabberjayiconLargeTile.scale-125.png" />
+            </Component>
+            <Component Id="jabberjayiconLargeTile.scale_150.png" Guid="{AB1B394D-504E-4B5A-95F6-39F5E48A0A33}">
+                <File Id="jabberjayiconLargeTile.scale_150.png" KeyPath="yes" Source="SourceDir\jabberjayiconLargeTile.scale-150.png" />
+            </Component>
+            <Component Id="jabberjayiconLargeTile.scale_200.png" Guid="{E3BF65EE-408E-4E94-B4D9-A0CDEB915177}">
+                <File Id="jabberjayiconLargeTile.scale_200.png" KeyPath="yes" Source="SourceDir\jabberjayiconLargeTile.scale-200.png" />
+            </Component>
+            <Component Id="jabberjayiconLargeTile.scale_400.png" Guid="{B02F8B56-A03A-459D-801F-66192473D05D}">
+                <File Id="jabberjayiconLargeTile.scale_400.png" KeyPath="yes" Source="SourceDir\jabberjayiconLargeTile.scale-400.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.altform_lightunplated_targetsize_16.png" Guid="{8632946D-F136-435A-AC92-5ABCB484CC8B}">
+                <File Id="jabberjayiconLogo.altform_lightunplated_targetsize_16.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.altform-lightunplated_targetsize-16.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.altform_lightunplated_targetsize_24.png" Guid="{163DC9D5-4E5D-4EBD-930F-8CD5ED732DED}">
+                <File Id="jabberjayiconLogo.altform_lightunplated_targetsize_24.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.altform-lightunplated_targetsize-24.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.altform_lightunplated_targetsize_256.png" Guid="{11DE4A0C-2E3E-4375-B982-CFF35236FCCD}">
+                <File Id="jabberjayiconLogo.altform_lightunplated_targetsize_256.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.altform-lightunplated_targetsize-256.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.altform_lightunplated_targetsize_32.png" Guid="{5DC8A04D-4AFA-4858-AFF7-3269E6487567}">
+                <File Id="jabberjayiconLogo.altform_lightunplated_targetsize_32.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.altform-lightunplated_targetsize-32.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.altform_lightunplated_targetsize_48.png" Guid="{8893F3B4-F754-4755-9CFB-EE0D62C04E26}">
+                <File Id="jabberjayiconLogo.altform_lightunplated_targetsize_48.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.altform-lightunplated_targetsize-48.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.altform_unplated_targetsize_16.png" Guid="{56DA9D0B-072A-4ACF-BABF-2D689D71693F}">
+                <File Id="jabberjayiconLogo.altform_unplated_targetsize_16.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.altform-unplated_targetsize-16.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.altform_unplated_targetsize_24.png" Guid="{44CEB1E6-46F5-45A0-AE2D-E138D602CA62}">
+                <File Id="jabberjayiconLogo.altform_unplated_targetsize_24.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.altform-unplated_targetsize-24.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.altform_unplated_targetsize_256.png" Guid="{2F94D739-7FD5-4B4D-BE60-4C168D335D23}">
+                <File Id="jabberjayiconLogo.altform_unplated_targetsize_256.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.altform-unplated_targetsize-256.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.altform_unplated_targetsize_32.png" Guid="{1979EEE4-369C-4681-A8B4-D0E6BACC1985}">
+                <File Id="jabberjayiconLogo.altform_unplated_targetsize_32.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.altform-unplated_targetsize-32.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.altform_unplated_targetsize_48.png" Guid="{8635DFD3-CBDE-4EDD-914D-85DB68B5B61E}">
+                <File Id="jabberjayiconLogo.altform_unplated_targetsize_48.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.altform-unplated_targetsize-48.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.scale_100.png" Guid="{6FFC17E2-6623-4AAB-9E58-151B3592A71E}">
+                <File Id="jabberjayiconLogo.scale_100.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.scale-100.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.scale_125.png" Guid="{743C751C-17C4-4630-8847-83A5C23B5FE1}">
+                <File Id="jabberjayiconLogo.scale_125.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.scale-125.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.scale_150.png" Guid="{D062BBE2-0409-48E5-B909-E2EE9D18231E}">
+                <File Id="jabberjayiconLogo.scale_150.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.scale-150.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.scale_200.png" Guid="{76A4B468-09FD-4597-8B63-9EF6674C670E}">
+                <File Id="jabberjayiconLogo.scale_200.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.scale-200.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.scale_400.png" Guid="{54DE20DA-5F6C-4914-B401-FF02B811A1B9}">
+                <File Id="jabberjayiconLogo.scale_400.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.scale-400.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.targetsize_16.png" Guid="{2B5F5A6E-B1F8-4111-A534-4EE6D9A49BB0}">
+                <File Id="jabberjayiconLogo.targetsize_16.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.targetsize-16.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.targetsize_24.png" Guid="{0F47CB4E-8EDE-45F0-B959-1EC70FF1BE2A}">
+                <File Id="jabberjayiconLogo.targetsize_24.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.targetsize-24.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.targetsize_256.png" Guid="{B9EF1068-B021-4671-BAE2-77B726F7798A}">
+                <File Id="jabberjayiconLogo.targetsize_256.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.targetsize-256.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.targetsize_32.png" Guid="{1880E012-EE5B-4300-BF9A-A9972E41CB51}">
+                <File Id="jabberjayiconLogo.targetsize_32.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.targetsize-32.png" />
+            </Component>
+            <Component Id="jabberjayiconLogo.targetsize_48.png" Guid="{7899B03F-A0F6-4F50-9B04-AA1914B4F362}">
+                <File Id="jabberjayiconLogo.targetsize_48.png" KeyPath="yes" Source="SourceDir\jabberjayiconLogo.targetsize-48.png" />
+            </Component>
+            <Component Id="jabberjayiconMediumTile.scale_100.png" Guid="{684CAFFE-816A-45BB-AA04-841EA26A2DA6}">
+                <File Id="jabberjayiconMediumTile.scale_100.png" KeyPath="yes" Source="SourceDir\jabberjayiconMediumTile.scale-100.png" />
+            </Component>
+            <Component Id="jabberjayiconMediumTile.scale_125.png" Guid="{C754206D-B3B5-48CF-9233-91676320236F}">
+                <File Id="jabberjayiconMediumTile.scale_125.png" KeyPath="yes" Source="SourceDir\jabberjayiconMediumTile.scale-125.png" />
+            </Component>
+            <Component Id="jabberjayiconMediumTile.scale_150.png" Guid="{656B238D-4492-4372-A28E-2A6702C9E9DC}">
+                <File Id="jabberjayiconMediumTile.scale_150.png" KeyPath="yes" Source="SourceDir\jabberjayiconMediumTile.scale-150.png" />
+            </Component>
+            <Component Id="jabberjayiconMediumTile.scale_200.png" Guid="{BF4932FA-DB75-4983-A877-469FE7D0E247}">
+                <File Id="jabberjayiconMediumTile.scale_200.png" KeyPath="yes" Source="SourceDir\jabberjayiconMediumTile.scale-200.png" />
+            </Component>
+            <Component Id="jabberjayiconMediumTile.scale_400.png" Guid="{A452A154-7DFC-42C8-863B-1C4516FBAD3C}">
+                <File Id="jabberjayiconMediumTile.scale_400.png" KeyPath="yes" Source="SourceDir\jabberjayiconMediumTile.scale-400.png" />
+            </Component>
+            <Component Id="jabberjayiconSmallTile.scale_100.png" Guid="{9DB2DA68-0E05-4FB9-A2C7-4B76331F9471}">
+                <File Id="jabberjayiconSmallTile.scale_100.png" KeyPath="yes" Source="SourceDir\jabberjayiconSmallTile.scale-100.png" />
+            </Component>
+            <Component Id="jabberjayiconSmallTile.scale_125.png" Guid="{A2285277-BA4B-41DF-9ACB-1208A5B3ADC4}">
+                <File Id="jabberjayiconSmallTile.scale_125.png" KeyPath="yes" Source="SourceDir\jabberjayiconSmallTile.scale-125.png" />
+            </Component>
+            <Component Id="jabberjayiconSmallTile.scale_150.png" Guid="{88FD406E-3321-4D27-976F-7EF1D17D4CEB}">
+                <File Id="jabberjayiconSmallTile.scale_150.png" KeyPath="yes" Source="SourceDir\jabberjayiconSmallTile.scale-150.png" />
+            </Component>
+            <Component Id="jabberjayiconSmallTile.scale_200.png" Guid="{8B5FBE46-0B0C-4CFC-BC06-1B874F02D675}">
+                <File Id="jabberjayiconSmallTile.scale_200.png" KeyPath="yes" Source="SourceDir\jabberjayiconSmallTile.scale-200.png" />
+            </Component>
+            <Component Id="jabberjayiconSmallTile.scale_400.png" Guid="{8891E7EC-4F7A-4A54-A0CD-3A44597E3446}">
+                <File Id="jabberjayiconSmallTile.scale_400.png" KeyPath="yes" Source="SourceDir\jabberjayiconSmallTile.scale-400.png" />
+            </Component>
+            <Component Id="jabberjayiconStoreLogo.scale_100.png" Guid="{8B1C7015-707F-4F4F-ABC0-DEBC374EB270}">
+                <File Id="jabberjayiconStoreLogo.scale_100.png" KeyPath="yes" Source="SourceDir\jabberjayiconStoreLogo.scale-100.png" />
+            </Component>
+            <Component Id="jabberjayiconStoreLogo.scale_125.png" Guid="{57BA6AA6-E070-4F4C-AF9E-591122A6324C}">
+                <File Id="jabberjayiconStoreLogo.scale_125.png" KeyPath="yes" Source="SourceDir\jabberjayiconStoreLogo.scale-125.png" />
+            </Component>
+            <Component Id="jabberjayiconStoreLogo.scale_150.png" Guid="{867C8636-C228-4022-84B0-2EF272ADDCA4}">
+                <File Id="jabberjayiconStoreLogo.scale_150.png" KeyPath="yes" Source="SourceDir\jabberjayiconStoreLogo.scale-150.png" />
+            </Component>
+            <Component Id="jabberjayiconStoreLogo.scale_200.png" Guid="{C5DE4174-9B85-40A0-B69B-1D52379E194C}">
+                <File Id="jabberjayiconStoreLogo.scale_200.png" KeyPath="yes" Source="SourceDir\jabberjayiconStoreLogo.scale-200.png" />
+            </Component>
+            <Component Id="jabberjayiconStoreLogo.scale_400.png" Guid="{47F35FBF-C5C6-4378-8C52-A5DC0D019FB0}">
+                <File Id="jabberjayiconStoreLogo.scale_400.png" KeyPath="yes" Source="SourceDir\jabberjayiconStoreLogo.scale-400.png" />
+            </Component>
+            <Component Id="jabberjayiconWideTile.scale_100.png" Guid="{3EF49560-99D0-4D0A-A844-EFB22CEB7A40}">
+                <File Id="jabberjayiconWideTile.scale_100.png" KeyPath="yes" Source="SourceDir\jabberjayiconWideTile.scale-100.png" />
+            </Component>
+            <Component Id="jabberjayiconWideTile.scale_125.png" Guid="{A2751C60-7B52-47CF-950A-F43DE1DB02DB}">
+                <File Id="jabberjayiconWideTile.scale_125.png" KeyPath="yes" Source="SourceDir\jabberjayiconWideTile.scale-125.png" />
+            </Component>
+            <Component Id="jabberjayiconWideTile.scale_150.png" Guid="{4020F4A5-E79A-4FAF-818B-8A181E0FDEBF}">
+                <File Id="jabberjayiconWideTile.scale_150.png" KeyPath="yes" Source="SourceDir\jabberjayiconWideTile.scale-150.png" />
+            </Component>
+            <Component Id="jabberjayiconWideTile.scale_200.png" Guid="{ACF5CBE8-FB18-4A2E-9912-D1987C0625F7}">
+                <File Id="jabberjayiconWideTile.scale_200.png" KeyPath="yes" Source="SourceDir\jabberjayiconWideTile.scale-200.png" />
+            </Component>
+            <Component Id="jabberjayiconWideTile.scale_400.png" Guid="{BDF2666F-C27E-4994-83C9-5612D43B3166}">
+                <File Id="jabberjayiconWideTile.scale_400.png" KeyPath="yes" Source="SourceDir\jabberjayiconWideTile.scale-400.png" />
+            </Component>
+            <Component Id="jabberjaylogo.scale_100.png" Guid="{9471F7A3-DE6B-4934-969E-94E1AE491C41}">
+                <File Id="jabberjaylogo.scale_100.png" KeyPath="yes" Source="SourceDir\jabberjaylogo.scale-100.png" />
+            </Component>
+            <Component Id="marshal.dll" Guid="{A0A3EF54-E5B5-45C7-94F3-AF95537C52B9}">
+                <File Id="marshal.dll" KeyPath="yes" Source="SourceDir\marshal.dll" />
+            </Component>
+            <Component Id="Microsoft.DirectManipulation.dll" Guid="{2DBB8984-100E-444E-BD30-9B226327097A}">
+                <File Id="Microsoft.DirectManipulation.dll" KeyPath="yes" Source="SourceDir\Microsoft.DirectManipulation.dll" />
+            </Component>
+            <Component Id="Microsoft.Extensions.Configuration.Abstractions.dll" Guid="{9C88ED5A-700B-41E7-8794-4924FB28C149}">
+                <File Id="Microsoft.Extensions.Configuration.Abstractions.dll" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Configuration.Abstractions.dll" />
+            </Component>
+            <Component Id="Microsoft.Extensions.Configuration.dll" Guid="{E82B0BC3-F014-4AC7-8EE0-4BBE323789B1}">
+                <File Id="Microsoft.Extensions.Configuration.dll" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Configuration.dll" />
+            </Component>
+            <Component Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Guid="{638A38F3-3C14-4382-950B-CF555AA4A9A4}">
+                <File Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+            </Component>
+            <Component Id="Microsoft.Extensions.DependencyInjection.dll" Guid="{45781D1C-6755-4D47-B40E-0DEFDDA9BE41}">
+                <File Id="Microsoft.Extensions.DependencyInjection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.DependencyInjection.dll" />
+            </Component>
+            <Component Id="Microsoft.Extensions.Logging.Abstractions.dll" Guid="{FC77471F-46A7-4FB7-AFC0-9BA167B65CE7}">
+                <File Id="Microsoft.Extensions.Logging.Abstractions.dll" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Logging.Abstractions.dll" />
+            </Component>
+            <Component Id="Microsoft.Extensions.Logging.Debug.dll" Guid="{664DCCE4-57B4-4055-8539-6E1C54800D13}">
+                <File Id="Microsoft.Extensions.Logging.Debug.dll" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Logging.Debug.dll" />
+            </Component>
+            <Component Id="Microsoft.Extensions.Logging.dll" Guid="{713360E5-EDC3-4100-AA54-3ED6D62CDE1B}">
+                <File Id="Microsoft.Extensions.Logging.dll" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Logging.dll" />
+            </Component>
+            <Component Id="Microsoft.Extensions.Options.dll" Guid="{92D8FC30-D108-4130-A112-82F073214B1D}">
+                <File Id="Microsoft.Extensions.Options.dll" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Options.dll" />
+            </Component>
+            <Component Id="Microsoft.Extensions.Primitives.dll" Guid="{90F6281A-88EF-49F8-A5AE-F9D78CC98C3B}">
+                <File Id="Microsoft.Extensions.Primitives.dll" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Primitives.dll" />
+            </Component>
+            <Component Id="Microsoft.Foundation.winmd" Guid="{65A01FA1-0320-47E7-B572-98D4EAC7156D}">
+                <File Id="Microsoft.Foundation.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Foundation.winmd" />
+            </Component>
+            <Component Id="Microsoft.Graphics.Canvas.dll" Guid="{07971713-78F1-4199-9101-830D8CE32A23}">
+                <File Id="Microsoft.Graphics.Canvas.dll" KeyPath="yes" Source="SourceDir\Microsoft.Graphics.Canvas.dll" />
+            </Component>
+            <Component Id="Microsoft.Graphics.Canvas.Interop.dll" Guid="{D36E0CEE-AADB-490A-AF96-F808D98A879E}">
+                <File Id="Microsoft.Graphics.Canvas.Interop.dll" KeyPath="yes" Source="SourceDir\Microsoft.Graphics.Canvas.Interop.dll" />
+            </Component>
+            <Component Id="Microsoft.Graphics.Display.dll" Guid="{A838C832-3C4A-444A-A941-7AD80C19D9F0}">
+                <File Id="Microsoft.Graphics.Display.dll" KeyPath="yes" Source="SourceDir\Microsoft.Graphics.Display.dll" />
+            </Component>
+            <Component Id="Microsoft.Graphics.winmd" Guid="{055E938F-3D33-4B3C-B8D0-B69E1CD1170B}">
+                <File Id="Microsoft.Graphics.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Graphics.winmd" />
+            </Component>
+            <Component Id="Microsoft.InputStateManager.dll" Guid="{B0E21F47-5114-4EA4-BA5A-310F06A4D32B}">
+                <File Id="Microsoft.InputStateManager.dll" KeyPath="yes" Source="SourceDir\Microsoft.InputStateManager.dll" />
+            </Component>
+            <Component Id="Microsoft.InteractiveExperiences.Projection.dll" Guid="{E921914F-E567-4DC0-9512-B3B07D216BED}">
+                <File Id="Microsoft.InteractiveExperiences.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.InteractiveExperiences.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Internal.FrameworkUdk.dll" Guid="{17A49A41-4CD5-4270-9104-0142BA958EDA}">
+                <File Id="Microsoft.Internal.FrameworkUdk.dll" KeyPath="yes" Source="SourceDir\Microsoft.Internal.FrameworkUdk.dll" />
+            </Component>
+            <Component Id="Microsoft.IO.RecyclableMemoryStream.dll" Guid="{297E867E-BAB0-4B74-95A0-266561110EF7}">
+                <File Id="Microsoft.IO.RecyclableMemoryStream.dll" KeyPath="yes" Source="SourceDir\Microsoft.IO.RecyclableMemoryStream.dll" />
+            </Component>
+            <Component Id="Microsoft.Maui.Controls.Compatibility.dll" Guid="{F26E5648-5012-415B-8E7D-6F700489743E}">
+                <File Id="Microsoft.Maui.Controls.Compatibility.dll" KeyPath="yes" Source="SourceDir\Microsoft.Maui.Controls.Compatibility.dll" />
+            </Component>
+            <Component Id="Microsoft.Maui.Controls.dll" Guid="{AC771D8E-78D4-4471-9D10-9DD19FCB149F}">
+                <File Id="Microsoft.Maui.Controls.dll" KeyPath="yes" Source="SourceDir\Microsoft.Maui.Controls.dll" />
+            </Component>
+            <Component Id="Microsoft.Maui.Controls.Xaml.dll" Guid="{40F7BFA1-9BE7-4D8A-BBD4-272F1AA8E7D3}">
+                <File Id="Microsoft.Maui.Controls.Xaml.dll" KeyPath="yes" Source="SourceDir\Microsoft.Maui.Controls.Xaml.dll" />
+            </Component>
+            <Component Id="Microsoft.Maui.dll" Guid="{DDDD62DD-A900-413F-A8E2-3C9298A84632}">
+                <File Id="Microsoft.Maui.dll" KeyPath="yes" Source="SourceDir\Microsoft.Maui.dll" />
+            </Component>
+            <Component Id="Microsoft.Maui.Essentials.dll" Guid="{F281EA7A-0557-476E-9EE4-E372E59363C6}">
+                <File Id="Microsoft.Maui.Essentials.dll" KeyPath="yes" Source="SourceDir\Microsoft.Maui.Essentials.dll" />
+            </Component>
+            <Component Id="Microsoft.Maui.Graphics.dll" Guid="{6739BEC0-2D8A-4366-850D-549CB1EF66C3}">
+                <File Id="Microsoft.Maui.Graphics.dll" KeyPath="yes" Source="SourceDir\Microsoft.Maui.Graphics.dll" />
+            </Component>
+            <Component Id="Microsoft.Maui.Graphics.Win2D.WinUI.Desktop.dll" Guid="{BD5FDBF7-BAC5-4912-BBF2-BF8282F6DA8E}">
+                <File Id="Microsoft.Maui.Graphics.Win2D.WinUI.Desktop.dll" KeyPath="yes" Source="SourceDir\Microsoft.Maui.Graphics.Win2D.WinUI.Desktop.dll" />
+            </Component>
+            <Component Id="Microsoft.Security.Authentication.OAuth.Projection.dll" Guid="{974B683C-C2EB-4B77-B756-4A3F605BC1BB}">
+                <File Id="Microsoft.Security.Authentication.OAuth.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Security.Authentication.OAuth.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Security.Authentication.OAuth.winmd" Guid="{17E51311-A4B3-426D-B84B-D82497D48273}">
+                <File Id="Microsoft.Security.Authentication.OAuth.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Security.Authentication.OAuth.winmd" />
+            </Component>
+            <Component Id="Microsoft.Toolkit.Uwp.Notifications.dll" Guid="{D7B2E08A-B3C3-41E9-89E7-6F07E3E8558C}">
+                <File Id="Microsoft.Toolkit.Uwp.Notifications.dll" KeyPath="yes" Source="SourceDir\Microsoft.Toolkit.Uwp.Notifications.dll" />
+            </Component>
+            <Component Id="Microsoft.UI.Composition.OSSupport.dll" Guid="{2C40C084-1C1B-4E0D-933F-8D23677E56D2}">
+                <File Id="Microsoft.UI.Composition.OSSupport.dll" KeyPath="yes" Source="SourceDir\Microsoft.UI.Composition.OSSupport.dll" />
+            </Component>
+            <Component Id="Microsoft.UI.dll" Guid="{FCC39E89-53C3-496A-B9E8-BDBBF6AA0753}">
+                <File Id="Microsoft.UI.dll" KeyPath="yes" Source="SourceDir\Microsoft.UI.dll" />
+            </Component>
+            <Component Id="Microsoft.UI.Input.dll" Guid="{89E13B7D-8E2C-459E-B9C5-4AA8677E1325}">
+                <File Id="Microsoft.UI.Input.dll" KeyPath="yes" Source="SourceDir\Microsoft.UI.Input.dll" />
+            </Component>
+            <Component Id="Microsoft.UI.pri" Guid="{C55E1A57-3A75-447A-89E6-D33D928DE2AF}">
+                <File Id="Microsoft.UI.pri" KeyPath="yes" Source="SourceDir\Microsoft.UI.pri" />
+            </Component>
+            <Component Id="Microsoft.UI.Text.winmd" Guid="{80514E0C-682D-4EF1-ABA3-237C08E24E76}">
+                <File Id="Microsoft.UI.Text.winmd" KeyPath="yes" Source="SourceDir\Microsoft.UI.Text.winmd" />
+            </Component>
+            <Component Id="Microsoft.UI.Windowing.Core.dll" Guid="{BDE6C15E-5C42-4410-B0C9-7ED39DBC6F55}">
+                <File Id="Microsoft.UI.Windowing.Core.dll" KeyPath="yes" Source="SourceDir\Microsoft.UI.Windowing.Core.dll" />
+            </Component>
+            <Component Id="Microsoft.UI.Windowing.dll" Guid="{AF64C303-4A47-4097-9EA1-00315C27E5F2}">
+                <File Id="Microsoft.UI.Windowing.dll" KeyPath="yes" Source="SourceDir\Microsoft.UI.Windowing.dll" />
+            </Component>
+            <Component Id="Microsoft.UI.winmd" Guid="{DE0D635D-9D95-4E73-9E3D-4FAA9FA2BAD8}">
+                <File Id="Microsoft.UI.winmd" KeyPath="yes" Source="SourceDir\Microsoft.UI.winmd" />
+            </Component>
+            <Component Id="Microsoft.UI.Xaml.Controls.dll" Guid="{7E556932-ADEA-4A12-861B-A5506BE5C57E}">
+                <File Id="Microsoft.UI.Xaml.Controls.dll" KeyPath="yes" Source="SourceDir\Microsoft.UI.Xaml.Controls.dll" />
+            </Component>
+            <Component Id="Microsoft.UI.Xaml.Controls.pri" Guid="{751CFF62-1C00-47D2-8B5C-6472F679DB57}">
+                <File Id="Microsoft.UI.Xaml.Controls.pri" KeyPath="yes" Source="SourceDir\Microsoft.UI.Xaml.Controls.pri" />
+            </Component>
+            <Component Id="Microsoft.ui.xaml.dll" Guid="{8ED11200-86FB-456D-B257-BCEFEE6085F3}">
+                <File Id="Microsoft.ui.xaml.dll" KeyPath="yes" Source="SourceDir\Microsoft.ui.xaml.dll" />
+            </Component>
+            <Component Id="Microsoft.UI.Xaml.Internal.dll" Guid="{F8E48214-52F7-4BAB-9354-EC754A6CE7D8}">
+                <File Id="Microsoft.UI.Xaml.Internal.dll" KeyPath="yes" Source="SourceDir\Microsoft.UI.Xaml.Internal.dll" />
+            </Component>
+            <Component Id="Microsoft.UI.Xaml.Phone.dll" Guid="{42D05DD2-F349-4994-9055-1B70AE374F3B}">
+                <File Id="Microsoft.UI.Xaml.Phone.dll" KeyPath="yes" Source="SourceDir\Microsoft.UI.Xaml.Phone.dll" />
+            </Component>
+            <Component Id="Microsoft.ui.xaml.resources.19h1.dll" Guid="{DBBE052B-565D-433A-912C-D4995BBF62D1}">
+                <File Id="Microsoft.ui.xaml.resources.19h1.dll" KeyPath="yes" Source="SourceDir\Microsoft.ui.xaml.resources.19h1.dll" />
+            </Component>
+            <Component Id="Microsoft.ui.xaml.resources.common.dll" Guid="{EBD05658-CAF1-4FDD-9B05-F7A895C40B3C}">
+                <File Id="Microsoft.ui.xaml.resources.common.dll" KeyPath="yes" Source="SourceDir\Microsoft.ui.xaml.resources.common.dll" />
+            </Component>
+            <Component Id="Microsoft.UI.Xaml.winmd" Guid="{0ECD6FA8-61CF-4D0B-807C-F7892FFADBD4}">
+                <File Id="Microsoft.UI.Xaml.winmd" KeyPath="yes" Source="SourceDir\Microsoft.UI.Xaml.winmd" />
+            </Component>
+            <Component Id="Microsoft.Web.WebView2.Core.dll" Guid="{0B5B4A26-D752-4B79-A696-74F7B78F1DF5}">
+                <File Id="Microsoft.Web.WebView2.Core.dll" KeyPath="yes" Source="SourceDir\Microsoft.Web.WebView2.Core.dll" />
+            </Component>
+            <Component Id="Microsoft.Web.WebView2.Core.Projection.dll" Guid="{49AF7AB0-C041-49F4-A4BD-B1E1BF90F393}">
+                <File Id="Microsoft.Web.WebView2.Core.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Web.WebView2.Core.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Win32.SystemEvents.dll" Guid="{1E4F4280-526A-442B-9069-FFD73F069D96}">
+                <File Id="Microsoft.Win32.SystemEvents.dll" KeyPath="yes" Source="SourceDir\Microsoft.Win32.SystemEvents.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.ApplicationModel.Background.Projection.dll" Guid="{6172B3E5-BE85-492A-B876-64E2221F9F0E}">
+                <File Id="Microsoft.Windows.ApplicationModel.Background.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.ApplicationModel.Background.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll" Guid="{A1A7254A-48D1-4C6A-A669-6641D9E8CA6B}">
+                <File Id="Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.winmd" Guid="{DD369A27-1309-44C9-97A6-FCB69589BCDB}">
+                <File Id="Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.ApplicationModel.Background.winmd" Guid="{62577205-C559-4A10-A2E0-D291936ACFA2}">
+                <File Id="Microsoft.Windows.ApplicationModel.Background.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.ApplicationModel.Background.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.ApplicationModel.DynamicDependency.Projection.dll" Guid="{40AE550A-B9F8-43DD-83B0-719E0879AD75}">
+                <File Id="Microsoft.Windows.ApplicationModel.DynamicDependency.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.ApplicationModel.DynamicDependency.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.ApplicationModel.DynamicDependency.winmd" Guid="{5DCBC365-3FE3-4CDF-ABF1-379D93662A8F}">
+                <File Id="Microsoft.Windows.ApplicationModel.DynamicDependency.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.ApplicationModel.DynamicDependency.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.ApplicationModel.Resources.dll" Guid="{489BACB5-04E4-43DC-AB71-2D3C4401F388}">
+                <File Id="Microsoft.Windows.ApplicationModel.Resources.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.ApplicationModel.Resources.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.ApplicationModel.Resources.Projection.dll" Guid="{EDBFA37C-997F-48D6-B724-9EB72A38CB87}">
+                <File Id="Microsoft.Windows.ApplicationModel.Resources.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.ApplicationModel.Resources.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.ApplicationModel.Resources.winmd" Guid="{E117A253-34B2-4664-B5B4-BCF108632E5E}">
+                <File Id="Microsoft.Windows.ApplicationModel.Resources.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.ApplicationModel.Resources.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.ApplicationModel.WindowsAppRuntime.Projection.dll" Guid="{4BC87350-70E0-4398-9DEF-6F7E9515848D}">
+                <File Id="Microsoft.Windows.ApplicationModel.WindowsAppRuntime.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.ApplicationModel.WindowsAppRuntime.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.ApplicationModel.WindowsAppRuntime.winmd" Guid="{5335F72F-0B37-4BC1-BBFB-29696038C03B}">
+                <File Id="Microsoft.Windows.ApplicationModel.WindowsAppRuntime.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.ApplicationModel.WindowsAppRuntime.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.AppLifecycle.Projection.dll" Guid="{AA03058F-598E-430E-B5F9-F4A3E854A94C}">
+                <File Id="Microsoft.Windows.AppLifecycle.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.AppLifecycle.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.AppLifecycle.winmd" Guid="{31D6A865-A7DB-476F-81BD-25537BEE277F}">
+                <File Id="Microsoft.Windows.AppLifecycle.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.AppLifecycle.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.AppNotifications.Builder.Projection.dll" Guid="{4F009AF3-D51E-4B61-94A7-F0DCAD2F045E}">
+                <File Id="Microsoft.Windows.AppNotifications.Builder.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.AppNotifications.Builder.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.AppNotifications.Builder.winmd" Guid="{5305FE40-0478-4F86-B53D-3EEC697BECC5}">
+                <File Id="Microsoft.Windows.AppNotifications.Builder.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.AppNotifications.Builder.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.AppNotifications.Projection.dll" Guid="{459F201A-54EB-42F1-819A-EC30680DAEA4}">
+                <File Id="Microsoft.Windows.AppNotifications.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.AppNotifications.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.AppNotifications.winmd" Guid="{B7257928-E7DE-4192-BF89-E0C1BDA29B9B}">
+                <File Id="Microsoft.Windows.AppNotifications.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.AppNotifications.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.BadgeNotifications.Projection.dll" Guid="{71A18336-3703-4E2A-BF13-A1438A68501F}">
+                <File Id="Microsoft.Windows.BadgeNotifications.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.BadgeNotifications.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.BadgeNotifications.winmd" Guid="{2F8D0A31-1FC2-4DA0-AD41-4F03D0B15DCF}">
+                <File Id="Microsoft.Windows.BadgeNotifications.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.BadgeNotifications.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.Globalization.winmd" Guid="{06EC06A0-3994-491F-BD7C-29CFC5964801}">
+                <File Id="Microsoft.Windows.Globalization.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.Globalization.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.Management.Deployment.Projection.dll" Guid="{75DA3C6B-AE3C-4214-BE53-F4813AEA88BD}">
+                <File Id="Microsoft.Windows.Management.Deployment.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.Management.Deployment.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.Management.Deployment.winmd" Guid="{21684D89-6817-4148-BA28-11229E0C58F4}">
+                <File Id="Microsoft.Windows.Management.Deployment.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.Management.Deployment.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.Media.Capture.Projection.dll" Guid="{8BDA9B21-9D67-43A8-B103-272BAB188369}">
+                <File Id="Microsoft.Windows.Media.Capture.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.Media.Capture.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.Media.Capture.winmd" Guid="{B9813C2E-D1C1-483D-A77B-45B90F2B5D48}">
+                <File Id="Microsoft.Windows.Media.Capture.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.Media.Capture.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.PushNotifications.Projection.dll" Guid="{A2FF7E84-461F-4811-8805-AFDF568E147F}">
+                <File Id="Microsoft.Windows.PushNotifications.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.PushNotifications.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.PushNotifications.winmd" Guid="{6F5E8432-EF1A-4CB8-9FF6-66FC83BCE986}">
+                <File Id="Microsoft.Windows.PushNotifications.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.PushNotifications.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.SDK.NET.dll" Guid="{B949CC78-C0CA-45AD-AE87-C612C4C0AEF3}">
+                <File Id="Microsoft.Windows.SDK.NET.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.SDK.NET.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.Security.AccessControl.Projection.dll" Guid="{F8095036-8701-4BE5-B90E-88A534173961}">
+                <File Id="Microsoft.Windows.Security.AccessControl.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.Security.AccessControl.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.Security.AccessControl.winmd" Guid="{60109478-EC70-4BA2-B639-6D2BDBB796EE}">
+                <File Id="Microsoft.Windows.Security.AccessControl.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.Security.AccessControl.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.Storage.Projection.dll" Guid="{45FF1353-B013-455E-8B11-DB90089CC72B}">
+                <File Id="Microsoft.Windows.Storage.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.Storage.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.Storage.winmd" Guid="{E1A71B1F-ABE9-4421-B38B-B14D37B73296}">
+                <File Id="Microsoft.Windows.Storage.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.Storage.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.System.Power.Projection.dll" Guid="{11C56526-EB6E-4AE5-9995-E72DEA803FE7}">
+                <File Id="Microsoft.Windows.System.Power.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.System.Power.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.System.Power.winmd" Guid="{ACC9A31D-1D53-4331-9CB0-B204367A53E0}">
+                <File Id="Microsoft.Windows.System.Power.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.System.Power.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.System.Projection.dll" Guid="{67F61420-2A98-41FC-AB7E-25EB1FFD1EEE}">
+                <File Id="Microsoft.Windows.System.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.System.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.System.winmd" Guid="{EDBDA2E5-84BD-42B3-8A43-F4E5F2F21BC4}">
+                <File Id="Microsoft.Windows.System.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.System.winmd" />
+            </Component>
+            <Component Id="Microsoft.Windows.Widgets.dll" Guid="{70D259DA-C019-412B-AA23-2179DDE3F832}">
+                <File Id="Microsoft.Windows.Widgets.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.Widgets.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.Widgets.Projection.dll" Guid="{719B9052-24CC-49A1-9C33-8002935498AD}">
+                <File Id="Microsoft.Windows.Widgets.Projection.dll" KeyPath="yes" Source="SourceDir\Microsoft.Windows.Widgets.Projection.dll" />
+            </Component>
+            <Component Id="Microsoft.Windows.Widgets.winmd" Guid="{AE17D0F6-66CB-4652-8199-AA4DA5150E9A}">
+                <File Id="Microsoft.Windows.Widgets.winmd" KeyPath="yes" Source="SourceDir\Microsoft.Windows.Widgets.winmd" />
+            </Component>
+            <Component Id="Microsoft.WindowsAppRuntime.Bootstrap.dll" Guid="{3AFA5C74-FF63-4BC2-8075-57EFC1629020}">
+                <File Id="Microsoft.WindowsAppRuntime.Bootstrap.dll" KeyPath="yes" Source="SourceDir\Microsoft.WindowsAppRuntime.Bootstrap.dll" />
+            </Component>
+            <Component Id="Microsoft.WindowsAppRuntime.Bootstrap.Net.dll" Guid="{BF2041C2-21A4-4BF7-8AEA-EEC7F52487FE}">
+                <File Id="Microsoft.WindowsAppRuntime.Bootstrap.Net.dll" KeyPath="yes" Source="SourceDir\Microsoft.WindowsAppRuntime.Bootstrap.Net.dll" />
+            </Component>
+            <Component Id="Microsoft.WindowsAppRuntime.dll" Guid="{ED92702C-7614-407D-BBFC-D707A09B2080}">
+                <File Id="Microsoft.WindowsAppRuntime.dll" KeyPath="yes" Source="SourceDir\Microsoft.WindowsAppRuntime.dll" />
+            </Component>
+            <Component Id="Microsoft.WindowsAppRuntime.Insights.Resource.dll" Guid="{EF850CF2-917F-4637-9572-F229D54BAE0F}">
+                <File Id="Microsoft.WindowsAppRuntime.Insights.Resource.dll" KeyPath="yes" Source="SourceDir\Microsoft.WindowsAppRuntime.Insights.Resource.dll" />
+            </Component>
+            <Component Id="Microsoft.WinUI.dll" Guid="{17B452EB-AE42-4FF0-9D2E-CB97C8F1D853}">
+                <File Id="Microsoft.WinUI.dll" KeyPath="yes" Source="SourceDir\Microsoft.WinUI.dll" />
+            </Component>
+            <Component Id="MRM.dll" Guid="{1F4C3B2B-3D59-4787-A8DC-2671CF4B686F}">
+                <File Id="MRM.dll" KeyPath="yes" Source="SourceDir\MRM.dll" />
+            </Component>
+            <Component Id="NAudio.dll" Guid="{4461C764-A927-4F97-96DF-EB967C5D628F}">
+                <File Id="NAudio.dll" KeyPath="yes" Source="SourceDir\NAudio.dll" />
+            </Component>
+            <Component Id="Newtonsoft.Json.dll" Guid="{1B68E50A-CC4D-44F8-86C2-10ACC3DAF118}">
+                <File Id="Newtonsoft.Json.dll" KeyPath="yes" Source="SourceDir\Newtonsoft.Json.dll" />
+            </Component>
+            <Component Id="OpenSans_Regular.ttf" Guid="{09445444-B773-4E59-B9E2-E865C983A4FE}">
+                <File Id="OpenSans_Regular.ttf" KeyPath="yes" Source="SourceDir\OpenSans-Regular.ttf" />
+            </Component>
+            <Component Id="OpenSans_Semibold.ttf" Guid="{D108D0FD-BB33-4761-B5E2-0D0BAC587D8E}">
+                <File Id="OpenSans_Semibold.ttf" KeyPath="yes" Source="SourceDir\OpenSans-Semibold.ttf" />
+            </Component>
+            <Component Id="Plugin.Maui.Audio.dll" Guid="{376A379E-2777-4F6D-B7B7-08E9E9EFD0A6}">
+                <File Id="Plugin.Maui.Audio.dll" KeyPath="yes" Source="SourceDir\Plugin.Maui.Audio.dll" />
+            </Component>
+            <Component Id="PushNotificationsLongRunningTask.ProxyStub.dll" Guid="{1D1D8EC6-AEDE-4FD1-916A-65D73B2C85FC}">
+                <File Id="PushNotificationsLongRunningTask.ProxyStub.dll" KeyPath="yes" Source="SourceDir\PushNotificationsLongRunningTask.ProxyStub.dll" />
+            </Component>
+            <Component Id="resources.pri" Guid="{1BFED731-E464-427D-837E-A686A545311B}">
+                <File Id="resources.pri" KeyPath="yes" Source="SourceDir\resources.pri" />
+            </Component>
+            <Component Id="RestartAgent.exe" Guid="{E2E375B8-33E5-4780-B945-A821B22E6CC6}">
+                <File Id="RestartAgent.exe" KeyPath="yes" Source="SourceDir\RestartAgent.exe" />
+            </Component>
+            <Component Id="splashSplashScreen.scale_100.png" Guid="{ED667F0C-916D-4919-BED9-0D6E2D2DF7A2}">
+                <File Id="splashSplashScreen.scale_100.png" KeyPath="yes" Source="SourceDir\splashSplashScreen.scale-100.png" />
+            </Component>
+            <Component Id="splashSplashScreen.scale_125.png" Guid="{890F6D8D-F3B6-4ECE-9755-5059ED823AF2}">
+                <File Id="splashSplashScreen.scale_125.png" KeyPath="yes" Source="SourceDir\splashSplashScreen.scale-125.png" />
+            </Component>
+            <Component Id="splashSplashScreen.scale_150.png" Guid="{83FA48C7-E111-4210-A56C-237F94E23D7B}">
+                <File Id="splashSplashScreen.scale_150.png" KeyPath="yes" Source="SourceDir\splashSplashScreen.scale-150.png" />
+            </Component>
+            <Component Id="splashSplashScreen.scale_200.png" Guid="{5BE1D7A7-8209-4C5B-B722-6E07CD44DD8B}">
+                <File Id="splashSplashScreen.scale_200.png" KeyPath="yes" Source="SourceDir\splashSplashScreen.scale-200.png" />
+            </Component>
+            <Component Id="splashSplashScreen.scale_400.png" Guid="{B14446AE-EA34-4113-92E6-1CAB36316406}">
+                <File Id="splashSplashScreen.scale_400.png" KeyPath="yes" Source="SourceDir\splashSplashScreen.scale-400.png" />
+            </Component>
+            <Component Id="System.Diagnostics.DiagnosticSource.dll" Guid="{E23B289C-CCB2-46A0-9285-14DB7C57E09F}">
+                <File Id="System.Diagnostics.DiagnosticSource.dll" KeyPath="yes" Source="SourceDir\System.Diagnostics.DiagnosticSource.dll" />
+            </Component>
+            <Component Id="System.Drawing.Common.dll" Guid="{773050B6-0CE4-49BE-BC39-1A9AE685A01E}">
+                <File Id="System.Drawing.Common.dll" KeyPath="yes" Source="SourceDir\System.Drawing.Common.dll" />
+            </Component>
+            <Component Id="System.Private.Windows.Core.dll" Guid="{25CE2389-FDE3-432F-8762-54015AF961E0}">
+                <File Id="System.Private.Windows.Core.dll" KeyPath="yes" Source="SourceDir\System.Private.Windows.Core.dll" />
+            </Component>
+            <Component Id="System.Resources.Extensions.dll" Guid="{B0D14A20-15B0-4405-A339-7CDEC043828F}">
+                <File Id="System.Resources.Extensions.dll" KeyPath="yes" Source="SourceDir\System.Resources.Extensions.dll" />
+            </Component>
+            <Component Id="System.Speech.dll" Guid="{09455005-BABA-4C26-8840-601DFEFE19A3}">
+                <File Id="System.Speech.dll" KeyPath="yes" Source="SourceDir\System.Speech.dll" />
+            </Component>
+            <Component Id="System.Windows.Extensions.dll" Guid="{C9D9ACD0-36F2-4C24-B282-27F6BD75BFCA}">
+                <File Id="System.Windows.Extensions.dll" KeyPath="yes" Source="SourceDir\System.Windows.Extensions.dll" />
+            </Component>
+            <Component Id="WebView2Loader.dll" Guid="{0E78FBE0-C384-45D3-BFBA-14F906CACDD5}">
+                <File Id="WebView2Loader.dll" KeyPath="yes" Source="SourceDir\WebView2Loader.dll" />
+            </Component>
+            <Component Id="WindowsAppRuntime.DeploymentExtensions.OneCore.dll" Guid="{9EF65296-CC55-4F07-B029-3F956B2317BA}">
+                <File Id="WindowsAppRuntime.DeploymentExtensions.OneCore.dll" KeyPath="yes" Source="SourceDir\WindowsAppRuntime.DeploymentExtensions.OneCore.dll" />
+            </Component>
+            <Component Id="WindowsAppRuntime.png" Guid="{6D90797A-5002-4EA2-8D45-D87D96552945}">
+                <File Id="WindowsAppRuntime.png" KeyPath="yes" Source="SourceDir\WindowsAppRuntime.png" />
+            </Component>
+            <Component Id="WindowsAppSdk.AppxDeploymentExtensions.Desktop_EventLog_Instrumentation." Guid="{01E97077-A714-4504-9E4F-E01378CF74F5}">
+                <File Id="WindowsAppSdk.AppxDeploymentExtensions.Desktop_EventLog_Instrumentation." KeyPath="yes" Source="SourceDir\WindowsAppSdk.AppxDeploymentExtensions.Desktop-EventLog-Instrumentation.dll" />
+            </Component>
+            <Component Id="WindowsAppSdk.AppxDeploymentExtensions.Desktop.dll" Guid="{AA9B8A09-4838-4E60-8C91-C915A90956A7}">
+                <File Id="WindowsAppSdk.AppxDeploymentExtensions.Desktop.dll" KeyPath="yes" Source="SourceDir\WindowsAppSdk.AppxDeploymentExtensions.Desktop.dll" />
+            </Component>
+            <Component Id="WinRT.Runtime.dll" Guid="{55FF13B0-BD81-4B07-81E5-30F1D6046881}">
+                <File Id="WinRT.Runtime.dll" KeyPath="yes" Source="SourceDir\WinRT.Runtime.dll" />
+            </Component>
+            <Component Id="WinUIEdit.dll" Guid="{971E84AE-18A4-4B43-A56F-5101207E9741}">
+                <File Id="WinUIEdit.dll" KeyPath="yes" Source="SourceDir\WinUIEdit.dll" />
+            </Component>
+            <Component Id="wuceffectsi.dll" Guid="{5472C257-29C5-425F-B3A0-CBA66F1314BD}">
+                <File Id="wuceffectsi.dll" KeyPath="yes" Source="SourceDir\wuceffectsi.dll" />
+            </Component>
+            <Component Id="YoutubeDLSharp.dll" Guid="{CC25F49C-A177-4346-8402-746B54ADD84E}">
+                <File Id="YoutubeDLSharp.dll" KeyPath="yes" Source="SourceDir\YoutubeDLSharp.dll" />
+            </Component>
+            <Directory Id="af_ZA" Name="af-ZA">
+                <Component Id="Microsoft.ui.xaml.dll.mui" Guid="{52D87C3B-4B32-42BA-8DE9-FD4723DFBFB9}">
+                    <File Id="Microsoft.ui.xaml.dll.mui" KeyPath="yes" Source="SourceDir\af-ZA\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui" Guid="{6C064E79-4DA4-4D49-AA58-4BFD289DEF74}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui" KeyPath="yes" Source="SourceDir\af-ZA\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="am_ET" Name="am-ET">
+                <Component Id="Microsoft.ui.xaml.dll.mui_1" Guid="{FCEC92C5-026B-4883-9FE4-B64736D8E94B}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_1" KeyPath="yes" Source="SourceDir\am-ET\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_1" Guid="{B4B00E33-6747-4D4D-9FEE-224AE7DCA82B}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_1" KeyPath="yes" Source="SourceDir\am-ET\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ar" Name="ar">
+                <Component Id="Microsoft.Maui.Controls.resources.dll" Guid="{10904874-3B78-4A01-B33A-6123E71EA92E}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll" KeyPath="yes" Source="SourceDir\ar\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="ar_SA" Name="ar-SA">
+                <Component Id="Microsoft.ui.xaml.dll.mui_2" Guid="{24C14E75-7AD7-442F-9FBB-B7AE2517C101}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_2" KeyPath="yes" Source="SourceDir\ar-SA\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_2" Guid="{2459E73E-EA12-433B-88C0-BD7432CF31A2}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_2" KeyPath="yes" Source="SourceDir\ar-SA\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="as_IN" Name="as-IN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_3" Guid="{109D75A7-5C5F-4441-B015-9AE329F22976}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_3" KeyPath="yes" Source="SourceDir\as-IN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_3" Guid="{7D252E61-9AFA-4B73-8A54-6BFE93A734E3}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_3" KeyPath="yes" Source="SourceDir\as-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="az_Latn_AZ" Name="az-Latn-AZ">
+                <Component Id="Microsoft.ui.xaml.dll.mui_4" Guid="{5FD87BEF-A2A1-49E9-B9D7-EEAC8B8E3478}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_4" KeyPath="yes" Source="SourceDir\az-Latn-AZ\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_4" Guid="{F163E4E7-6D6B-4101-9376-AE5E806231D2}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_4" KeyPath="yes" Source="SourceDir\az-Latn-AZ\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="bg_BG" Name="bg-BG">
+                <Component Id="Microsoft.ui.xaml.dll.mui_5" Guid="{37C3A3DE-7A0A-4A67-A7D7-6E2ED5992DA0}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_5" KeyPath="yes" Source="SourceDir\bg-BG\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_5" Guid="{BDDCD0FB-5F00-448C-9BDC-7482762F2CDB}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_5" KeyPath="yes" Source="SourceDir\bg-BG\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="bn_IN" Name="bn-IN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_6" Guid="{7F6A3504-8918-49A1-B453-64272CA8557B}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_6" KeyPath="yes" Source="SourceDir\bn-IN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_6" Guid="{248B4C49-D873-4DC9-9B19-BC27A14F4387}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_6" KeyPath="yes" Source="SourceDir\bn-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="bs_Latn_BA" Name="bs-Latn-BA">
+                <Component Id="Microsoft.ui.xaml.dll.mui_7" Guid="{5F609168-3A61-41E1-A897-7BA63FBF7BC3}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_7" KeyPath="yes" Source="SourceDir\bs-Latn-BA\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_7" Guid="{3167FE71-E723-4653-B3DD-4C87D8B80E78}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_7" KeyPath="yes" Source="SourceDir\bs-Latn-BA\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ca" Name="ca">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_1" Guid="{C88DBFD5-4740-4A5F-8F7A-389CAD30AAC3}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_1" KeyPath="yes" Source="SourceDir\ca\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="ca_ES" Name="ca-ES">
+                <Component Id="Microsoft.ui.xaml.dll.mui_8" Guid="{200C482A-DA74-4068-A72D-A6CDB7F94C20}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_8" KeyPath="yes" Source="SourceDir\ca-ES\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_8" Guid="{F9EF0C15-5464-4B98-B7E4-DFB8A967F45D}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_8" KeyPath="yes" Source="SourceDir\ca-ES\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ca_Es_VALENCIA" Name="ca-Es-VALENCIA">
+                <Component Id="Microsoft.ui.xaml.dll.mui_9" Guid="{6FC825FD-5206-49D0-AE1F-4AC5F51453FB}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_9" KeyPath="yes" Source="SourceDir\ca-Es-VALENCIA\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_9" Guid="{29069A0B-F315-4510-9729-0C2D76347330}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_9" KeyPath="yes" Source="SourceDir\ca-Es-VALENCIA\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="cs" Name="cs">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_2" Guid="{39B4BBA0-801A-4915-9059-56DA9DDA7C98}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_2" KeyPath="yes" Source="SourceDir\cs\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="cs_CZ" Name="cs-CZ">
+                <Component Id="Microsoft.ui.xaml.dll.mui_10" Guid="{BF92AB2D-23E1-420A-AAAB-BA36B9B05BEB}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_10" KeyPath="yes" Source="SourceDir\cs-CZ\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_10" Guid="{CD0D9362-7E2B-42DE-AA01-38A7FFD6EC94}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_10" KeyPath="yes" Source="SourceDir\cs-CZ\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="cy_GB" Name="cy-GB">
+                <Component Id="Microsoft.ui.xaml.dll.mui_11" Guid="{23DE6BD1-6A39-442B-8E30-A8077A5F2167}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_11" KeyPath="yes" Source="SourceDir\cy-GB\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_11" Guid="{3F632E4A-E8E9-4E7E-AC88-607575D16822}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_11" KeyPath="yes" Source="SourceDir\cy-GB\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="da" Name="da">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_3" Guid="{6B4BDE2C-C642-4166-97A0-3DEF400B5E7D}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_3" KeyPath="yes" Source="SourceDir\da\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="da_DK" Name="da-DK">
+                <Component Id="Microsoft.ui.xaml.dll.mui_12" Guid="{DD1054D1-ABF3-44DD-9A85-D782B30BBFDE}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_12" KeyPath="yes" Source="SourceDir\da-DK\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_12" Guid="{57D89357-2E34-4413-AF62-E98A092A5B47}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_12" KeyPath="yes" Source="SourceDir\da-DK\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="de" Name="de">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_4" Guid="{ECF166D8-A593-4191-B69E-84A3E119DEF6}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_4" KeyPath="yes" Source="SourceDir\de\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="de_DE" Name="de-DE">
+                <Component Id="Microsoft.ui.xaml.dll.mui_13" Guid="{526BAA78-A34F-4775-9FAD-3F8D3FC2A3CE}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_13" KeyPath="yes" Source="SourceDir\de-DE\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_13" Guid="{59FDE09D-90D6-4FE1-8E55-5FEDACF1595E}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_13" KeyPath="yes" Source="SourceDir\de-DE\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="el" Name="el">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_5" Guid="{71D404F8-6D31-4F96-B399-8DFB152ECA0A}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_5" KeyPath="yes" Source="SourceDir\el\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="el_GR" Name="el-GR">
+                <Component Id="Microsoft.ui.xaml.dll.mui_14" Guid="{25DC09B5-38D1-4427-80CB-95BC6628D3E8}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_14" KeyPath="yes" Source="SourceDir\el-GR\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_14" Guid="{56963051-49BA-4EA8-AD6D-B70EFFC91F66}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_14" KeyPath="yes" Source="SourceDir\el-GR\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="en_GB" Name="en-GB">
+                <Component Id="Microsoft.ui.xaml.dll.mui_15" Guid="{2EF4E564-4EB3-44CB-B4C7-5AD93ADB9C5C}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_15" KeyPath="yes" Source="SourceDir\en-GB\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_15" Guid="{EDF667F0-2179-40D0-9AFD-631F168A956E}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_15" KeyPath="yes" Source="SourceDir\en-GB\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="en_us" Name="en-us">
+                <Component Id="Microsoft.ui.xaml.dll.mui_16" Guid="{0608E886-B76F-4E5B-8F0F-0EA7BA5E909C}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_16" KeyPath="yes" Source="SourceDir\en-us\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_16" Guid="{141A9B68-93A3-46F5-9A1C-07DB83E7E652}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_16" KeyPath="yes" Source="SourceDir\en-us\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="es" Name="es">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_6" Guid="{606E1284-8E69-4007-8E4F-330FDB98B282}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_6" KeyPath="yes" Source="SourceDir\es\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="es_ES" Name="es-ES">
+                <Component Id="Microsoft.ui.xaml.dll.mui_17" Guid="{EDFB44E9-D724-4977-BD21-5D98170F96D0}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_17" KeyPath="yes" Source="SourceDir\es-ES\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_17" Guid="{7AD3050C-FB0A-43C3-B556-334734EE4450}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_17" KeyPath="yes" Source="SourceDir\es-ES\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="es_MX" Name="es-MX">
+                <Component Id="Microsoft.ui.xaml.dll.mui_18" Guid="{A885F986-4170-4070-B505-BD22DF29160F}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_18" KeyPath="yes" Source="SourceDir\es-MX\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_18" Guid="{2B909134-5064-4D12-A950-3C3BC3E28824}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_18" KeyPath="yes" Source="SourceDir\es-MX\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="et_EE" Name="et-EE">
+                <Component Id="Microsoft.ui.xaml.dll.mui_19" Guid="{F7240544-ED8B-4968-8365-C65635A3E74B}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_19" KeyPath="yes" Source="SourceDir\et-EE\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_19" Guid="{3A76E595-23DC-4DDE-9DA0-3CBEBABA68EF}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_19" KeyPath="yes" Source="SourceDir\et-EE\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="eu_ES" Name="eu-ES">
+                <Component Id="Microsoft.ui.xaml.dll.mui_20" Guid="{E504B4DF-2311-4EB3-8655-A0C9CAD0EBB3}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_20" KeyPath="yes" Source="SourceDir\eu-ES\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_20" Guid="{86A67523-C614-41AA-9165-59ED6AEDF4D6}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_20" KeyPath="yes" Source="SourceDir\eu-ES\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="fa_IR" Name="fa-IR">
+                <Component Id="Microsoft.ui.xaml.dll.mui_21" Guid="{3364A2B0-A8BD-4322-A54B-62F44C32839F}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_21" KeyPath="yes" Source="SourceDir\fa-IR\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_21" Guid="{C762A217-9F08-41EB-A2B2-7C7092C7CC32}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_21" KeyPath="yes" Source="SourceDir\fa-IR\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="fi" Name="fi">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_7" Guid="{B08F6667-6127-4A0C-8185-55525F16363F}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_7" KeyPath="yes" Source="SourceDir\fi\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="fi_FI" Name="fi-FI">
+                <Component Id="Microsoft.ui.xaml.dll.mui_22" Guid="{643C79EB-46DA-45D6-A310-D08D84D899F5}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_22" KeyPath="yes" Source="SourceDir\fi-FI\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_22" Guid="{316658BB-D888-4695-B1F5-3248FC5C2A41}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_22" KeyPath="yes" Source="SourceDir\fi-FI\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="fil_PH" Name="fil-PH">
+                <Component Id="Microsoft.ui.xaml.dll.mui_23" Guid="{33998905-3C7F-4A32-8482-195B716EA124}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_23" KeyPath="yes" Source="SourceDir\fil-PH\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_23" Guid="{B6B90778-5FF3-42EE-9476-A473B19AAB2A}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_23" KeyPath="yes" Source="SourceDir\fil-PH\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="fr" Name="fr">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_8" Guid="{13B3E934-6FA9-42C1-9F31-DC8417271B4A}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_8" KeyPath="yes" Source="SourceDir\fr\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="fr_CA" Name="fr-CA">
+                <Component Id="Microsoft.ui.xaml.dll.mui_24" Guid="{C1688BCC-B2DA-459D-ABE4-D66315D9AC3C}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_24" KeyPath="yes" Source="SourceDir\fr-CA\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_24" Guid="{F2896F58-6393-460A-89FF-B443F1C870C4}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_24" KeyPath="yes" Source="SourceDir\fr-CA\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="fr_FR" Name="fr-FR">
+                <Component Id="Microsoft.ui.xaml.dll.mui_25" Guid="{F9544D9B-CA08-4B05-9502-3EE71FAE9D52}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_25" KeyPath="yes" Source="SourceDir\fr-FR\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_25" Guid="{DF384786-5B0B-4E0F-A4DC-F03C80ACBB12}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_25" KeyPath="yes" Source="SourceDir\fr-FR\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ga_IE" Name="ga-IE">
+                <Component Id="Microsoft.ui.xaml.dll.mui_26" Guid="{E3DEFFAB-37E8-41F3-8E7D-5473F13FEC0E}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_26" KeyPath="yes" Source="SourceDir\ga-IE\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_26" Guid="{8C995139-4DBC-45D5-BD14-A51FF6AC6069}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_26" KeyPath="yes" Source="SourceDir\ga-IE\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="gd_gb" Name="gd-gb">
+                <Component Id="Microsoft.ui.xaml.dll.mui_27" Guid="{B8A33300-2B2B-4100-A1E0-25C3D53DA60C}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_27" KeyPath="yes" Source="SourceDir\gd-gb\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_27" Guid="{FBA1548C-465D-47ED-B5FA-040018F97B15}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_27" KeyPath="yes" Source="SourceDir\gd-gb\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="gl_ES" Name="gl-ES">
+                <Component Id="Microsoft.ui.xaml.dll.mui_28" Guid="{4361E97D-5CFE-40E5-BAC9-B4BFF153BB89}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_28" KeyPath="yes" Source="SourceDir\gl-ES\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_28" Guid="{BCF78A5A-5E5F-44B7-BAF1-17F75E0F974D}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_28" KeyPath="yes" Source="SourceDir\gl-ES\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="gu_IN" Name="gu-IN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_29" Guid="{E400B78C-3E92-4DCF-A55A-C33032588170}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_29" KeyPath="yes" Source="SourceDir\gu-IN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_29" Guid="{10A8C068-A58F-4C9D-8A6F-02B8B6BA80DC}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_29" KeyPath="yes" Source="SourceDir\gu-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="he" Name="he">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_9" Guid="{D1D9E78A-E04B-498D-B033-F9D0B35FB39C}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_9" KeyPath="yes" Source="SourceDir\he\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="he_IL" Name="he-IL">
+                <Component Id="Microsoft.ui.xaml.dll.mui_30" Guid="{744709A3-8AB8-4098-A7A4-590B4B4FCD64}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_30" KeyPath="yes" Source="SourceDir\he-IL\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_30" Guid="{30A32F4B-CD7F-499C-A4CE-E4AFED4559F3}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_30" KeyPath="yes" Source="SourceDir\he-IL\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="hi" Name="hi">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_10" Guid="{050A675E-A3BE-4435-B335-CE7F401F9757}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_10" KeyPath="yes" Source="SourceDir\hi\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="hi_IN" Name="hi-IN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_31" Guid="{597ED804-4E78-448C-B73D-EF3E7016DDC0}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_31" KeyPath="yes" Source="SourceDir\hi-IN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_31" Guid="{8BAAD5EB-E381-43EB-A260-05E3DC35EF55}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_31" KeyPath="yes" Source="SourceDir\hi-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="hr" Name="hr">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_11" Guid="{2C1EDE8D-07F7-454D-A9E3-EFD7FF46F047}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_11" KeyPath="yes" Source="SourceDir\hr\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="hr_HR" Name="hr-HR">
+                <Component Id="Microsoft.ui.xaml.dll.mui_32" Guid="{92FE4E0E-D292-4BEC-911B-3A8D9773237E}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_32" KeyPath="yes" Source="SourceDir\hr-HR\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_32" Guid="{B86F4AFD-2396-4186-B5A9-0C79CB69DB70}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_32" KeyPath="yes" Source="SourceDir\hr-HR\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="hu" Name="hu">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_12" Guid="{1303DA21-A961-44A3-BE08-BA38B14F3580}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_12" KeyPath="yes" Source="SourceDir\hu\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="hu_HU" Name="hu-HU">
+                <Component Id="Microsoft.ui.xaml.dll.mui_33" Guid="{69F4316E-DB1B-4126-9F3B-531CBA14A147}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_33" KeyPath="yes" Source="SourceDir\hu-HU\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_33" Guid="{E67DC2F6-A79F-4E37-B373-45EF280BCF33}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_33" KeyPath="yes" Source="SourceDir\hu-HU\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="hy_AM" Name="hy-AM">
+                <Component Id="Microsoft.ui.xaml.dll.mui_34" Guid="{E1C759E0-894C-4891-B101-57360B6A5225}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_34" KeyPath="yes" Source="SourceDir\hy-AM\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_34" Guid="{0F4D9E2F-0FF3-42B4-B30F-01F1391F11BD}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_34" KeyPath="yes" Source="SourceDir\hy-AM\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="id" Name="id">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_13" Guid="{3ED8782C-7A0B-4F92-9DE5-C25F2747292C}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_13" KeyPath="yes" Source="SourceDir\id\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="id_ID" Name="id-ID">
+                <Component Id="Microsoft.ui.xaml.dll.mui_35" Guid="{84AAF2B8-4529-4AF8-909D-0DAEDBFAAB59}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_35" KeyPath="yes" Source="SourceDir\id-ID\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_35" Guid="{4F82E171-9AAD-454A-9AC0-7477A85CBF43}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_35" KeyPath="yes" Source="SourceDir\id-ID\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="is_IS" Name="is-IS">
+                <Component Id="Microsoft.ui.xaml.dll.mui_36" Guid="{AE7E936E-45CA-497E-92A2-8A5E67CA7A7A}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_36" KeyPath="yes" Source="SourceDir\is-IS\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_36" Guid="{EC967723-B3D1-4465-ACE6-10275153EF5D}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_36" KeyPath="yes" Source="SourceDir\is-IS\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="it" Name="it">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_14" Guid="{FAA06026-43FD-4C27-B892-1AD58A8F36FD}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_14" KeyPath="yes" Source="SourceDir\it\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="it_IT" Name="it-IT">
+                <Component Id="Microsoft.ui.xaml.dll.mui_37" Guid="{5815D72F-B1A3-47DB-A2DE-5890CC1A5BF7}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_37" KeyPath="yes" Source="SourceDir\it-IT\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_37" Guid="{BF6D2541-3687-4CE9-84BF-FF71C5035E68}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_37" KeyPath="yes" Source="SourceDir\it-IT\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ja" Name="ja">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_15" Guid="{643DC669-E9CB-449B-AC88-69EB4FDFFA1E}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_15" KeyPath="yes" Source="SourceDir\ja\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="ja_JP" Name="ja-JP">
+                <Component Id="Microsoft.ui.xaml.dll.mui_38" Guid="{428410E4-3CC6-4638-B787-DE36C508FA8F}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_38" KeyPath="yes" Source="SourceDir\ja-JP\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_38" Guid="{DBB51793-AD93-42DC-840B-B64691A445CE}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_38" KeyPath="yes" Source="SourceDir\ja-JP\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ka_GE" Name="ka-GE">
+                <Component Id="Microsoft.ui.xaml.dll.mui_39" Guid="{522CA926-1005-4BC2-A476-BA5EB7DF0D06}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_39" KeyPath="yes" Source="SourceDir\ka-GE\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_39" Guid="{A1EE0D2D-B4C8-4F0F-AB85-CD1521694B3C}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_39" KeyPath="yes" Source="SourceDir\ka-GE\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="kk_KZ" Name="kk-KZ">
+                <Component Id="Microsoft.ui.xaml.dll.mui_40" Guid="{B7DB954A-DEDD-40B7-A30E-A55006FE483E}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_40" KeyPath="yes" Source="SourceDir\kk-KZ\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_40" Guid="{B6897195-3A78-40B2-B852-29F8334BD658}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_40" KeyPath="yes" Source="SourceDir\kk-KZ\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="km_KH" Name="km-KH">
+                <Component Id="Microsoft.ui.xaml.dll.mui_41" Guid="{30A8A553-05DD-4285-A262-B289B39156A8}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_41" KeyPath="yes" Source="SourceDir\km-KH\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_41" Guid="{93E0B62E-78A8-4823-8E83-9A2B6463746E}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_41" KeyPath="yes" Source="SourceDir\km-KH\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="kn_IN" Name="kn-IN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_42" Guid="{7562F228-30C1-47DE-91B3-ED098E8E7AAB}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_42" KeyPath="yes" Source="SourceDir\kn-IN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_42" Guid="{883A141F-80FB-48B8-BEBF-C0A6D9141EDD}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_42" KeyPath="yes" Source="SourceDir\kn-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ko" Name="ko">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_16" Guid="{EA2644C7-41F2-4FEC-8518-1068E5F2C23F}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_16" KeyPath="yes" Source="SourceDir\ko\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="ko_KR" Name="ko-KR">
+                <Component Id="Microsoft.ui.xaml.dll.mui_43" Guid="{B016AA2D-904E-440A-9B6D-58DC83A24384}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_43" KeyPath="yes" Source="SourceDir\ko-KR\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_43" Guid="{350AAF63-2C1F-4685-99B5-8203E55288F7}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_43" KeyPath="yes" Source="SourceDir\ko-KR\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="kok_IN" Name="kok-IN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_44" Guid="{45124610-82C2-46C9-B50C-CF03B8C44442}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_44" KeyPath="yes" Source="SourceDir\kok-IN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_44" Guid="{705B8A3A-D1A6-4666-9114-17FD336F8AE9}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_44" KeyPath="yes" Source="SourceDir\kok-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="lb_LU" Name="lb-LU">
+                <Component Id="Microsoft.ui.xaml.dll.mui_45" Guid="{B938CD73-F6EF-4CA5-9EB3-A39089E33361}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_45" KeyPath="yes" Source="SourceDir\lb-LU\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_45" Guid="{1D78E58C-92DC-4DBE-8DC4-1BBE2CFFC63A}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_45" KeyPath="yes" Source="SourceDir\lb-LU\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="lo_LA" Name="lo-LA">
+                <Component Id="Microsoft.ui.xaml.dll.mui_46" Guid="{DAA676C2-A3C3-4944-90CE-CF482590A30B}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_46" KeyPath="yes" Source="SourceDir\lo-LA\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_46" Guid="{3CA44457-1059-4C08-96E9-44C097DDF4F3}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_46" KeyPath="yes" Source="SourceDir\lo-LA\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="lt_LT" Name="lt-LT">
+                <Component Id="Microsoft.ui.xaml.dll.mui_47" Guid="{EC3E4493-ACFC-4923-8E77-CE1A6F32AC0D}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_47" KeyPath="yes" Source="SourceDir\lt-LT\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_47" Guid="{197A3547-27B6-49A7-8508-A7D9CC3E1036}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_47" KeyPath="yes" Source="SourceDir\lt-LT\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="lv_LV" Name="lv-LV">
+                <Component Id="Microsoft.ui.xaml.dll.mui_48" Guid="{1763E893-372C-42EA-8F40-67BA9B11337A}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_48" KeyPath="yes" Source="SourceDir\lv-LV\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_48" Guid="{DDC19687-D03E-4D47-A52B-FA0978A07B02}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_48" KeyPath="yes" Source="SourceDir\lv-LV\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="mi_NZ" Name="mi-NZ">
+                <Component Id="Microsoft.ui.xaml.dll.mui_49" Guid="{EA998563-4D11-4BA9-8654-9461BC1899B9}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_49" KeyPath="yes" Source="SourceDir\mi-NZ\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_49" Guid="{01D0EAA5-D493-4FC3-B2CD-09764AB97219}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_49" KeyPath="yes" Source="SourceDir\mi-NZ\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="Microsoft.UI.Xaml" Name="Microsoft.UI.Xaml">
+                <Directory Id="Assets" Name="Assets">
+                    <Component Id="map.html" Guid="{325CC10E-2FB1-4E73-9C37-07EED00941D9}">
+                        <File Id="map.html" KeyPath="yes" Source="SourceDir\Microsoft.UI.Xaml\Assets\map.html" />
+                    </Component>
+                    <Component Id="NoiseAsset_256x256_PNG.png" Guid="{F9A0DB7E-234F-4697-B6DE-55C3280F716D}">
+                        <File Id="NoiseAsset_256x256_PNG.png" KeyPath="yes" Source="SourceDir\Microsoft.UI.Xaml\Assets\NoiseAsset_256x256_PNG.png" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="mk_MK" Name="mk-MK">
+                <Component Id="Microsoft.ui.xaml.dll.mui_50" Guid="{20446D3D-325E-486E-929E-DE10626E0DC6}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_50" KeyPath="yes" Source="SourceDir\mk-MK\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_50" Guid="{C58ABCEC-EB88-437C-97FF-9E39A89C2D3E}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_50" KeyPath="yes" Source="SourceDir\mk-MK\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ml_IN" Name="ml-IN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_51" Guid="{4E687437-3C7B-46DD-B976-AFD6886EC6BB}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_51" KeyPath="yes" Source="SourceDir\ml-IN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_51" Guid="{9A4F97E4-FF03-46E6-96E3-EA29E447FC7F}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_51" KeyPath="yes" Source="SourceDir\ml-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="mr_IN" Name="mr-IN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_52" Guid="{5B297243-51AC-49E8-B499-573FAC2BB42C}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_52" KeyPath="yes" Source="SourceDir\mr-IN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_52" Guid="{B443E881-4A01-4D57-8ADD-8EFBB4B6ECC2}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_52" KeyPath="yes" Source="SourceDir\mr-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ms" Name="ms">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_17" Guid="{EEEC141D-0B44-4408-B7F9-4E9E2FBD16B4}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_17" KeyPath="yes" Source="SourceDir\ms\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="ms_MY" Name="ms-MY">
+                <Component Id="Microsoft.ui.xaml.dll.mui_53" Guid="{07B585BD-784B-4275-A6D7-A06506771108}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_53" KeyPath="yes" Source="SourceDir\ms-MY\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_53" Guid="{DEAAFDED-CFE9-420B-8C44-FAED5A0AA1F8}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_53" KeyPath="yes" Source="SourceDir\ms-MY\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="mt_MT" Name="mt-MT">
+                <Component Id="Microsoft.ui.xaml.dll.mui_54" Guid="{175B567F-E6AD-4C02-93E8-463AD84DC65D}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_54" KeyPath="yes" Source="SourceDir\mt-MT\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_54" Guid="{35B8D212-6686-4ABF-8811-36A5875F393C}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_54" KeyPath="yes" Source="SourceDir\mt-MT\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="nb" Name="nb">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_18" Guid="{528ADD98-3758-4F48-9A10-7D82A0024208}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_18" KeyPath="yes" Source="SourceDir\nb\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="nb_NO" Name="nb-NO">
+                <Component Id="Microsoft.ui.xaml.dll.mui_55" Guid="{51E7B61A-2EF0-4AE9-8E02-E3A696853A51}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_55" KeyPath="yes" Source="SourceDir\nb-NO\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_55" Guid="{95624565-33CB-4644-B16C-B6244BC49E72}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_55" KeyPath="yes" Source="SourceDir\nb-NO\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ne_NP" Name="ne-NP">
+                <Component Id="Microsoft.ui.xaml.dll.mui_56" Guid="{CA48580D-BE9D-4396-9ADE-60D6D94D57D1}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_56" KeyPath="yes" Source="SourceDir\ne-NP\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_56" Guid="{DCCFBA0F-7126-4859-9505-D48893965B6E}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_56" KeyPath="yes" Source="SourceDir\ne-NP\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="nl" Name="nl">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_19" Guid="{1FAB7851-D324-4BCB-B8D8-A374C8748023}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_19" KeyPath="yes" Source="SourceDir\nl\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="nl_NL" Name="nl-NL">
+                <Component Id="Microsoft.ui.xaml.dll.mui_57" Guid="{81CDA95D-638E-4E2E-83E3-A1FBFD25B737}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_57" KeyPath="yes" Source="SourceDir\nl-NL\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_57" Guid="{B515C618-8DAD-4779-9DE7-E0204BCD8ECC}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_57" KeyPath="yes" Source="SourceDir\nl-NL\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="nn_NO" Name="nn-NO">
+                <Component Id="Microsoft.ui.xaml.dll.mui_58" Guid="{1BB6F0FE-44B3-48D7-A09E-369D13BB4BEE}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_58" KeyPath="yes" Source="SourceDir\nn-NO\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_58" Guid="{28B04AE9-3AFE-44BA-A06F-027E682C8EF4}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_58" KeyPath="yes" Source="SourceDir\nn-NO\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="or_IN" Name="or-IN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_59" Guid="{4C90E114-098D-4AC2-B2CB-5A66D9091363}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_59" KeyPath="yes" Source="SourceDir\or-IN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_59" Guid="{A17959DB-EE7A-4E7E-98B7-FBB4769CE8C3}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_59" KeyPath="yes" Source="SourceDir\or-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="pa_IN" Name="pa-IN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_60" Guid="{6262E51D-251F-4F2F-A962-749B43019A1E}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_60" KeyPath="yes" Source="SourceDir\pa-IN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_60" Guid="{B0FB670D-421F-4884-9641-00D1B6D38867}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_60" KeyPath="yes" Source="SourceDir\pa-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="pl" Name="pl">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_20" Guid="{D65296C4-49A6-4699-B7EF-E0C14D57D909}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_20" KeyPath="yes" Source="SourceDir\pl\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="pl_PL" Name="pl-PL">
+                <Component Id="Microsoft.ui.xaml.dll.mui_61" Guid="{28B5299A-A86C-47E4-84DD-1171015639B8}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_61" KeyPath="yes" Source="SourceDir\pl-PL\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_61" Guid="{CF016447-6B2F-4153-9B34-775F9410A618}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_61" KeyPath="yes" Source="SourceDir\pl-PL\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="Platforms" Name="Platforms">
+                <Directory Id="Windows" Name="Windows">
+                    <Component Id="App.xbf" Guid="{1BD23918-1502-4490-BB05-74834B9B9F7D}">
+                        <File Id="App.xbf" KeyPath="yes" Source="SourceDir\Platforms\Windows\App.xbf" />
+                    </Component>
+                    <Component Id="ffmpeg.exe" Guid="{70669592-E91D-47A2-9588-017227F0AFCD}">
+                        <File Id="ffmpeg.exe" KeyPath="yes" Source="SourceDir\Platforms\Windows\ffmpeg.exe" />
+                    </Component>
+                    <Component Id="ffprobe.exe" Guid="{EED87E85-6F7C-4074-BBDB-BC528C95456D}">
+                        <File Id="ffprobe.exe" KeyPath="yes" Source="SourceDir\Platforms\Windows\ffprobe.exe" />
+                    </Component>
+                    <Component Id="yt_dlp.exe" Guid="{87FC0853-B079-4147-A5DC-E11F96A6A281}">
+                        <File Id="yt_dlp.exe" KeyPath="yes" Source="SourceDir\Platforms\Windows\yt-dlp.exe" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="pt" Name="pt">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_21" Guid="{4EE67207-BE35-43CB-B562-61DFC93D9AB9}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_21" KeyPath="yes" Source="SourceDir\pt\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="pt_BR" Name="pt-BR">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_22" Guid="{DDB39F9A-A093-4F12-AEE0-CECFFCB672B1}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_22" KeyPath="yes" Source="SourceDir\pt-BR\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+                <Component Id="Microsoft.ui.xaml.dll.mui_62" Guid="{9A193D07-2E8B-4D9A-BA7E-E271011501F3}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_62" KeyPath="yes" Source="SourceDir\pt-BR\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_62" Guid="{069CD800-47CE-4481-A3FF-52FB9E46EDC4}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_62" KeyPath="yes" Source="SourceDir\pt-BR\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="pt_PT" Name="pt-PT">
+                <Component Id="Microsoft.ui.xaml.dll.mui_63" Guid="{4F8F1E36-A53E-41C4-9FEA-168061E83A1D}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_63" KeyPath="yes" Source="SourceDir\pt-PT\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_63" Guid="{4B905DDC-3F78-46AF-ADA5-CF97C79F024A}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_63" KeyPath="yes" Source="SourceDir\pt-PT\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="quz_PE" Name="quz-PE">
+                <Component Id="Microsoft.ui.xaml.dll.mui_64" Guid="{E248BEB3-CC9B-4018-A976-6AD43A14716C}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_64" KeyPath="yes" Source="SourceDir\quz-PE\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_64" Guid="{E86D4E29-76FE-4BB6-8218-FACE79B9867E}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_64" KeyPath="yes" Source="SourceDir\quz-PE\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ro" Name="ro">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_23" Guid="{35F731D1-5196-4148-9F67-AB318DC021F9}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_23" KeyPath="yes" Source="SourceDir\ro\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="ro_RO" Name="ro-RO">
+                <Component Id="Microsoft.ui.xaml.dll.mui_65" Guid="{4C00C91F-DE54-4B03-90CA-0CED485B92F6}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_65" KeyPath="yes" Source="SourceDir\ro-RO\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_65" Guid="{CDAA1941-660D-45BB-AEA5-DF3A8D716F00}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_65" KeyPath="yes" Source="SourceDir\ro-RO\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ru" Name="ru">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_24" Guid="{C7CE34E3-8F4E-496F-BC43-F6DBA6D22062}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_24" KeyPath="yes" Source="SourceDir\ru\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="ru_RU" Name="ru-RU">
+                <Component Id="Microsoft.ui.xaml.dll.mui_66" Guid="{FD4E9FC7-EFA6-4800-82AA-0F6184874CE1}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_66" KeyPath="yes" Source="SourceDir\ru-RU\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_66" Guid="{8BA80427-7F32-48E7-889B-1E3A1B814EA8}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_66" KeyPath="yes" Source="SourceDir\ru-RU\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="sk" Name="sk">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_25" Guid="{BD73FF03-F7D2-452A-9FFD-000453D607C0}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_25" KeyPath="yes" Source="SourceDir\sk\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="sk_SK" Name="sk-SK">
+                <Component Id="Microsoft.ui.xaml.dll.mui_67" Guid="{33E413E1-B92D-4EF6-BC2F-F8839BCC9B82}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_67" KeyPath="yes" Source="SourceDir\sk-SK\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_67" Guid="{0A8A79AE-E6D8-431A-A691-0A9A659FB4EC}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_67" KeyPath="yes" Source="SourceDir\sk-SK\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="sl_SI" Name="sl-SI">
+                <Component Id="Microsoft.ui.xaml.dll.mui_68" Guid="{C4907881-656C-4981-8D40-580D231251FB}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_68" KeyPath="yes" Source="SourceDir\sl-SI\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_68" Guid="{6125B185-DA75-4E75-8896-4BA2253EAD03}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_68" KeyPath="yes" Source="SourceDir\sl-SI\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="sq_AL" Name="sq-AL">
+                <Component Id="Microsoft.ui.xaml.dll.mui_69" Guid="{107F9CD1-330E-4E4D-AA56-B44B30A2431F}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_69" KeyPath="yes" Source="SourceDir\sq-AL\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_69" Guid="{26E58E15-DA3E-45E1-A3C7-1A61DFA36877}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_69" KeyPath="yes" Source="SourceDir\sq-AL\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="sr_Cyrl_BA" Name="sr-Cyrl-BA">
+                <Component Id="Microsoft.ui.xaml.dll.mui_70" Guid="{42CF1D54-09AC-4E7C-9E37-A176553939E6}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_70" KeyPath="yes" Source="SourceDir\sr-Cyrl-BA\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_70" Guid="{B4356B53-7641-46D1-A872-7B6FECF8221C}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_70" KeyPath="yes" Source="SourceDir\sr-Cyrl-BA\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="sr_Cyrl_RS" Name="sr-Cyrl-RS">
+                <Component Id="Microsoft.ui.xaml.dll.mui_71" Guid="{C63B4B01-2BC2-4AAE-8D07-3F369BBEE0E7}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_71" KeyPath="yes" Source="SourceDir\sr-Cyrl-RS\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_71" Guid="{98002E69-9C15-4822-B80C-5110BFF47982}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_71" KeyPath="yes" Source="SourceDir\sr-Cyrl-RS\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="sr_Latn_RS" Name="sr-Latn-RS">
+                <Component Id="Microsoft.ui.xaml.dll.mui_72" Guid="{C8D58D87-DBCB-44D6-BE30-6A32616AA652}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_72" KeyPath="yes" Source="SourceDir\sr-Latn-RS\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_72" Guid="{DFB4BBF9-4831-4B24-B50E-5CCE76383D91}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_72" KeyPath="yes" Source="SourceDir\sr-Latn-RS\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="sv" Name="sv">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_26" Guid="{B43C839B-449D-4C2B-A58D-DF11436A6BE1}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_26" KeyPath="yes" Source="SourceDir\sv\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="sv_SE" Name="sv-SE">
+                <Component Id="Microsoft.ui.xaml.dll.mui_73" Guid="{03C0C1F4-293E-4A93-98E1-DDC25AB3E926}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_73" KeyPath="yes" Source="SourceDir\sv-SE\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_73" Guid="{0BB0372C-57DE-49A5-8C38-4F6484AF0440}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_73" KeyPath="yes" Source="SourceDir\sv-SE\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ta_IN" Name="ta-IN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_74" Guid="{E4A5BD89-CF7D-446C-B613-827B3DD0A185}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_74" KeyPath="yes" Source="SourceDir\ta-IN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_74" Guid="{05F8B4AD-99DD-4029-BDCB-40271AA91A09}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_74" KeyPath="yes" Source="SourceDir\ta-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="te_IN" Name="te-IN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_75" Guid="{AF061ADB-31DF-4598-9EC5-408F48F8EC73}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_75" KeyPath="yes" Source="SourceDir\te-IN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_75" Guid="{4BE8365E-84ED-4159-A4A5-2836FFB65F6B}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_75" KeyPath="yes" Source="SourceDir\te-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="th" Name="th">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_27" Guid="{AC3F0292-1CA9-47D7-94A9-CB5137BF4A70}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_27" KeyPath="yes" Source="SourceDir\th\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="th_TH" Name="th-TH">
+                <Component Id="Microsoft.ui.xaml.dll.mui_76" Guid="{26F1E5D0-EE0C-4BFE-BFB7-9151F6FA5474}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_76" KeyPath="yes" Source="SourceDir\th-TH\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_76" Guid="{EAA713E2-E80F-4EC7-976B-8D7CA352A648}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_76" KeyPath="yes" Source="SourceDir\th-TH\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="tr" Name="tr">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_28" Guid="{0EC153D6-07C2-4FA4-AC76-9FE4DE0DBD8C}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_28" KeyPath="yes" Source="SourceDir\tr\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="tr_TR" Name="tr-TR">
+                <Component Id="Microsoft.ui.xaml.dll.mui_77" Guid="{EC2569A5-37DA-49CC-A84D-BD19AB859602}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_77" KeyPath="yes" Source="SourceDir\tr-TR\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_77" Guid="{7B8B852C-51AE-4416-B7B1-8FDEC64C923D}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_77" KeyPath="yes" Source="SourceDir\tr-TR\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="tt_RU" Name="tt-RU">
+                <Component Id="Microsoft.ui.xaml.dll.mui_78" Guid="{B8E673CB-489C-4A7F-BB11-7041FD8BEDBF}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_78" KeyPath="yes" Source="SourceDir\tt-RU\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_78" Guid="{1837093B-75BF-43A2-879D-8EFFD514AA1A}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_78" KeyPath="yes" Source="SourceDir\tt-RU\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ug_CN" Name="ug-CN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_79" Guid="{EBF8D667-1776-4173-93AC-6685BD77DCE0}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_79" KeyPath="yes" Source="SourceDir\ug-CN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_79" Guid="{4CCD9B35-DE02-4FEE-A0D0-D862A6B68EBE}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_79" KeyPath="yes" Source="SourceDir\ug-CN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="uk" Name="uk">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_29" Guid="{198C32EB-BBD3-4AD4-8B85-A3076D2294B5}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_29" KeyPath="yes" Source="SourceDir\uk\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="uk_UA" Name="uk-UA">
+                <Component Id="Microsoft.ui.xaml.dll.mui_80" Guid="{27D839D5-F652-4198-8180-705D919FCF61}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_80" KeyPath="yes" Source="SourceDir\uk-UA\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_80" Guid="{C3FDDA6C-A058-4683-A78D-2AD57A602F77}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_80" KeyPath="yes" Source="SourceDir\uk-UA\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="ur_PK" Name="ur-PK">
+                <Component Id="Microsoft.ui.xaml.dll.mui_81" Guid="{FB0931D6-1486-486F-969B-A01733EE5EBD}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_81" KeyPath="yes" Source="SourceDir\ur-PK\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_81" Guid="{1FDD0A7B-497B-4133-A9EB-C300A67F1623}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_81" KeyPath="yes" Source="SourceDir\ur-PK\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="uz_Latn_UZ" Name="uz-Latn-UZ">
+                <Component Id="Microsoft.ui.xaml.dll.mui_82" Guid="{E0A84ED1-5394-452C-A7E8-3F30C99E9E60}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_82" KeyPath="yes" Source="SourceDir\uz-Latn-UZ\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_82" Guid="{056CE4B4-D7F8-4F52-88C4-FD35F0CA7ECD}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_82" KeyPath="yes" Source="SourceDir\uz-Latn-UZ\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="vi" Name="vi">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_30" Guid="{51CFAA57-61B9-4428-9C39-93470C59077F}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_30" KeyPath="yes" Source="SourceDir\vi\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="vi_VN" Name="vi-VN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_83" Guid="{F85CD6AE-61A6-46AA-A4ED-DEBE2B284D78}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_83" KeyPath="yes" Source="SourceDir\vi-VN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_83" Guid="{DDAAEAA6-0388-4CB5-AF9A-E443C8732F53}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_83" KeyPath="yes" Source="SourceDir\vi-VN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="zh_CN" Name="zh-CN">
+                <Component Id="Microsoft.ui.xaml.dll.mui_84" Guid="{194CF40B-8149-4DA1-92BF-2C05A7562D52}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_84" KeyPath="yes" Source="SourceDir\zh-CN\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_84" Guid="{066C2995-DAAE-4FF7-A845-96D6B0B2CE85}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_84" KeyPath="yes" Source="SourceDir\zh-CN\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+            <Directory Id="zh_Hans" Name="zh-Hans">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_31" Guid="{4D28679D-EC40-4184-8B3F-ACAADA9D2FDC}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_31" KeyPath="yes" Source="SourceDir\zh-Hans\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="zh_Hant" Name="zh-Hant">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_32" Guid="{6AB423D0-5DC6-4AB7-B887-5FF646FA3D8B}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_32" KeyPath="yes" Source="SourceDir\zh-Hant\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="zh_HK" Name="zh-HK">
+                <Component Id="Microsoft.Maui.Controls.resources.dll_33" Guid="{8E318224-85F0-4D86-8AAA-06AE802A25F7}">
+                    <File Id="Microsoft.Maui.Controls.resources.dll_33" KeyPath="yes" Source="SourceDir\zh-HK\Microsoft.Maui.Controls.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="zh_TW" Name="zh-TW">
+                <Component Id="Microsoft.ui.xaml.dll.mui_85" Guid="{C6201023-5DA5-45BC-8805-21F84DBDE3A7}">
+                    <File Id="Microsoft.ui.xaml.dll.mui_85" KeyPath="yes" Source="SourceDir\zh-TW\Microsoft.ui.xaml.dll.mui" />
+                </Component>
+                <Component Id="Microsoft.UI.Xaml.Phone.dll.mui_85" Guid="{F6AF2638-6F6A-43A8-AEEE-973429978A32}">
+                    <File Id="Microsoft.UI.Xaml.Phone.dll.mui_85" KeyPath="yes" Source="SourceDir\zh-TW\Microsoft.UI.Xaml.Phone.dll.mui" />
+                </Component>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="ApplicationFilesComponentGroup">
+            <ComponentRef Id="AboutAssets.txt" />
+            <ComponentRef Id="CommunityToolkit.Maui.Core.dll" />
+            <ComponentRef Id="CommunityToolkit.Maui.dll" />
+            <ComponentRef Id="CommunityToolkit.Mvvm.dll" />
+            <ComponentRef Id="CoreMessagingXP.dll" />
+            <ComponentRef Id="dcompi.dll" />
+            <ComponentRef Id="dotnet_bot.scale_100.png" />
+            <ComponentRef Id="dotnet_bot.scale_125.png" />
+            <ComponentRef Id="dotnet_bot.scale_150.png" />
+            <ComponentRef Id="dotnet_bot.scale_200.png" />
+            <ComponentRef Id="dotnet_bot.scale_400.png" />
+            <ComponentRef Id="dwmcorei.dll" />
+            <ComponentRef Id="DwmSceneI.dll" />
+            <ComponentRef Id="DWriteCore.dll" />
+            <ComponentRef Id="FluentUI.cs" />
+            <ComponentRef Id="H.GeneratedIcons.System.Drawing.dll" />
+            <ComponentRef Id="H.NotifyIcon.dll" />
+            <ComponentRef Id="H.NotifyIcon.Maui.dll" />
+            <ComponentRef Id="JabberJay.deps.json" />
+            <ComponentRef Id="JabberJay.dll" />
+            <ComponentRef Id="JabberJay.exe" />
+            <ComponentRef Id="JabberJay.pdb" />
+            <ComponentRef Id="JabberJay.runtimeconfig.json" />
+            <ComponentRef Id="jabberjayicon.ico" />
+            <ComponentRef Id="jabberjayiconLargeTile.scale_100.png" />
+            <ComponentRef Id="jabberjayiconLargeTile.scale_125.png" />
+            <ComponentRef Id="jabberjayiconLargeTile.scale_150.png" />
+            <ComponentRef Id="jabberjayiconLargeTile.scale_200.png" />
+            <ComponentRef Id="jabberjayiconLargeTile.scale_400.png" />
+            <ComponentRef Id="jabberjayiconLogo.altform_lightunplated_targetsize_16.png" />
+            <ComponentRef Id="jabberjayiconLogo.altform_lightunplated_targetsize_24.png" />
+            <ComponentRef Id="jabberjayiconLogo.altform_lightunplated_targetsize_256.png" />
+            <ComponentRef Id="jabberjayiconLogo.altform_lightunplated_targetsize_32.png" />
+            <ComponentRef Id="jabberjayiconLogo.altform_lightunplated_targetsize_48.png" />
+            <ComponentRef Id="jabberjayiconLogo.altform_unplated_targetsize_16.png" />
+            <ComponentRef Id="jabberjayiconLogo.altform_unplated_targetsize_24.png" />
+            <ComponentRef Id="jabberjayiconLogo.altform_unplated_targetsize_256.png" />
+            <ComponentRef Id="jabberjayiconLogo.altform_unplated_targetsize_32.png" />
+            <ComponentRef Id="jabberjayiconLogo.altform_unplated_targetsize_48.png" />
+            <ComponentRef Id="jabberjayiconLogo.scale_100.png" />
+            <ComponentRef Id="jabberjayiconLogo.scale_125.png" />
+            <ComponentRef Id="jabberjayiconLogo.scale_150.png" />
+            <ComponentRef Id="jabberjayiconLogo.scale_200.png" />
+            <ComponentRef Id="jabberjayiconLogo.scale_400.png" />
+            <ComponentRef Id="jabberjayiconLogo.targetsize_16.png" />
+            <ComponentRef Id="jabberjayiconLogo.targetsize_24.png" />
+            <ComponentRef Id="jabberjayiconLogo.targetsize_256.png" />
+            <ComponentRef Id="jabberjayiconLogo.targetsize_32.png" />
+            <ComponentRef Id="jabberjayiconLogo.targetsize_48.png" />
+            <ComponentRef Id="jabberjayiconMediumTile.scale_100.png" />
+            <ComponentRef Id="jabberjayiconMediumTile.scale_125.png" />
+            <ComponentRef Id="jabberjayiconMediumTile.scale_150.png" />
+            <ComponentRef Id="jabberjayiconMediumTile.scale_200.png" />
+            <ComponentRef Id="jabberjayiconMediumTile.scale_400.png" />
+            <ComponentRef Id="jabberjayiconSmallTile.scale_100.png" />
+            <ComponentRef Id="jabberjayiconSmallTile.scale_125.png" />
+            <ComponentRef Id="jabberjayiconSmallTile.scale_150.png" />
+            <ComponentRef Id="jabberjayiconSmallTile.scale_200.png" />
+            <ComponentRef Id="jabberjayiconSmallTile.scale_400.png" />
+            <ComponentRef Id="jabberjayiconStoreLogo.scale_100.png" />
+            <ComponentRef Id="jabberjayiconStoreLogo.scale_125.png" />
+            <ComponentRef Id="jabberjayiconStoreLogo.scale_150.png" />
+            <ComponentRef Id="jabberjayiconStoreLogo.scale_200.png" />
+            <ComponentRef Id="jabberjayiconStoreLogo.scale_400.png" />
+            <ComponentRef Id="jabberjayiconWideTile.scale_100.png" />
+            <ComponentRef Id="jabberjayiconWideTile.scale_125.png" />
+            <ComponentRef Id="jabberjayiconWideTile.scale_150.png" />
+            <ComponentRef Id="jabberjayiconWideTile.scale_200.png" />
+            <ComponentRef Id="jabberjayiconWideTile.scale_400.png" />
+            <ComponentRef Id="jabberjaylogo.scale_100.png" />
+            <ComponentRef Id="marshal.dll" />
+            <ComponentRef Id="Microsoft.DirectManipulation.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Configuration.Abstractions.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Configuration.dll" />
+            <ComponentRef Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+            <ComponentRef Id="Microsoft.Extensions.DependencyInjection.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Logging.Abstractions.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Logging.Debug.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Logging.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Options.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Primitives.dll" />
+            <ComponentRef Id="Microsoft.Foundation.winmd" />
+            <ComponentRef Id="Microsoft.Graphics.Canvas.dll" />
+            <ComponentRef Id="Microsoft.Graphics.Canvas.Interop.dll" />
+            <ComponentRef Id="Microsoft.Graphics.Display.dll" />
+            <ComponentRef Id="Microsoft.Graphics.winmd" />
+            <ComponentRef Id="Microsoft.InputStateManager.dll" />
+            <ComponentRef Id="Microsoft.InteractiveExperiences.Projection.dll" />
+            <ComponentRef Id="Microsoft.Internal.FrameworkUdk.dll" />
+            <ComponentRef Id="Microsoft.IO.RecyclableMemoryStream.dll" />
+            <ComponentRef Id="Microsoft.Maui.Controls.Compatibility.dll" />
+            <ComponentRef Id="Microsoft.Maui.Controls.dll" />
+            <ComponentRef Id="Microsoft.Maui.Controls.Xaml.dll" />
+            <ComponentRef Id="Microsoft.Maui.dll" />
+            <ComponentRef Id="Microsoft.Maui.Essentials.dll" />
+            <ComponentRef Id="Microsoft.Maui.Graphics.dll" />
+            <ComponentRef Id="Microsoft.Maui.Graphics.Win2D.WinUI.Desktop.dll" />
+            <ComponentRef Id="Microsoft.Security.Authentication.OAuth.Projection.dll" />
+            <ComponentRef Id="Microsoft.Security.Authentication.OAuth.winmd" />
+            <ComponentRef Id="Microsoft.Toolkit.Uwp.Notifications.dll" />
+            <ComponentRef Id="Microsoft.UI.Composition.OSSupport.dll" />
+            <ComponentRef Id="Microsoft.UI.dll" />
+            <ComponentRef Id="Microsoft.UI.Input.dll" />
+            <ComponentRef Id="Microsoft.UI.pri" />
+            <ComponentRef Id="Microsoft.UI.Text.winmd" />
+            <ComponentRef Id="Microsoft.UI.Windowing.Core.dll" />
+            <ComponentRef Id="Microsoft.UI.Windowing.dll" />
+            <ComponentRef Id="Microsoft.UI.winmd" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Controls.dll" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Controls.pri" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Internal.dll" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll" />
+            <ComponentRef Id="Microsoft.ui.xaml.resources.19h1.dll" />
+            <ComponentRef Id="Microsoft.ui.xaml.resources.common.dll" />
+            <ComponentRef Id="Microsoft.UI.Xaml.winmd" />
+            <ComponentRef Id="Microsoft.Web.WebView2.Core.dll" />
+            <ComponentRef Id="Microsoft.Web.WebView2.Core.Projection.dll" />
+            <ComponentRef Id="Microsoft.Win32.SystemEvents.dll" />
+            <ComponentRef Id="Microsoft.Windows.ApplicationModel.Background.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll" />
+            <ComponentRef Id="Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.winmd" />
+            <ComponentRef Id="Microsoft.Windows.ApplicationModel.Background.winmd" />
+            <ComponentRef Id="Microsoft.Windows.ApplicationModel.DynamicDependency.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.ApplicationModel.DynamicDependency.winmd" />
+            <ComponentRef Id="Microsoft.Windows.ApplicationModel.Resources.dll" />
+            <ComponentRef Id="Microsoft.Windows.ApplicationModel.Resources.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.ApplicationModel.Resources.winmd" />
+            <ComponentRef Id="Microsoft.Windows.ApplicationModel.WindowsAppRuntime.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.ApplicationModel.WindowsAppRuntime.winmd" />
+            <ComponentRef Id="Microsoft.Windows.AppLifecycle.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.AppLifecycle.winmd" />
+            <ComponentRef Id="Microsoft.Windows.AppNotifications.Builder.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.AppNotifications.Builder.winmd" />
+            <ComponentRef Id="Microsoft.Windows.AppNotifications.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.AppNotifications.winmd" />
+            <ComponentRef Id="Microsoft.Windows.BadgeNotifications.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.BadgeNotifications.winmd" />
+            <ComponentRef Id="Microsoft.Windows.Globalization.winmd" />
+            <ComponentRef Id="Microsoft.Windows.Management.Deployment.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.Management.Deployment.winmd" />
+            <ComponentRef Id="Microsoft.Windows.Media.Capture.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.Media.Capture.winmd" />
+            <ComponentRef Id="Microsoft.Windows.PushNotifications.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.PushNotifications.winmd" />
+            <ComponentRef Id="Microsoft.Windows.SDK.NET.dll" />
+            <ComponentRef Id="Microsoft.Windows.Security.AccessControl.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.Security.AccessControl.winmd" />
+            <ComponentRef Id="Microsoft.Windows.Storage.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.Storage.winmd" />
+            <ComponentRef Id="Microsoft.Windows.System.Power.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.System.Power.winmd" />
+            <ComponentRef Id="Microsoft.Windows.System.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.System.winmd" />
+            <ComponentRef Id="Microsoft.Windows.Widgets.dll" />
+            <ComponentRef Id="Microsoft.Windows.Widgets.Projection.dll" />
+            <ComponentRef Id="Microsoft.Windows.Widgets.winmd" />
+            <ComponentRef Id="Microsoft.WindowsAppRuntime.Bootstrap.dll" />
+            <ComponentRef Id="Microsoft.WindowsAppRuntime.Bootstrap.Net.dll" />
+            <ComponentRef Id="Microsoft.WindowsAppRuntime.dll" />
+            <ComponentRef Id="Microsoft.WindowsAppRuntime.Insights.Resource.dll" />
+            <ComponentRef Id="Microsoft.WinUI.dll" />
+            <ComponentRef Id="MRM.dll" />
+            <ComponentRef Id="NAudio.dll" />
+            <ComponentRef Id="Newtonsoft.Json.dll" />
+            <ComponentRef Id="OpenSans_Regular.ttf" />
+            <ComponentRef Id="OpenSans_Semibold.ttf" />
+            <ComponentRef Id="Plugin.Maui.Audio.dll" />
+            <ComponentRef Id="PushNotificationsLongRunningTask.ProxyStub.dll" />
+            <ComponentRef Id="resources.pri" />
+            <ComponentRef Id="RestartAgent.exe" />
+            <ComponentRef Id="splashSplashScreen.scale_100.png" />
+            <ComponentRef Id="splashSplashScreen.scale_125.png" />
+            <ComponentRef Id="splashSplashScreen.scale_150.png" />
+            <ComponentRef Id="splashSplashScreen.scale_200.png" />
+            <ComponentRef Id="splashSplashScreen.scale_400.png" />
+            <ComponentRef Id="System.Diagnostics.DiagnosticSource.dll" />
+            <ComponentRef Id="System.Drawing.Common.dll" />
+            <ComponentRef Id="System.Private.Windows.Core.dll" />
+            <ComponentRef Id="System.Resources.Extensions.dll" />
+            <ComponentRef Id="System.Speech.dll" />
+            <ComponentRef Id="System.Windows.Extensions.dll" />
+            <ComponentRef Id="WebView2Loader.dll" />
+            <ComponentRef Id="WindowsAppRuntime.DeploymentExtensions.OneCore.dll" />
+            <ComponentRef Id="WindowsAppRuntime.png" />
+            <ComponentRef Id="WindowsAppSdk.AppxDeploymentExtensions.Desktop_EventLog_Instrumentation." />
+            <ComponentRef Id="WindowsAppSdk.AppxDeploymentExtensions.Desktop.dll" />
+            <ComponentRef Id="WinRT.Runtime.dll" />
+            <ComponentRef Id="WinUIEdit.dll" />
+            <ComponentRef Id="wuceffectsi.dll" />
+            <ComponentRef Id="YoutubeDLSharp.dll" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_1" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_1" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_2" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_2" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_3" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_3" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_4" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_4" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_5" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_5" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_6" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_6" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_7" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_7" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_1" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_8" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_8" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_9" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_9" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_2" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_10" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_10" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_11" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_11" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_3" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_12" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_12" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_4" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_13" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_13" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_5" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_14" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_14" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_15" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_15" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_16" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_16" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_6" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_17" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_17" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_18" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_18" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_19" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_19" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_20" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_20" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_21" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_21" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_7" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_22" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_22" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_23" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_23" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_8" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_24" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_24" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_25" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_25" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_26" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_26" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_27" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_27" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_28" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_28" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_29" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_29" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_9" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_30" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_30" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_10" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_31" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_31" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_11" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_32" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_32" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_12" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_33" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_33" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_34" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_34" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_13" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_35" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_35" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_36" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_36" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_14" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_37" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_37" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_15" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_38" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_38" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_39" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_39" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_40" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_40" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_41" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_41" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_42" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_42" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_16" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_43" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_43" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_44" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_44" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_45" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_45" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_46" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_46" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_47" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_47" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_48" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_48" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_49" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_49" />
+            <ComponentRef Id="map.html" />
+            <ComponentRef Id="NoiseAsset_256x256_PNG.png" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_50" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_50" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_51" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_51" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_52" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_52" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_17" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_53" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_53" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_54" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_54" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_18" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_55" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_55" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_56" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_56" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_19" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_57" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_57" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_58" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_58" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_59" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_59" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_60" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_60" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_20" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_61" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_61" />
+            <ComponentRef Id="App.xbf" />
+            <ComponentRef Id="ffmpeg.exe" />
+            <ComponentRef Id="ffprobe.exe" />
+            <ComponentRef Id="yt_dlp.exe" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_21" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_22" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_62" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_62" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_63" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_63" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_64" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_64" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_23" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_65" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_65" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_24" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_66" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_66" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_25" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_67" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_67" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_68" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_68" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_69" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_69" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_70" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_70" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_71" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_71" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_72" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_72" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_26" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_73" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_73" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_74" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_74" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_75" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_75" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_27" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_76" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_76" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_28" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_77" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_77" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_78" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_78" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_79" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_79" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_29" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_80" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_80" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_81" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_81" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_82" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_82" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_30" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_83" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_83" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_84" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_84" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_31" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_32" />
+            <ComponentRef Id="Microsoft.Maui.Controls.resources.dll_33" />
+            <ComponentRef Id="Microsoft.ui.xaml.dll.mui_85" />
+            <ComponentRef Id="Microsoft.UI.Xaml.Phone.dll.mui_85" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

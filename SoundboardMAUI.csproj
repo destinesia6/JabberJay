@@ -67,6 +67,9 @@
         <MauiAsset Include="Platforms\Windows\ffmpeg.exe" />
         <None Remove="Platforms\Windows\ffprobe.exe" />
         <MauiAsset Include="Platforms\Windows\ffprobe.exe" />
+        <None Update="NetSparkle_Ed25519.pub">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
