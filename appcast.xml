@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>Application</title>
+    <description>Most recent changes with links to updates</description>
+    <language>en</language>
+    <item>
+      <title>Application 1.0.0</title>
+      <pubDate>Mon, 19 May 2025 16:44:45 +01:00</pubDate>
+      <sparkle:version>1.0.0</sparkle:version>
+      <sparkle:shortVersionString>1.0.0</sparkle:shortVersionString>
+      <enclosure url="https://github.com/destinesia6/JabberJay/releases/download/v1.0.0/JabberJay.7z" sparkle:version="1.0.0" sparkle:shortVersionString="1.0.0" length="66666839" sparkle:os="windows" type="application/x-7z-compressed" sparkle:criticalUpdate="false" sparkle:signature="/ymy9DQ5wu29Hcs22q45u/ku3Ycsvc0GQRBppr+555C1AFUNA3QnIuiLdp/RA5fFwR3D7R2cMK0RYjwB3wcDAA==" />
+    </item>
+  </channel>
+</rss>

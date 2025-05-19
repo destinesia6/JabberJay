@@ -1,0 +1,1 @@
+netsparkle-generate-appcast generate --single-file "C:\Projects\JabberJay.7z" --file-version "0.4.1" --key-path "C:\Users\CharlesShaw\AppData\Local\netsparkle\" --base-url "https://github.com/destinesia6/JabberJay/releases/download/v0.4.1-pre-release-test/" --appcast-output-directory "." --output-file-name "appcast"
