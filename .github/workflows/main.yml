@@ -53,8 +53,8 @@ jobs:
         Write-Host "DEBUG: Raw APP_INFORMATIONAL_VERSION from environment: '$appVersion'"
         $tagName = "v$appVersion"
         Write-Host "Checking for existing tag: $tagName"
-        $gitParseResult = & git rev-parse --verify "refs/tags/$tagName" 2>&1
-        if ($LASTEXITCODE -eq 0) {
+        $tags = gh api repos/$env:GITHUB_REPOSITORY/releases --jq '[].tag_name'
+        if (if $tagName -in $tags) {
           Write-Error "Error: A release with tag '$tagName' already exists!"
           Write-Error "Please increment the ApplicationDisplayVersion in SoundboardMAUI.csproj before creating a new release"
           exit 1
