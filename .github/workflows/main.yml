@@ -53,14 +53,13 @@ jobs:
         Write-Host "DEBUG: Raw APP_INFORMATIONAL_VERSION from environment: '$appVersion'"
         $tagName = "v$appVersion"
         Write-Host "Checking for existing tag: $tagName"
-        git fetch --tags --force
         $gitParseResult = & git rev-parse --verify "refs/tags/$tagName" 2>&1
         if ($LASTEXITCODE -eq 0) {
-          Write-Host "No publish of this version found, proceeding"
-        } else {
           Write-Error "Error: A release with tag '$tagName' already exists!"
           Write-Error "Please increment the ApplicationDisplayVersion in SoundboardMAUI.csproj before creating a new release"
           exit 1
+        } else {
+          Write-Host "No publish of this version found, proceeding"
         }
       shell: pwsh
 
