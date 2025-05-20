@@ -53,7 +53,8 @@ jobs:
         $tagName = "v${{ env.APP_INFORMATIONAL_VERSION }}"
         Write-Host "Checking for existing tag: $tagName"
         git fetch --tags --force
-        $tagExists = (git rev-parse --verify "refs/tags/$tagName" | Out-Null ; $LASTEXITCODE -eq 0)
+        git rev-parse --verify "refs/tags/$tagName" | Out-Null
+        $tagExists = ($LASTEXITCODE -eq 0)
         if ($tagExists) {
           Write-Error "Error: A release with tag '$tagName' already exists!"
           Write-Error "Please increment the ApplicationDisplayVersion in SoundboardMAUI.csproj before creating a new release"
