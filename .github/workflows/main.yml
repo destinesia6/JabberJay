@@ -50,7 +50,9 @@ jobs:
 
     - name: Verify Version Tag Uniqueness
       run: |
-        $tagName = "v${{ env.APP_INFORMATIONAL_VERSION }}"
+        $appVersion = "${{ env.APP_INFORMATIONAL_VERSION }}"
+        Write-Host "DEBUG: Raw APP_INFORMATIONAL_VERSION from environment: '$appVersion'"
+        $tagName = "v$appVersion"
         Write-Host "Checking for existing tag: $tagName"
         git fetch --tags --force
         git rev-parse --verify "refs/tags/$tagName" | Out-Null
