@@ -36,7 +36,7 @@ jobs:
     - name: Set env
       run: echo "GITHUB_SHA_SHORT='test'" >> $env:GITHUB_ENV
     - name: Test
-      run: echo $GITHUB_SHA_SHORT
+      run: echo "${{ env.GITHUB_SHA_SHORT }}"
 
     - name: Get App Version
       id: get_version
