@@ -44,7 +44,7 @@ jobs:
         {
           Write-Host "Version: $app_display_version"
         }
-        "APP_INFORMATIONAL_VERSION=$retrived_app_version" >> $GITHUB_ENV
+        echo"APP_INFORMATIONAL_VERSION=$retrived_app_version" >> $GITHUB_ENV
         #echo "APP_INFORMATIONAL_VERSION=$app_display_version" | Out-File -FilePath $GITHUB_ENV -Encoding utf8
       shell: pwsh
 
