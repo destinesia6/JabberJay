@@ -28,7 +28,7 @@
         <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
         
         <!-- Versions -->
-        <ApplicationDisplayVersion>0.9.0</ApplicationDisplayVersion>
+        <ApplicationDisplayVersion>1.0.1</ApplicationDisplayVersion>
 
         <ApplicationVersion>1</ApplicationVersion>
         <Version>$(ApplicationDisplayVersion)</Version>
