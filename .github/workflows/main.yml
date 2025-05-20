@@ -42,7 +42,7 @@ jobs:
           exit 1
         } else
         {
-          Write-Line "$app_display_version"
+          Write-Host "$app_display_version"
         }
         echo "APP_INFORMATIONAL_VERSION=$app_display_version" | Out-File -FilePath $GITHUB_ENV -Encoding utf8
       shell: pwsh
