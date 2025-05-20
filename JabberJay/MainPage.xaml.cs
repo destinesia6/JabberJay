@@ -11,6 +11,7 @@ using Newtonsoft.Json.Bson;
 using YoutubeDLSharp;
 using YoutubeDLSharp.Options;
 using System.Diagnostics;
+using System.Reflection;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Input;
 using NetSparkleUpdater.Enums;
@@ -96,6 +97,7 @@ public partial class MainPage : ContentPage
         _soundsFolderName = Path.Combine(FileSystem.AppDataDirectory, _soundsFolderName);
         _keyboardListener = keyboardListener;
         _keyboardListener.KeyDown += OnBindKeyDown;
+        VersionLabel.Text = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "Unknown";
         _autoStart = AutoStartService.GetAutoStart();
         InitializeExternalToolsAsync();
         LoadSoundButtons();

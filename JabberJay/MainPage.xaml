@@ -75,7 +75,7 @@
             
 
             <HorizontalStackLayout Margin="5, 0, 0, 0">
-                <Label Text="v1.0.0" />
+                <Label x:Name="VersionLabel" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </Grid>

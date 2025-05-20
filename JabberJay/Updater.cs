@@ -1,6 +1,7 @@
 using NetSparkleUpdater.Enums;
 using NetSparkleUpdater.SignatureVerifiers;
 using NetSparkleUpdater;
+using NetSparkleUpdater.AppCastHandlers;
 using NetSparkleUpdater.Events;
 
 namespace JabberJay;
@@ -24,6 +25,7 @@ public class Updater
     _sparkleUpdater.UpdateDetected += (sender, eventArgs) => UpdateDetected?.Invoke(sender, eventArgs);
     _sparkleUpdater.DownloadFinished += (appCastItem, filePath) => DownloadFinished?.Invoke(null, new DownloadFinishedEventArgs(appCastItem, filePath));
     _sparkleUpdater.InstallUpdateFailed += TriggerUpdateFailed;
+    Console.WriteLine(_sparkleUpdater.Configuration.InstalledVersion);
   }
 
   public void CheckForUpdates()

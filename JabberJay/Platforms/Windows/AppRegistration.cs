@@ -1,7 +1,9 @@
 using System.Diagnostics;
+using System.Reflection;
 using Microsoft.Win32;
 using System.Runtime.InteropServices;
 using System.Text;
+using Microsoft.Windows.ApplicationModel.WindowsAppRuntime;
 
 namespace JabberJay;
 
@@ -59,7 +61,7 @@ public static class AppRegistration
   {
     const string appName = "JabberJay";
     const string appPublisher = "Phoenix Systems";
-    const string appVersion = "1.0.0";
+    const string appVersion = "";
     const string appGuid = "C787B774-CB98-4826-9BBB-A3298B85DA95";
     string appExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
     string uninstallPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "Uninstaller"));

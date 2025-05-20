@@ -26,10 +26,10 @@
         <ApplicationId>PheonixSystems.JabberJay</ApplicationId>
 
         <!-- Versions -->
-        <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
-        <ApplicationVersion>1.0.0</ApplicationVersion>
-        <Version>1.0.0</Version>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <ApplicationVersion>1</ApplicationVersion>
+
+        <DefineConstants>$(DefineConstants);APP_INFORMATIONAL_VERSION="$(AssemblyInformationalVersion)"</DefineConstants>
+        
 
         <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
         <WindowsPackageType>None</WindowsPackageType>
@@ -82,6 +82,10 @@
         <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
         <PackageReference Include="MongoDB.Bson" Version="3.4.0" />
         <PackageReference Include="NAudio" Version="1.10.0" />
+        <PackageReference Include="Nerdbank.GitVersioning" Version="3.8.38-alpha">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="NetSparkleUpdater.SparkleUpdater" Version="3.0.3-preview20250505001" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.3" />
@@ -102,9 +106,9 @@
 
     <ItemGroup>
       <None Remove="NetSparkle_Ed25519.pub" />
-      <AdditionalFiles Include="NetSparkle_Ed25519.pub">
+      <Content Include="NetSparkle_Ed25519.pub">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
+      </Content>
     </ItemGroup>
 
 </Project>
