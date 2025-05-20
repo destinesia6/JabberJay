@@ -36,7 +36,7 @@ jobs:
     - name: Get App Version
       id: get_version
       run: |
-        $app_informational_version = dotnet build JabberJay/JabberJay.csproj --configuration Release --getProperty:ApplicationDisplayVersion
+        $app_display_version = dotnet build JabberJay/JabberJay.csproj --configuration Release --getProperty:ApplicationDisplayVersion
         echo "APP_INFORMATIONAL_VERSION=$app_display_version" | Out-File -FilePath $GITHUB_ENV -Encoding utf8
       shell: pwsh
 
