@@ -36,7 +36,11 @@ jobs:
     - name: Get App Version
       id: get_version
       run: |
-        $app_display_version = dotnet build JabberJay/JabberJay.csproj --configuration Release --getProperty:ApplicationDisplayVersion
+        $app_display_version = dotnet build JabberJay/SoundboardMAUI.csproj --configuration Release --getProperty:ApplicationDisplayVersion
+        if ([string]::IsNullOrEmpty($app_display_version)) {
+          Write-Error "Error: Failed to retrive ApplicationDisplayVersion"
+          exit 1
+        }
         echo "APP_INFORMATIONAL_VERSION=$app_display_version" | Out-File -FilePath $GITHUB_ENV -Encoding utf8
       shell: pwsh
 
@@ -48,7 +52,7 @@ jobs:
         $tagExists = (git rev-parse --verify "refs/tags/$tagName" | Out-Null ; $LASTEXITCODE -eq 0)
         if ($tagExists) {
           Write-Error "Error: A release with tag '$tagName' already exists!"
-          Write-Error "Please increment the ApplicationDisplayVersion in JabberJay.csproj before creating a new release"
+          Write-Error "Please increment the ApplicationDisplayVersion in SoundboardMAUI.csproj before creating a new release"
           exit 1
         }
       shell: pwsh
@@ -59,7 +63,7 @@ jobs:
 
     - name: Publish JabberJay (MAUI, .NET 8)
       run: |
-        dotnet publish JabberJay/JabberJay.csproj -c Release -o ./temp_publish_jabberjay --self-contained true --runtime win-x64 /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true
+        dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./temp_publish_jabberjay --self-contained true --runtime win-x64 /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true
         Copy-Item -Path "./temp_publish_jabberjay/JabberJay.exe" -Destination "./temp_release_staging/" -Force
       shell: pwsh
 
