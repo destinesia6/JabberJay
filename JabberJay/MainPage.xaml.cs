@@ -91,6 +91,8 @@ public partial class MainPage : ContentPage
         _appUpdater.UpdateDetected += AppUpdateDetected;
         _appUpdater.DownloadFinished += AppDownloadFinished;
         _appUpdater.UpdateFailed += AppUpdateFailed;
+        _appUpdater.DownloadStarted += AppDownloadStarted;
+        _appUpdater.DownloadMadeProgress += AppDownloadMadeProgress;
         _soundsFolderName = Path.Combine(FileSystem.AppDataDirectory, _soundsFolderName);
         _bindingsFile = Path.Combine(FileSystem.AppDataDirectory, _bindingsFile);
         _outputDeviceFile = Path.Combine(FileSystem.AppDataDirectory, _outputDeviceFile);
@@ -115,18 +117,28 @@ public partial class MainPage : ContentPage
 
     private async void AppUpdateDetected(object? sender, UpdateDetectedEventArgs args)
     {
-        if (await DisplayAlert("Update Available", $"An update to version {args.LatestVersion.Version} is available. Do you want to download it?", "Yes", "No"))
+        try
         {
-            Header.Add(new Label
+            if (await DisplayAlert("Update Available", $"An update to version {args.LatestVersion.Version} is available. Do you want to download it?", "Yes", "No"))
             {
-                Text = "Downloading Update",
-                TextColor = Colors.White,
-                Margin = new Thickness(0), // Remove internal margin
-                HorizontalTextAlignment = TextAlignment.End,
-                HorizontalOptions = LayoutOptions.End
-            });
-            _appUpdater.DownloadLatest(args.LatestVersion);
+                _appUpdater.DownloadLatest(args.LatestVersion);
+            }
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    private void AppDownloadStarted(object? s, EventArgs e)
+    {
+        DownloadStatusLabel.Text = "Downloading Update...";
+        ProgressLayout.IsVisible = true;
+    }
+
+    private void AppDownloadMadeProgress(object sender, ItemDownloadProgressEventArgs args)
+    {
+        DownloadProgressBar.Progress = args.ProgressPercentage;
     }
 
     private void AppDownloadFinished(object? sender, DownloadFinishedEventArgs downloadedItem)

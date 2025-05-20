@@ -61,7 +61,7 @@ public static class AppRegistration
   {
     const string appName = "JabberJay";
     const string appPublisher = "Phoenix Systems";
-    const string appVersion = "";
+    const string appVersion = "1.0.1";
     const string appGuid = "C787B774-CB98-4826-9BBB-A3298B85DA95";
     string appExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
     string uninstallPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "Uninstaller"));

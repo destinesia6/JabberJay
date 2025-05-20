@@ -14,6 +14,10 @@ public class Updater
   public event EventHandler<DownloadFinishedEventArgs> DownloadFinished;
   public event EventHandler<InstallUpdateFailureReason> UpdateFailed; 
   
+  public event EventHandler<ItemDownloadProgressEventArgs> DownloadMadeProgress;
+  
+  public event EventHandler DownloadStarted;
+  
   public Updater()
   {
     const string appCastUrl = "https://destinesia6.github.io/JabberJay/appcast.xml";
@@ -23,6 +27,8 @@ public class Updater
     _sparkleUpdater = new SparkleUpdater(appCastUrl, signatureVerifier);
     _sparkleUpdater.LogWriter = new LogWriter(LogWriterOutputMode.Console);
     _sparkleUpdater.UpdateDetected += (sender, eventArgs) => UpdateDetected?.Invoke(sender, eventArgs);
+    _sparkleUpdater.DownloadStarted += (sender, path) => DownloadStarted?.Invoke(null, EventArgs.Empty);
+    _sparkleUpdater.DownloadMadeProgress += TriggerUpdateMadeProgress;
     _sparkleUpdater.DownloadFinished += (appCastItem, filePath) => DownloadFinished?.Invoke(null, new DownloadFinishedEventArgs(appCastItem, filePath));
     _sparkleUpdater.InstallUpdateFailed += TriggerUpdateFailed;
     Console.WriteLine(_sparkleUpdater.Configuration.InstalledVersion);
@@ -37,6 +43,11 @@ public class Updater
   {
     UpdateFailed.Invoke(null, e);
     return true; // Investigate functionality
+  }
+
+  private void TriggerUpdateMadeProgress(object s, AppCastItem i, ItemDownloadProgressEventArgs e)
+  {
+    DownloadMadeProgress.Invoke(null, e);
   }
 
   public void StopUpdater()
