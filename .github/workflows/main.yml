@@ -1,0 +1,135 @@
+name: CI/CD Release Automation
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'docs/**'
+
+jobs: 
+  build-and-release:
+    runs-on: windows-latest
+
+    permissions:
+      contents: write
+  
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with: 
+        fetch-depth: 0
+
+    - name: Setup .NET 8 SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Setup .NET 9 SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore JabberJay.sln
+
+    - name: Get App Version
+      id: get_version
+      run: |
+        $app_informational_version = dotnet build JabberJay/JabberJay.csproj --configuration Release --getProperty:ApplicationDisplayVersion
+        echo "APP_INFORMATIONAL_VERSION=$app_display_version" | Out-File -FilePath $GITHUB_ENV -Encoding utf8
+      shell: pwsh
+
+    - name: Verify Version Tag Uniqueness
+      run: |
+        $tagName = "v${{ env.APP_INFORMATIONAL_VERSION }}"
+        Write-Host "Checking for existing tag: $tagName"
+        git fetch --tags --force
+        $tagExists = (git rev-parse --verify "refs/tags/$tagName" | Out-Null ; $LASTEXITCODE -eq 0)
+        if ($tagExists) {
+          Write-Error "Error: A release with tag '$tagName' already exists!"
+          Write-Error "Please increment the ApplicationDisplayVersion in JabberJay.csproj before creating a new release"
+          exit 1
+        }
+      shell: pwsh
+
+    - name: Create Release Staging Directory
+      run: New-Item -ItemType Directory -Force -Path "./temp_release_staging"
+      shell: pwsh
+
+    - name: Publish JabberJay (MAUI, .NET 8)
+      run: |
+        dotnet publish JabberJay/JabberJay.csproj -c Release -o ./temp_publish_jabberjay --self-contained true --runtime win-x64 /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true
+        Copy-Item -Path "./temp_publish_jabberjay/JabberJay.exe" -Destination "./temp_release_staging/" -Force
+      shell: pwsh
+
+    - name: Publish Installer (.NET 9)
+      run: |
+        dotnet publish Installer/Installer.csproj -c Release -o ./temp_publish_installer --self-contained true --runtime win-x64 /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true
+        Copy-Item -Path "./temp_publish_installer/Installer.exe" -Destination "./temp_release_staging/" -Force
+      shell: pwsh
+
+    - name: Publish Uninst (.NET 9)
+      run: |
+        dotnet publish Uninstaller/Uninstaller.csproj -c Release -o ./temp_publish_uninstaller --self-contained true --runtime win-x64 /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true
+        Copy-Item -Path "./temp_publish_uninstaller/Uninstaller.exe" -Destination "./temp_release_staging/" -Force
+      shell: pwsh
+
+    - name: Create 7z Archive from Staging Directory
+      run: |
+        cd temp_release_staging
+        7z a -t7z ../JabberJay.7z *
+        cd ..
+      shell: pwsh
+
+    - name: Install NetSparkle Tools
+      run: |
+        dotnet tool install -g NetSparkle.Tools.AppCast --version 2.0.0
+        dotnet tool install -g NetSparkle.Tools.Keys --version 2.0.0
+      shell: pwsh
+
+    - name: Prepare NetSparkle Private Key for Signing
+      run: |
+        $privateKeyContent = "${{ secrets.NETSPARKLE_PRIVATE_KEY }}"
+        $privateKeyPath = Join-Path $env:TEMP "netsparkle.priv"
+        Set-Content -Path $privateKeyPath -Value $privateKeyContent -Encoding Ascii
+        echo "NETSPARKLE_PRIVATE_KEY_PATH=$privateKeyPath" | Out-File -FilePath $GITHUB_ENV -Encoding utf8
+      shell: pwsh
+
+    - name: Generate Appcast XML
+      run: |
+        $repo_full_name = "${{ github.repository }}"
+        dotnet netsparkle-appcast generate --single-file "JabberJay.7z" --file-version "${{ env.APP_INFORMATIONAL_VERSION }}" --key-path "${{env.NETSPARKLE_PRIVATE_KEY_PATH }}" --base-url "https://github.com/$repo_full_name/releases/download/v${{ env.APP_INFORMATIONAL_VERSION }}/" --appcast-output-directory "." --output-file-name "appcast.xml"
+      shell: pwsh
+      env:
+        NETSPARKLE_PRIVATE_KEY_PATH: ''
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref_name }}
+        draft: false
+        prerelease: ${{ contains(github.ref_name, '-') }}
+
+    - name: Upload JabberJay to Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./JabberJay.7z
+        asset_name: JabberJay.7z
+        asset_content_type: application/x-7z-compressed
+
+    - name: Commit and Push Appcast to docs folder
+      uses: EndBug/add-and-commit@v9
+      with:
+        add: 'docs/appcast.xml docs/appcast.xml.sig'
+        message: 'docs: Update appcast for ${{ github.ref_name }}'
+        committer_name: GitHub Actions
+        committer_email: actions@github.com
+        default_author: github_actions
