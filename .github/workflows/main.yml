@@ -48,6 +48,8 @@ jobs:
       shell: pwsh
 
     - name: Verify Version Tag Uniqueness
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
         $appVersion = "${{ env.APP_INFORMATIONAL_VERSION }}"
         Write-Host "DEBUG: Raw APP_INFORMATIONAL_VERSION from environment: '$appVersion'"
