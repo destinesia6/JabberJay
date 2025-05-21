@@ -1,4 +1,4 @@
-name: CI/CD Release Automation
+Iname: CI/CD Release Automation
 
 on:
   push:
@@ -52,8 +52,8 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: |
         $appVersion = "${{ env.APP_INFORMATIONAL_VERSION }}"
-        Write-Host "DEBUG: Raw APP_INFORMATIONAL_VERSION from environment: '$appVersion'"
-        $tagName = "v$appVersion"
+        $response = gh api --paginate repos/$env:GITHUB_REPOSITORY/releases
+        $tags = ($response | ConvertFrom-Json).tag_name
         Write-Host "Checking for existing tag: $tagName"
         $tags = gh api repos/$env:GITHUB_REPOSITORY/releases --jq '[].tag_name'
         if ( $tagName -in $tags) {
