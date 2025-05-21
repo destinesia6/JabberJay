@@ -1,4 +1,4 @@
-Iname: CI/CD Release Automation
+name: CI/CD Release Automation
 
 on:
   push:
