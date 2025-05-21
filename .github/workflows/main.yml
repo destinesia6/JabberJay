@@ -47,24 +47,6 @@ jobs:
         echo "APP_INFORMATIONAL_VERSION=$app_display_version" >> $env:GITHUB_ENV
       shell: pwsh
 
-    - name: Verify Version Tag Uniqueness
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        $appVersion = "${{ env.APP_INFORMATIONAL_VERSION }}"
-        $response = gh api --paginate repos/$env:GITHUB_REPOSITORY/releases
-        $tags = ($response | ConvertFrom-Json).tag_name
-        Write-Host "Checking for existing tag: $tagName"
-        $tags = gh api repos/$env:GITHUB_REPOSITORY/releases --jq '[].tag_name'
-        if ( $tagName -in $tags) {
-          Write-Error "Error: A release with tag '$tagName' already exists!"
-          Write-Error "Please increment the ApplicationDisplayVersion in SoundboardMAUI.csproj before creating a new release"
-          exit 1
-        } else {
-          Write-Host "No publish of this version found, proceeding"
-        }
-      shell: pwsh
-
     - name: Create Release Staging Directory
       run: New-Item -ItemType Directory -Force -Path "./temp_release_staging"
       shell: pwsh
