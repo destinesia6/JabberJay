@@ -91,6 +91,8 @@ jobs:
         $publicKeyPath = Join-Path $env:TEMP "NetSparkle_Ed25519.pub"
         Set-Content -Path $publicKeyPath -Value $publicKeyContent -Encoding Ascii
         echo "NETSPARKLE_KEY_PATH=$env:TEMP" >> $env:GITHUB_ENV
+        Write-Host "Listing contents of $env:TEMP after key creation:"
+    Get-ChildItem -Path $env:TEMP
       shell: pwsh
 
     - name: Generate Appcast XML
