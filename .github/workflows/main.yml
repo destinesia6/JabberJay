@@ -119,6 +119,11 @@ jobs:
         asset_name: JabberJay.7z
         asset_content_type: application/x-7z-compressed
 
+    - name: Move Appcast files to docs folder
+      run: |
+        mv appcast.xml docs/appcast.xml
+        mv appcast.xml.sig docs/appcast.xml.sig
+
     - name: Commit and Push Appcast to docs folder
       uses: EndBug/add-and-commit@v9
       with:
