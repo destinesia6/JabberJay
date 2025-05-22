@@ -122,6 +122,11 @@ jobs:
         asset_name: JabberJay.7z
         asset_content_type: application/x-7z-compressed
 
+    - name: List generated files for debugging
+      run: |
+        Get-ChildItem -Path "."
+      shell: pwsh
+
     - name: Move Appcast files to docs folder
       run: |
         Move-Item -Path "appcast.xml" -Destination "docs/appcast.xml" -Force
