@@ -20,6 +20,12 @@ jobs:
       with: 
         fetch-depth: 0
 
+    - name: Get commit message
+      id: get_commit_message
+      run: |
+        echo "commit_message=$(echo '${{ github.event.head_commit.message }}' | sed 's/"/\\"/g')" >> $GITHUB_OUTPUT
+      shell: bash
+
     - name: Setup .NET 8 SDK
       uses: actions/setup-dotnet@v4
       with:
@@ -36,21 +42,15 @@ jobs:
     - name: Get App Version
       id: get_version
       run: |
-        $app_informational_version = dotnet build JabberJay/JabberJay.csproj --configuration Release --getProperty:ApplicationDisplayVersion
-        echo "APP_INFORMATIONAL_VERSION=$app_display_version" | Out-File -FilePath $GITHUB_ENV -Encoding utf8
-      shell: pwsh
-
-    - name: Verify Version Tag Uniqueness
-      run: |
-        $tagName = "v${{ env.APP_INFORMATIONAL_VERSION }}"
-        Write-Host "Checking for existing tag: $tagName"
-        git fetch --tags --force
-        $tagExists = (git rev-parse --verify "refs/tags/$tagName" | Out-Null ; $LASTEXITCODE -eq 0)
-        if ($tagExists) {
-          Write-Error "Error: A release with tag '$tagName' already exists!"
-          Write-Error "Please increment the ApplicationDisplayVersion in JabberJay.csproj before creating a new release"
+        $app_display_version = dotnet build JabberJay/SoundboardMAUI.csproj --configuration Release --getProperty:ApplicationDisplayVersion
+        if ([string]::IsNullOrEmpty($app_display_version)) {
+          Write-Error "Error: Failed to retrive ApplicationDisplayVersion"
           exit 1
+        } else
+        {
+          Write-Host "Version: $app_display_version"
         }
+        echo "APP_INFORMATIONAL_VERSION=$app_display_version" >> $env:GITHUB_ENV
       shell: pwsh
 
     - name: Create Release Staging Directory
@@ -59,7 +59,7 @@ jobs:
 
     - name: Publish JabberJay (MAUI, .NET 8)
       run: |
-        dotnet publish JabberJay/JabberJay.csproj -c Release -o ./temp_publish_jabberjay --self-contained true --runtime win-x64 /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true
+        dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./temp_publish_jabberjay --self-contained true --runtime win-x64 /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true
         Copy-Item -Path "./temp_publish_jabberjay/JabberJay.exe" -Destination "./temp_release_staging/" -Force
       shell: pwsh
 
@@ -84,25 +84,27 @@ jobs:
 
     - name: Install NetSparkle Tools
       run: |
-        dotnet tool install -g NetSparkle.Tools.AppCast --version 2.0.0
-        dotnet tool install -g NetSparkle.Tools.Keys --version 2.0.0
+        dotnet tool install -g NetSparkle.Tools --version 1.2.0
+        dotnet tool install -g NetSparkleUpdater.Tools.AppCastGenerator --version 2.8.4
       shell: pwsh
 
     - name: Prepare NetSparkle Private Key for Signing
       run: |
         $privateKeyContent = "${{ secrets.NETSPARKLE_PRIVATE_KEY }}"
-        $privateKeyPath = Join-Path $env:TEMP "netsparkle.priv"
+        $privateKeyPath = Join-Path $env:TEMP "NetSparkle_Ed25519.priv"
         Set-Content -Path $privateKeyPath -Value $privateKeyContent -Encoding Ascii
-        echo "NETSPARKLE_PRIVATE_KEY_PATH=$privateKeyPath" | Out-File -FilePath $GITHUB_ENV -Encoding utf8
+        $publicKeyContent = "${{ vars.NETSPARKLE_PUBLIC_KEY }}"
+        $publicKeyPath = Join-Path $env:TEMP "NetSparkle_Ed25519.pub"
+        Set-Content -Path $publicKeyPath -Value $publicKeyContent -Encoding Ascii
       shell: pwsh
 
     - name: Generate Appcast XML
       run: |
         $repo_full_name = "${{ github.repository }}"
-        dotnet netsparkle-appcast generate --single-file "JabberJay.7z" --file-version "${{ env.APP_INFORMATIONAL_VERSION }}" --key-path "${{env.NETSPARKLE_PRIVATE_KEY_PATH }}" --base-url "https://github.com/$repo_full_name/releases/download/v${{ env.APP_INFORMATIONAL_VERSION }}/" --appcast-output-directory "." --output-file-name "appcast.xml"
+        netsparkle-generate-appcast generate --single-file "JabberJay.7z" --file-version "${{ env.APP_INFORMATIONAL_VERSION }}" --key-path "$env:TEMP" --base-url "https://github.com/$repo_full_name/releases/download/v${{ env.APP_INFORMATIONAL_VERSION }}/" --appcast-output-directory "." --output-file-name "appcast"
       shell: pwsh
       env:
-        NETSPARKLE_PRIVATE_KEY_PATH: ''
+        NETSPARKLE_KEY_PATH: ''
 
     - name: Create GitHub Release
       id: create_release
@@ -110,8 +112,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref_name }}
+        tag_name: ${{ env.APP_INFORMATIONAL_VERSION }}
+        release_name: v${{ env.APP_INFORMATIONAL_VERSION }}
+        body: ${{ steps.get_commit_message.outputs.commit_message }}
         draft: false
         prerelease: ${{ contains(github.ref_name, '-') }}
 
@@ -125,10 +128,21 @@ jobs:
         asset_name: JabberJay.7z
         asset_content_type: application/x-7z-compressed
 
+    - name: List generated files for debugging
+      run: |
+        Get-ChildItem -Path "."
+      shell: pwsh
+
+    - name: Move Appcast files to docs folder
+      run: |
+        Move-Item -Path "appcast.xml" -Destination "docs/appcast.xml" -Force
+        Move-Item -Path "appcast.xml.signature" -Destination "docs/appcast.xml.signature" -Force
+      shell: pwsh
+
     - name: Commit and Push Appcast to docs folder
       uses: EndBug/add-and-commit@v9
       with:
-        add: 'docs/appcast.xml docs/appcast.xml.sig'
+        add: 'docs/appcast.xml docs/appcast.xml.signature'
         message: 'docs: Update appcast for ${{ github.ref_name }}'
         committer_name: GitHub Actions
         committer_email: actions@github.com
