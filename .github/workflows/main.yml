@@ -92,14 +92,14 @@ jobs:
         $publicKeyPath = Join-Path $env:TEMP "NetSparkle_Ed25519.pub"
         Set-Content -Path $publicKeyPath -Value $publicKeyContent -Encoding Ascii
         echo "NETSPARKLE_KEY_PATH=$env:TEMP" >> $env:GITHUB_ENV
-        Write-Host "$env:TEMP"
-        Write-Host "${{ env.NETSPARKLE_KEY_PATH }}"
+        Write-Host "${{env:TEMP}}"
+        Write-Host "Using NETSPARKLE_KEY_PATH: ${{env.NETSPARKLE_KEY_PATH }}"
       shell: pwsh
 
     - name: Generate Appcast XML
       run: |
         $repo_full_name = "${{ github.repository }}"
-        Write-Host "${{ env.NETSPARKLE_KEY_PATH }}"
+        Write-Host "Using NETSPARKLE_KEY_PATH: ${{env.NETSPARKLE_KEY_PATH }}"
         Get-ChildItem -Path "${{ env.NETSPARKLE_KEY_PATH }}"
         netsparkle-generate-appcast generate --single-file "JabberJay.7z" --file-version "${{ env.APP_INFORMATIONAL_VERSION }}" --key-path "${{env.NETSPARKLE_KEY_PATH }}" --base-url "https://github.com/$repo_full_name/releases/download/v${{ env.APP_INFORMATIONAL_VERSION }}/" --appcast-output-directory "." --output-file-name "appcast"
       shell: pwsh
