@@ -87,7 +87,7 @@ jobs:
         $privateKeyContent = "${{ secrets.NETSPARKLE_PRIVATE_KEY }}"
         $privateKeyPath = Join-Path $env:TEMP "netsparkle.priv"
         Set-Content -Path $privateKeyPath -Value $privateKeyContent -Encoding Ascii
-        echo "NETSPARKLE_PRIVATE_KEY_PATH=$privateKeyPath" | Out-File -FilePath $GITHUB_ENV -Encoding utf8
+        echo "NETSPARKLE_PRIVATE_KEY_PATH=$privateKeyPath" >> $env:GITHUB_ENV
       shell: pwsh
 
     - name: Generate Appcast XML
