@@ -23,7 +23,9 @@ jobs:
     - name: Get commit message
       id: get_commit_message
       run: |
-        echo "commit_message=$(echo '${{ github.event.head_commit.message }}' | sed 's/"/\\"/g')" >> $GITHUB_OUTPUT
+        commit_message=$(git log --no-merges -1 --format=%B)
+        escaped_commit_message=$(echo "$commit_message | sed 's/"/\\"/g' | tr '\n' ' ')
+        echo "commit_message=$escaped_commit_message" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Setup .NET 8 SDK
