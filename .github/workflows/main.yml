@@ -92,6 +92,7 @@ jobs:
         $publicKeyPath = Join-Path $env:TEMP "NetSparkle_Ed25519.pub"
         Set-Content -Path $publicKeyPath -Value $publicKeyContent -Encoding Ascii
         echo "NETSPARKLE_KEY_PATH=$env:TEMP" >> $env:GITHUB_ENV
+        Write-Host "${{ env:TEMP }}"
         Write-Host "${{ env.NETSPARKLE_KEY_PATH }}"
       shell: pwsh
 
