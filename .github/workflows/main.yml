@@ -98,8 +98,8 @@ jobs:
 
     - name: Generate Appcast XML
       run: |
-        $repo_full_name = "${{env.NETSPARKLE_KEY_PATH }}"
-        Get-ChildItem -Path ${{ env.APP_INFORMATIONAL_VERSION }}
+        $repo_full_name = "${{ github.repository }}"
+        Get-ChildItem -Path ${{ env.NETSPARKLE_KEY_PATH }}
         netsparkle-generate-appcast generate --single-file "JabberJay.7z" --file-version "${{ env.APP_INFORMATIONAL_VERSION }}" --key-path "${{env.NETSPARKLE_KEY_PATH }}" --base-url "https://github.com/$repo_full_name/releases/download/v${{ env.APP_INFORMATIONAL_VERSION }}/" --appcast-output-directory "." --output-file-name "appcast"
       shell: pwsh
       env:
