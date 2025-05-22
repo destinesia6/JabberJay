@@ -85,18 +85,21 @@ jobs:
     - name: Prepare NetSparkle Private Key for Signing
       run: |
         $privateKeyContent = "${{ secrets.NETSPARKLE_PRIVATE_KEY }}"
-        $privateKeyPath = Join-Path $env:TEMP "netsparkle.priv"
+        $privateKeyPath = Join-Path $env:TEMP "NetSparkle_Ed25519.priv"
         Set-Content -Path $privateKeyPath -Value $privateKeyContent -Encoding Ascii
-        echo "NETSPARKLE_PRIVATE_KEY_PATH=$privateKeyPath" >> $env:GITHUB_ENV
+        $publicKeyContent = "${{ vars.NETSPARKLE_PUBLIC_KEY }}"
+        $privateKeyPath = Join-Path $env:TEMP "NetSparkle_Ed25519.pub"
+        Set-Content -Path $privateKeyPath -Value $privateKeyContent -Encoding Ascii
+        echo "NETSPARKLE_KEY_PATH=$env:TEMP" >> $env:GITHUB_ENV
       shell: pwsh
 
     - name: Generate Appcast XML
       run: |
         $repo_full_name = "${{ github.repository }}"
-        netsparkle-generate-appcast generate --single-file "JabberJay.7z" --file-version "${{ env.APP_INFORMATIONAL_VERSION }}" --key-path "${{env.NETSPARKLE_PRIVATE_KEY_PATH }}" --base-url "https://github.com/$repo_full_name/releases/download/v${{ env.APP_INFORMATIONAL_VERSION }}/" --appcast-output-directory "." --output-file-name "appcast.xml"
+        netsparkle-generate-appcast generate --single-file "JabberJay.7z" --file-version "${{ env.APP_INFORMATIONAL_VERSION }}" --key-path "${{env.NETSPARKLE_KEY_PATH }}" --base-url "https://github.com/$repo_full_name/releases/download/v${{ env.APP_INFORMATIONAL_VERSION }}/" --appcast-output-directory "." --output-file-name "appcast"
       shell: pwsh
       env:
-        NETSPARKLE_PRIVATE_KEY_PATH: ''
+        NETSPARKLE_KEY_PATH: ''
 
     - name: Create GitHub Release
       id: create_release
