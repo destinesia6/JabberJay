@@ -20,6 +20,12 @@ jobs:
       with: 
         fetch-depth: 0
 
+    - name: Get commit message
+      id: get_commit_message
+      run: |
+        echo "commit_message=$(echo '${{ github.event.head_commit.message }}' | sed 's/"/\\"/g')" >> $GITHUB_OUTPUT
+      shell: bash
+
     - name: Setup .NET 8 SDK
       uses: actions/setup-dotnet@v4
       with:
@@ -108,6 +114,7 @@ jobs:
       with:
         tag_name: ${{ env.APP_INFORMATIONAL_VERSION }}
         release_name: v${{ env.APP_INFORMATIONAL_VERSION }}
+        body: ${{ steps.get_commit_message.outputs.commit_message }}
         draft: false
         prerelease: ${{ contains(github.ref_name, '-') }}
 
