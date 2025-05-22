@@ -121,8 +121,9 @@ jobs:
 
     - name: Move Appcast files to docs folder
       run: |
-        mv appcast.xml docs/appcast.xml
-        mv appcast.xml.sig docs/appcast.xml.sig
+        Move-Item -Path "appcast.xml" -Destination "docs/appcast.xml"
+        Move-Item -Path "appcast.xml.sig" -Destination "docs/appcast.xml.sig"
+      shell: pwsh
 
     - name: Commit and Push Appcast to docs folder
       uses: EndBug/add-and-commit@v9
