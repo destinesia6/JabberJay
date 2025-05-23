@@ -4,6 +4,7 @@ How to install:
 - Extract the zip file
 - Open the JabberJay file
 - Run JabberJay.exe
+- Install the .NET runtime if prompted
 - Enjoy
   
 
