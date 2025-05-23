@@ -61,19 +61,19 @@ jobs:
     - name: Publish JabberJay (MAUI, .NET 8)
       run: |
         dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./JabberJay --self-contained true --runtime win-x64
-        Copy-Item -Path "./JabberJay" -Destination "./temp_release_staging/" -Force
+        Copy-Item -Path "./JabberJay" -Destination "./temp_release_staging/" -Recurse -Force
       shell: pwsh
 
     - name: Publish Installer (.NET 9)
       run: |
         dotnet publish Installer/Installer.csproj -c Release -o ./Installer --self-contained true --runtime win-x64
-        Copy-Item -Path "./Installer" -Destination "./temp_release_staging/" -Force
+        Copy-Item -Path "./Installer" -Destination "./temp_release_staging/" -Recurse -Force
       shell: pwsh
 
     - name: Publish Uninst (.NET 9)
       run: |
         dotnet publish Uninstaller/Uninstaller.csproj -c Release -o ./Uninstaller --self-contained true --runtime win-x64
-        Copy-Item -Path "./Uninstaller" -Destination "./temp_release_staging/" -Force
+        Copy-Item -Path "./Uninstaller" -Destination "./temp_release_staging/" -Recurse -Force
       shell: pwsh
 
     - name: Create 7z Archive from Staging Directory
