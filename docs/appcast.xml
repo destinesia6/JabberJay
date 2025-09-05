@@ -6,10 +6,10 @@
     <language>en</language>
     <item>
       <title>Application 1.1.0</title>
-      <pubDate>Fri, 05 Sep 2025 14:09:16 +00:00</pubDate>
+      <pubDate>Fri, 05 Sep 2025 14:20:52 +00:00</pubDate>
       <sparkle:version>1.1.0</sparkle:version>
       <sparkle:shortVersionString>1.1.0</sparkle:shortVersionString>
-      <enclosure url="https://github.com/destinesia6/JabberJay/releases/download/1.1.0/JabberJay.7z" sparkle:version="1.1.0" sparkle:shortVersionString="1.1.0" length="369516068" sparkle:os="windows" type="application/x-7z-compressed" sparkle:criticalUpdate="false" sparkle:signature="a3fa5rYlROXYk84bAwcxQtACojkYGI8kQz600L2qS5dYYYUZa7obGzEJO7ygickHuoF1QKbu8gghWk/RaMRNAA==" />
+      <enclosure url="https://github.com/destinesia6/JabberJay/releases/download/1.1.0/JabberJay.7z" sparkle:version="1.1.0" sparkle:shortVersionString="1.1.0" length="369490095" sparkle:os="windows" type="application/x-7z-compressed" sparkle:criticalUpdate="false" sparkle:signature="EDCmwWB7NmRqWeXeyguoqMC78u57IPV0IMBKy/TAaQAtSxrQ6eIMqxuyWRdBIJi5NCbBS/WoEf3xR9VIl84QCQ==" />
     </item>
   </channel>
 </rss>
