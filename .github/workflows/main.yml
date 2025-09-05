@@ -38,7 +38,7 @@ jobs:
         dotnet-version: '9.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore JabberJay.sln --no-warn NU1605
+      run: dotnet restore JabberJay.sln /p:NoWarn=NU1605
 
     - name: Get App Version
       id: get_version
@@ -176,7 +176,7 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore JabberJay.sln --no-warn NU1605
+        run: dotnet restore JabberJay.sln /p:NoWarn=NU1605
         
       - name: Publish for Android
         run: dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -f:net9.0-android -o ./android_release
