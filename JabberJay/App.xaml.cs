@@ -13,7 +13,7 @@ public partial class App : Application
   public App()
   {
     InitializeComponent();
-    AppRegistration.CheckAndRegisterAppCurrentUser();
+    //AppRegistration.CheckAndRegisterAppCurrentUser();
   }
   
   protected override Window CreateWindow(IActivationState? activationState)

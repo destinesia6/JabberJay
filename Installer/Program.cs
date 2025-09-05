@@ -42,6 +42,7 @@ class Program
             {
                 archiveFile.Extract(tempExtractionPath);
             } // Extract ZIP files
+            Console.WriteLine("Extracted Update.");
 
             Console.WriteLine("Deleting old files...");
             Directory.Delete(installationDirectory, true); // Delete old files
@@ -86,8 +87,6 @@ class Program
                     return 4;
                 }
             }
-
-            Console.Read();
             return 5;
         }
     }

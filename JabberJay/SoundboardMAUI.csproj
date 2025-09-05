@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-
-		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+        
+        <TargetFrameworks>net9.0-windows10.0.19041.0;net9.0-android;</TargetFrameworks>
         <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
         <!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
 
@@ -28,8 +28,8 @@
         <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
         
         <!-- Versions -->
-        <ApplicationDisplayVersion>1.0.2</ApplicationDisplayVersion>
-
+        <ApplicationDisplayVersion>1.1.0</ApplicationDisplayVersion>
+        
         <ApplicationVersion>1</ApplicationVersion>
         <Version>$(ApplicationDisplayVersion)</Version>
         <AssemblyVersion>$(ApplicationDisplayVersion).0</AssemblyVersion>
@@ -55,11 +55,9 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\jabberjayicon.png" BaseSize="128,128" Color="#00FF0000" />
-
+        
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-
+        
         <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
         <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
@@ -75,6 +73,13 @@
         <MauiAsset Include="Platforms\Windows\ffmpeg.exe" />
         <None Remove="Platforms\Windows\ffprobe.exe" />
         <MauiAsset Include="Platforms\Windows\ffprobe.exe" />
+        <None Remove="Resources\AppIcon\jabberjayicon.ico" />
+        <MauiIcon Include="Resources\AppIcon\jabberjayicon.ico" />
+        <None Remove="Resources\AppIcon\appiconsmall.png" />
+        <None Remove="Resources\AppIcon\androidiconbackground.png" />
+        <MauiIcon Include="Resources\AppIcon\androidiconbackground.png" />
+        <None Remove="Resources\AppIcon\jabberjay.ico" />
+        <MauiIcon Include="Resources\AppIcon\jabberjay.ico" />
     </ItemGroup>
 
     <ItemGroup>
@@ -86,7 +91,7 @@
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
         <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
+        <PackageReference Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
         <PackageReference Include="MongoDB.Bson" Version="3.4.0" />
         <PackageReference Include="NAudio" Version="1.10.0" />
         <PackageReference Include="NetSparkleUpdater.SparkleUpdater" Version="3.0.3-preview20250505001" />
@@ -94,7 +99,7 @@
         <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.3" />
         <PackageReference Include="Plugin.Maui.Audio" Version="3.1.0" />
         <PackageReference Include="System.Windows.Extensions" Version="10.0.0-preview.3.25171.5" />
-        <PackageReference Include="YoutubeDLSharp" Version="1.1.1" />
+        <PackageReference Include="YoutubeDLSharp" Version="1.1.2" />
     </ItemGroup>
 
     <ItemGroup>
@@ -112,6 +117,12 @@
       <Content Include="NetSparkle_Ed25519.pub">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiIcon Include="Resources\AppIcon\appicon.svg" />
+      <None Remove="Resources\Splash\splash.svg" />
+      <MauiSplashScreen Include="Resources\Splash\splash.svg" />
     </ItemGroup>
 
 </Project>

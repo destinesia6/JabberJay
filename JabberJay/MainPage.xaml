@@ -7,25 +7,27 @@
              x:DataType="pages:MainPage">
 
     <Grid x:Name="PageContainer" RowDefinitions="Auto, *, Auto">
-        <tb:TaskbarIcon IconSource="jabberjayicon.ico" x:Name="TrayPopup" LeftClickCommand="{Binding ShowWindowCommand}" NoLeftClickDelay="True">
-            <FlyoutBase.ContextFlyout>
-                <MenuFlyout>
-                    <MenuFlyoutItem Command="{Binding CloseAppCommand}" Text="Exit" />
-                </MenuFlyout>
-            </FlyoutBase.ContextFlyout>
-        </tb:TaskbarIcon>
+       
         <HorizontalStackLayout x:Name="Header" Grid.Row="0" HeightRequest="70">
-            <Image Source="jabberjaylogo.png" WidthRequest="50" HeightRequest="60" Margin="10, 10, 10, 0"/>
-            <Label Text="JabberJay" FontSize="24" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
+            <Image Source="jabberjaylogo.png" WidthRequest="50" HeightRequest="60" Margin="10, 10, 10, 0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ShowSettings" />
+                </Image.GestureRecognizers>
+            </Image>
+            
+            <VerticalStackLayout x:Name="ProgressLayout" IsVisible="False" Margin="10,20,10,10" HorizontalOptions="End">
+                <Label x:Name="DownloadStatusLabel" Text="Starting download..." HorizontalOptions="Center" />
+                <ProgressBar x:Name="DownloadProgressBar" Progress="0" />
+            </VerticalStackLayout>
         </HorizontalStackLayout>
 
         <ScrollView Grid.Row="1">
             <FlexLayout x:Name="SoundButtonPanel"
                         Wrap="Wrap"
-                        JustifyContent="Start"
+                        JustifyContent="Center"
                         AlignItems="Start"
                         AlignContent="Start"
-                        Margin="10">
+                        Margin="15">
             </FlexLayout>
         </ScrollView>
 
@@ -57,20 +59,28 @@
                            Padding="10"/>
                 </Border>
                 
-                <VerticalStackLayout Padding="5, 0, 10, 0">
+                <VerticalStackLayout x:Name="OutputPickerContainer" Padding="5, 0, 10, 0">
                     <Label Text="Choose an Output Device:" Padding="3, 0, 0, 0"/>
-                    <Picker x:Name="outputDevicePicker" ItemsSource="{Binding OutputDevices}" SelectedItem="{Binding SelectedOutputDevice}" ItemDisplayBinding="{Binding ProductName}" />
+                    <Picker x:Name="OutputDevicePicker" ItemsSource="{Binding OutputDevices}" SelectedItem="{Binding SelectedOutputDevice}" ItemDisplayBinding="{Binding ProductName}" />
                 </VerticalStackLayout>
                 
-                <HorizontalStackLayout Margin="0, 16, 0, 0">
+                <HorizontalStackLayout x:Name="AutoStartContainer" Margin="0, 16, 0, 0">
                     <Label Text="Auto Start:"  VerticalTextAlignment="Center"/>
                     <CheckBox x:Name="autoStartToggle" IsChecked="{Binding AutoStart}" />
                 </HorizontalStackLayout>
                 
-                <VerticalStackLayout x:Name="ProgressLayout" IsVisible="False" Margin="10,20,10,10">
-                    <Label x:Name="DownloadStatusLabel" Text="Starting download..." HorizontalOptions="Center" />
-                    <ProgressBar x:Name="DownloadProgressBar" Progress="0" />
-                </VerticalStackLayout>
+                <HorizontalStackLayout x:Name="ServerStartContainer" Margin="0, 16, 0, 0">
+                    <Label Text="Server:"  VerticalTextAlignment="Center"/>
+                    <CheckBox x:Name="serverStartToggle" IsChecked="{Binding ServerStart}" />
+                    <Label x:Name="ServerIP" VerticalTextAlignment="Center" /> 
+                </HorizontalStackLayout>
+                
+                <Border x:Name="ToggleClient" StrokeShape="{RoundRectangle CornerRadius=10}" Margin="5, 10, 10, 0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ToggleClient_Clicked" />
+                    </Border.GestureRecognizers>
+                    <Label x:Name="ToggleClientLabel" Text="Start Remote" HorizontalOptions="Center" VerticalOptions="Center" Padding="10" />
+                </Border>
             </HorizontalStackLayout>
             
 
