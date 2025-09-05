@@ -39,7 +39,7 @@ jobs:
 
     - name: Restore dependencies
       run: |
-        dotnet restore JabberJay/SoundboardMAUI.csproj /p:NoWarn=NU1605
+        dotnet restore JabberJay/SoundboardMAUI.csproj --framework net9.0-windows /p:NoWarn=NU1605
         dotnet restore Installer/Installer.csproj /p:NoWarn=NU1605
         dotnet restore Uninstaller/Uninstaller.csproj /p:NoWarn=NU1605
 
@@ -179,7 +179,7 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore JabberJay.sln /p:NoWarn=NU1605
+        run: dotnet restore JabberJay.sln --framework net9.0-android /p:NoWarn=NU1605
         
       - name: Publish for Android
         run: dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -f:net9.0-android -o ./android_release /p:NoWarn=NU1605
