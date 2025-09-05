@@ -62,7 +62,7 @@ jobs:
 
     - name: Publish JabberJay (MAUI, .NET 8)
       run: |
-        dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./JabberJay --self-contained true --runtime win-x64 /p:TargetFrameworks=net9.0-windows --framework net9.0-windows /p:TargetPlatformVersion=10.0 /p:NoWarn=NU1605
+        dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./JabberJay --self-contained true --runtime win-x64 /p:TargetFrameworks=net9.0-windows --framework net9.0-windows /p:TargetPlatformVersion=10.0 /p:SupportedOSPlatformVersion=10.0 /p:NoWarn=NU1605
         Copy-Item -Path "./JabberJay" -Destination "./temp_release_staging/" -Recurse -Force
       shell: pwsh
 
