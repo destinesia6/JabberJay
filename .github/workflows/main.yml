@@ -23,7 +23,8 @@ jobs:
     - name: Get commit message
       id: get_commit_message
       run: |
-        echo "commit_message=$(echo '${{ github.event.head_commit.message }}' | sed 's/"/\\"/g')" >> $GITHUB_OUTPUT
+        commit_message=$(git log --no-merges -1 --format=%B)
+        echo "commit_message=$(echo "$commit_message" | sed 's/"/\\"/g')" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Setup .NET 8 SDK
@@ -59,20 +60,20 @@ jobs:
 
     - name: Publish JabberJay (MAUI, .NET 8)
       run: |
-        dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./temp_publish_jabberjay --self-contained true --runtime win-x64 /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true
-        Copy-Item -Path "./temp_publish_jabberjay/JabberJay.exe" -Destination "./temp_release_staging/" -Force
+        dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./JabberJay --self-contained true --runtime win-x64
+        Copy-Item -Path "./JabberJay" -Destination "./temp_release_staging/" -Recurse -Force
       shell: pwsh
 
     - name: Publish Installer (.NET 9)
       run: |
-        dotnet publish Installer/Installer.csproj -c Release -o ./temp_publish_installer --self-contained true --runtime win-x64 /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true
-        Copy-Item -Path "./temp_publish_installer/Installer.exe" -Destination "./temp_release_staging/" -Force
+        dotnet publish Installer/Installer.csproj -c Release -o ./Installer --self-contained true --runtime win-x64
+        Copy-Item -Path "./Installer" -Destination "./temp_release_staging/" -Recurse -Force
       shell: pwsh
 
     - name: Publish Uninst (.NET 9)
       run: |
-        dotnet publish Uninstaller/Uninstaller.csproj -c Release -o ./temp_publish_uninstaller --self-contained true --runtime win-x64 /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true
-        Copy-Item -Path "./temp_publish_uninstaller/Uninstaller.exe" -Destination "./temp_release_staging/" -Force
+        dotnet publish Uninstaller/Uninstaller.csproj -c Release -o ./Uninstaller --self-contained true --runtime win-x64
+        Copy-Item -Path "./Uninstaller" -Destination "./temp_release_staging/" -Recurse -Force
       shell: pwsh
 
     - name: Create 7z Archive from Staging Directory
@@ -101,7 +102,7 @@ jobs:
     - name: Generate Appcast XML
       run: |
         $repo_full_name = "${{ github.repository }}"
-        netsparkle-generate-appcast generate --single-file "JabberJay.7z" --file-version "${{ env.APP_INFORMATIONAL_VERSION }}" --key-path "$env:TEMP" --base-url "https://github.com/$repo_full_name/releases/download/v${{ env.APP_INFORMATIONAL_VERSION }}/" --appcast-output-directory "." --output-file-name "appcast"
+        netsparkle-generate-appcast generate --single-file "JabberJay.7z" --file-version "${{ env.APP_INFORMATIONAL_VERSION }}" --key-path "$env:TEMP" --base-url "https://github.com/$repo_full_name/releases/download/${{ env.APP_INFORMATIONAL_VERSION }}/" --appcast-output-directory "." --output-file-name "appcast"
       shell: pwsh
       env:
         NETSPARKLE_KEY_PATH: ''
@@ -128,11 +129,6 @@ jobs:
         asset_name: JabberJay.7z
         asset_content_type: application/x-7z-compressed
 
-    - name: List generated files for debugging
-      run: |
-        Get-ChildItem -Path "."
-      shell: pwsh
-
     - name: Move Appcast files to docs folder
       run: |
         Move-Item -Path "appcast.xml" -Destination "docs/appcast.xml" -Force
@@ -147,3 +143,61 @@ jobs:
         committer_name: GitHub Actions
         committer_email: actions@github.com
         default_author: github_actions
+
+        
+  build-android-release:
+    runs-on: ubuntu-latest
+    needs: build-and-release
+    
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get App Version
+        run: |
+          APP_INFORMATIONAL_VERSION=$(dotnet build JabberJay/SoundboardMAUI.csproj --configuration Release --getProperty:ApplicationDisplayVersion)
+          echo "APP_INFORMATIONAL_VERSION=$APP_INFORMATIONAL_VERSION" >> $GITHUB_ENV
+          echo "VERSION: $APP_INFORMATIONAL_VERSION"
+        shell: bash
+
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Setup .NET 9 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore JabberJay.sln
+        
+      - name: Publish for Android
+        run: dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -f:net9.0-android -o ./android_release
+        
+      - name: Get APK path
+        id: get_apk_path
+        run: |
+          apk_path=$(find ./android_release -name "*.apk" | head -n 1)
+          if [ -z "$apk_path" ]; then
+            echo "Error: No APK file found in the output directory."
+            exit 1
+          fi
+          echo "APK_PATH=$apk_path" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Upload APK to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.build-and-release.outputs.upload_url }}
+          asset_path: ${{ env.APK_PATH }}
+          asset_name: JabberJay-Android.apk
+          asset_content_type: application/vnd.android.package-archive
