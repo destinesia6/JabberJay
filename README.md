@@ -16,3 +16,17 @@ If you want to have it work with a microphone:
 - Make sure A and B are selected for the virtual input
 - Select the hardware out as the device you want to hear your soundboard on (if you dont want to hear the soundboard leave it, or deselect A from the virtual input)
 - When using your mic select "voice meeter out B1" as your input device
+
+
+For Android: 
+
+- Download the apk
+- Install the apk
+- Enjoy
+
+To connect to a PC from android: 
+
+- You need to be on the same network
+- On the PC app tick the start server
+- On the mobile app press the jabber jay icon and enter the IP address and port from the PC app
+- Press start remote
