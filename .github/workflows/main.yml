@@ -39,7 +39,7 @@ jobs:
 
     - name: Restore dependencies
       run: |
-        dotnet restore JabberJay/SoundboardMAUI.csproj --framework net9.0-windows /p:NoWarn=NU1605
+        dotnet restore JabberJay/SoundboardMAUI.csproj /p:TargetFrameworks=net9.0-windows /p:NoWarn=NU1605
         dotnet restore Installer/Installer.csproj /p:NoWarn=NU1605
         dotnet restore Uninstaller/Uninstaller.csproj /p:NoWarn=NU1605
     - name: Get App Version
@@ -62,19 +62,19 @@ jobs:
 
     - name: Publish JabberJay (MAUI, .NET 8)
       run: |
-        dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./JabberJay --self-contained true --runtime win-x64 --framework net9.0-windows /p:NoWarn=NU1605
+        dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./JabberJay --self-contained true --runtime win-x64 /p:TargetFrameworks=net9.0-windows /p:NoWarn=NU1605
         Copy-Item -Path "./JabberJay" -Destination "./temp_release_staging/" -Recurse -Force
       shell: pwsh
 
     - name: Publish Installer (.NET 9)
       run: |
-        dotnet publish Installer/Installer.csproj -c Release -o ./Installer --self-contained true --runtime win-x64 --framework net9.0-windows /p:NoWarn=NU1605
+        dotnet publish Installer/Installer.csproj -c Release -o ./Installer --self-contained true --runtime win-x64 /p:NoWarn=NU1605
         Copy-Item -Path "./Installer" -Destination "./temp_release_staging/" -Recurse -Force
       shell: pwsh
 
     - name: Publish Uninst (.NET 9)
       run: |
-        dotnet publish Uninstaller/Uninstaller.csproj -c Release -o ./Uninstaller --self-contained true --runtime win-x64 --framework net9.0-windows /p:NoWarn=NU1605
+        dotnet publish Uninstaller/Uninstaller.csproj -c Release -o ./Uninstaller --self-contained true --runtime win-x64 /p:NoWarn=NU1605
         Copy-Item -Path "./Uninstaller" -Destination "./temp_release_staging/" -Recurse -Force
       shell: pwsh
 
@@ -178,7 +178,7 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore JabberJay.sln --framework net9.0-android /p:NoWarn=NU1605
+        run: dotnet restore JabberJay.sln /p:TargetFrameworks=net9.0-android /p:NoWarn=NU1605
         
       - name: Publish for Android
         run: dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -f:net9.0-android -o ./android_release /p:NoWarn=NU1605
