@@ -176,6 +176,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
+          
+      - name: Install required workloads
+        run: dotnet workload restore
 
       - name: Restore dependencies
         run: dotnet restore JabberJay.sln /p:TargetFrameworks=net9.0-android /p:NoWarn=NU1605
