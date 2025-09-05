@@ -11,6 +11,9 @@ jobs:
   build-and-release:
     runs-on: windows-latest
 
+    outputs:
+          release_upload_url: ${{ steps.create_release.outputs.upload_url }}
+
     permissions:
       contents: write
   
@@ -202,7 +205,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.build-and-release.outputs.upload_url }}
+          upload_url: ${{ needs.build-and-release.outputs.release_upload_url }}
           asset_path: ${{ env.APK_PATH }}
           asset_name: JabberJay-Android.apk
           asset_content_type: application/vnd.android.package-archive
