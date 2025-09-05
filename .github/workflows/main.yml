@@ -184,7 +184,7 @@ jobs:
         run: dotnet restore JabberJay.sln /p:TargetFrameworks=net9.0-android /p:NoWarn=NU1605 /p:EnableWindowsTargeting=true
         
       - name: Publish for Android
-        run: dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -f:net9.0-android -o ./android_release /p:NoWarn=NU1605 /p:EnableWindowsTargeting=true
+        run: dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -f:net9.0-android -o ./android_release /p:NoWarn=NU1605 /p:EnableWindowsTargeting=true /p:AndroidLinkSkip=NAudio.dll
         
       - name: Get APK path
         id: get_apk_path
