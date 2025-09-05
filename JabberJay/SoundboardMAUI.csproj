@@ -51,6 +51,12 @@
         <ApplicationIcon>Resources\AppIcon\jabberjayicon.ico</ApplicationIcon>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+        <RunAOTCompilation>false</RunAOTCompilation>
+        <PublishAot>false</PublishAot>
+        <AndroidEnableAot>false</AndroidEnableAot>
+    </PropertyGroup>
+
 
 
     <ItemGroup>
