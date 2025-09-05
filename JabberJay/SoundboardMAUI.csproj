@@ -102,7 +102,7 @@
         <PackageReference Include="YoutubeDLSharp" Version="1.1.2" />
     </ItemGroup>
     
-    <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-windows10.0.19041.0'">
+    <ItemGroup Condition="'$(TargetFramework)' != 'net9.0-android'">
         <PackageReference Include="NAudio" Version="2.2.1" />
     </ItemGroup>
 
