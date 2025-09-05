@@ -143,3 +143,61 @@ jobs:
         committer_name: GitHub Actions
         committer_email: actions@github.com
         default_author: github_actions
+
+        
+  build-android-release:
+    runs-on: ubuntu-latest
+    needs: build-and-release
+    
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get App Version
+        run: |
+          APP_INFORMATIONAL_VERSION=$(dotnet build JabberJay/SoundboardMAUI.csproj --configuration Release --getProperty:ApplicationDisplayVersion)
+          echo "APP_INFORMATIONAL_VERSION=$APP_INFORMATIONAL_VERSION" >> $GITHUB_ENV
+          echo "VERSION: $APP_INFORMATIONAL_VERSION"
+        shell: bash
+
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Setup .NET 9 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore JabberJay.sln
+        
+      - name: Publish for Android
+        run: dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -f:net9.0-android -o ./android_release
+        
+      - name: Get APK path
+        id: get_apk_path
+        run: |
+          apk_path=$(find ./android_release -name "*.apk" | head -n 1)
+          if [ -z "$apk_path" ]; then
+            echo "Error: No APK file found in the output directory."
+            exit 1
+          fi
+          echo "APK_PATH=$apk_path" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Upload APK to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.build-and-release.outputs.upload_url }}
+          asset_path: ${{ env.APK_PATH }}
+          asset_name: JabberJay-Android.apk
+          asset_content_type: application/vnd.android.package-archive
