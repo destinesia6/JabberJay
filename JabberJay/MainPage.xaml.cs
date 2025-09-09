@@ -36,6 +36,8 @@ namespace JabberJay;
 
 public partial class MainPage : ContentPage
 {
+		public static App? CurrentApp => Application.Current as App;
+		private Window? _mainWindow;
     private readonly string _soundsFolderName = "Sounds";
     private readonly string _bindingsFile = "Bindings.bson";
     private readonly string _outputDeviceFile = "Output.bson";
@@ -49,6 +51,7 @@ public partial class MainPage : ContentPage
     private string _ipConfig;
     private int _port;
     #if WINDOWS
+		private List<WaveOutEvent> _playingSounds = [];
 		private bool _autoStart;
 		private SoundboardServer _server;
 		private bool _serverStart;
@@ -119,6 +122,7 @@ public partial class MainPage : ContentPage
     public ObservableCollection<object> OutputDevices { get; set; } = [];
     public string SelectedOutputDevice { get; set; } = "";
     public string ProductName { get; set; } = "";
+		private List<IAudioPlayer> _playingSounds = new();
 
     private bool _clientToggle;
 
@@ -160,6 +164,7 @@ public partial class MainPage : ContentPage
         _keyboardListener.KeyDown += OnBindKeyDown;
         _server = new SoundboardServer(GetFilesList);
         _server.PlaySoundAction += PlaySound;
+        _server.StopSoundAction += StopPlayback;
         AddTrayIcon();
         _autoStart = AutoStartService.GetAutoStart();
         StartGlobalListener();
@@ -177,7 +182,11 @@ public partial class MainPage : ContentPage
         Task.Delay(2000);
         _appUpdater.CheckForUpdates();
         _apiService = apiService;
-	    
+    }
+
+    protected override void OnAppearing()
+    {
+	    MainThread.BeginInvokeOnMainThread(() => ShowTrayIcon(null, null));
     }
     
     private void AddTrayIcon() // Creates the object for the tray icon, which can be added when the app is closed
@@ -765,7 +774,6 @@ public partial class MainPage : ContentPage
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {
-
             switch (p.State)
             {
                 case DownloadState.Downloading:
@@ -787,8 +795,6 @@ public partial class MainPage : ContentPage
             }
             
         });
-	    
-			
     }
 #endif
 
@@ -820,8 +826,19 @@ public partial class MainPage : ContentPage
                 Debug.WriteLine(ex.Message);
             }
         }
-        #endif
-
+        KeyValuePair<string, SoundButton>? stopBind = bindings?.FirstOrDefault(kvp =>
+	        String.Equals(kvp.Key, "stop", StringComparison.OrdinalIgnoreCase));
+        if (stopBind is { Value: not null })
+        {
+	        NewStopButton(stopBind.Value.Value.Binding);
+        }
+        else
+        {
+	        NewStopButton();
+        }
+#else
+				NewStopButton();
+#endif
         // Loads sounds
         if (Directory.Exists(_soundsFolderName))
         {
@@ -874,6 +891,7 @@ public partial class MainPage : ContentPage
 	    {
 		    SoundButtonPanel.Clear();
 		    _soundButtons = new Dictionary<string, SoundButton>();
+		    NewStopButton();
 		    List<string>? mp3Files = await _soundboardClient.UpdateSoundListAsync();
 		    if (mp3Files is { Count: > 0 })
 		    {
@@ -890,6 +908,57 @@ public partial class MainPage : ContentPage
     }
 #endif
 
+	private void NewStopButton(string? binding = null)
+	{
+		Grid container = new()
+		{
+			ColumnDefinitions =
+			{
+				new ColumnDefinition(GridLength.Auto)
+			},
+			RowDefinitions =
+			{
+				new RowDefinition(GridLength.Auto),
+				new RowDefinition(GridLength.Auto)
+			},
+			Margin = new Thickness(3),
+			Padding = new Thickness(0)
+		};
+		SoundButton stopButton = CreateStopButton(binding);
+		AnimationExtensions.SetupPointerEffects(stopButton.Play, Color.FromArgb("#f70202"), Color.FromArgb("#b00404"),
+			Color.FromArgb("#6b0101"));
+		
+		TapGestureRecognizer stopGesture = new();
+#if WINDOWS
+		stopGesture.Tapped += (sender, args) => StopPlayback();
+#else
+      if (ClientToggle)
+      {
+        stopGesture.Tapped += async (sender, args) => await _soundboardClient.SendCommandAsync("STOP");
+      }
+      else
+      {
+	      stopGesture.Tapped += (sender, args) => StopPlayback();
+      }
+#endif
+		stopButton.Play.GestureRecognizers.Add(stopGesture);
+		Grid.SetColumn(stopButton.Play, 0);
+		Grid.SetRow(stopButton.Play, 0);
+		container.Children.Add(stopButton.Play);
+		
+#if WINDOWS
+		AnimationExtensions.SetupPointerEffects(stopButton.Bind, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"), Color.FromArgb("#786af7"));
+		TapGestureRecognizer bindTapGesture = new();
+		bindTapGesture.Tapped += (sender, args) => StartKeyBinding(sender, "stop");
+		stopButton.Bind.GestureRecognizers.Add(bindTapGesture);
+		Grid.SetColumn(stopButton.Bind, 0);
+		Grid.SetRow(stopButton.Bind, 1);
+		container.Children.Add(stopButton.Bind);
+#endif
+		SoundButtonPanel.Add(container);
+		_soundButtons.Add("stop", stopButton);
+	}
+	
     private void CreateSoundButton(string filePath, string? binding = null)
     {
         Grid container = new()
@@ -1011,6 +1080,56 @@ public partial class MainPage : ContentPage
         SoundButtonPanel.Add(container);
     }
 
+    private SoundButton CreateStopButton(string? binding = null)
+    {
+	    return new SoundButton
+	    {
+		    Play = new Border
+		    {
+			    StrokeShape = new RoundRectangle()
+			    {
+#if WINDOWS
+				    CornerRadius = new CornerRadius(10, 10, 0, 0)
+#else
+						CornerRadius = new CornerRadius(10, 10, 10, 10)
+#endif
+			    },
+			    StrokeThickness = 1,
+			    Content = new Label
+			    {
+				    ClassId = "PlayButton",
+				    Text = "Stop",
+#if WINDOWS
+				    Padding = new Thickness(10, 8, 10, 10),
+#else
+		        Padding = new Thickness(10, 28, 10, 30),
+#endif
+				    Margin = new Thickness(0),
+				    HorizontalTextAlignment = TextAlignment.Center
+			    }
+		    },
+		    #if WINDOWS
+		    Bind = new Border
+		    {
+			    StrokeShape = new RoundRectangle
+			    {
+				    CornerRadius = new CornerRadius(0, 0, 10, 10)
+			    },
+			    StrokeThickness = 1,
+			    Content = new Label
+			    {
+				    ClassId = "BindButton",
+				    Text = binding ?? "Bind Key",
+				    Padding = new Thickness(10, 8, 10, 10),
+				    Margin = new Thickness(0),
+				    HorizontalTextAlignment = TextAlignment.Center
+			    }
+		    },
+		    #endif
+		    Binding = binding
+	    };
+    }
+
     private SoundButton NewButton(string filePath, string? binding = null)
     {
 	    return new SoundButton
@@ -1030,7 +1149,7 @@ public partial class MainPage : ContentPage
 #if WINDOWS
 				        Padding = new Thickness(10, 8, 10, 10),
 #else
-		        Padding = new Thickness(10, 28, 10, 30),
+								Padding = new Thickness(10, 28, 10, 30),
 #endif
 				        Margin = new Thickness(0), // Remove internal margin
 				        HorizontalTextAlignment = TextAlignment.Center
@@ -1297,14 +1416,28 @@ public partial class MainPage : ContentPage
     #if WINDOWS
     private void HandleKeyPress(VirtualKey key)
     {
-        foreach (KeyValuePair<string, SoundButton> sound in _soundButtons.Where(sound =>
-                     sound.Value.Binding == key.ToString()))
+        foreach (KeyValuePair<string, SoundButton> sound in _soundButtons.Where(sound => sound.Value.Binding == key.ToString()))
         {
-            PlaySound(sound.Key);
-            break;
+	        if (sound.Key == "stop")
+	        {
+		        StopPlayback();
+	        }
+	        else
+	        {
+		        PlaySound(sound.Key);
+	        }
+	        break;
         }
     }
     #endif
+
+	private void StopPlayback()
+	{
+		foreach (var sound in _playingSounds.ToList())
+		{
+			sound.Stop();
+		}
+	}
 
     private async void PlaySound(string filePath)
     {
@@ -1321,11 +1454,15 @@ public partial class MainPage : ContentPage
                 WaveOutEvent outputDevice = new() { DeviceNumber = _selectedOutputDeviceIndex };
                 await using AudioFileReader audioFileReader = new(filePath);
                 outputDevice.Init(audioFileReader);
+                _playingSounds.Add(outputDevice);
                 outputDevice.Play();
+
                 while (outputDevice.PlaybackState == PlaybackState.Playing)
                 {
-                    await Task.Delay(100); // Simple way to wait for playback to finish
+	                await Task.Delay(100);
                 }
+                
+                _playingSounds.Remove(outputDevice);
 
                 outputDevice.Stop();
                 outputDevice.Dispose();
@@ -1343,6 +1480,14 @@ public partial class MainPage : ContentPage
         try
         {
             var player = _audioManager.CreatePlayer(filePath);
+            _playingSounds.Add(player);
+
+            player.PlaybackEnded += (s, e) =>
+            {
+	            _playingSounds.Remove(player);
+	            player.Dispose();
+            };
+            
             player.Play();
         }
         catch (Exception ex)
@@ -1476,7 +1621,7 @@ public partial class MainPage : ContentPage
         return -1; // Device not found
     }
 
-    private void ShowTrayIcon(object sender, EventArgs e)
+    private void ShowTrayIcon(object? sender, EventArgs? e)
     {
         if (!PageContainer.Contains(_trayPopup))
         {

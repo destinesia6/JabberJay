@@ -1,22 +1,14 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
-using System.Collections.Generic;
 
-// This service is intended to be run in your Windows MAUI app.
-// It listens for commands from a connected client (your Android app)
-// and executes a corresponding action, such as playing a sound.
 public class SoundboardServer
 {
     private TcpListener? _listener;
-    private UdpClient? _udpClient;
     private CancellationTokenSource _cancellationTokenSource;
     public Action<string> PlaySoundAction;
+    public Action StopSoundAction;
     private readonly Func<List<string>> _getSoundFilesAction;
-    
 
     public SoundboardServer(Func<List<string>> getSoundFilesAction)
     {
@@ -87,6 +79,10 @@ public class SoundboardServer
                     var fileListBytes = Encoding.UTF8.GetBytes(fileListString);
                     await stream.WriteAsync(fileListBytes);
                     Console.WriteLine("Sent sound file list to client.");
+                }
+                else if (receivedCommand == "STOP")
+                {
+	                  StopSoundAction?.Invoke();
                 }
                 else
                 {

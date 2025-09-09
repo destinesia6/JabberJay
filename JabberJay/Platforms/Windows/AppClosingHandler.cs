@@ -1,10 +1,6 @@
-using System.Runtime.CompilerServices;
-using H.NotifyIcon;
-using H.NotifyIcon.Core;
 using Microsoft.Maui.LifecycleEvents;
 using Microsoft.UI.Windowing;
 using Microsoft.UI;
-using SoundboardMAUI;
 using WinRT.Interop;
 
 namespace JabberJay;
@@ -53,14 +49,6 @@ public static class AppClosingHandler
       }
 
       PageHide.Invoke(null, EventArgs.Empty);
-
-      /*await Task.Run(() => Maybe this isnt needed
-      {
-        while (_isClosingPrevented)
-        {
-          Thread.Sleep(100);
-        }
-      });*/
     }
   }
 }
