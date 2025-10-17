@@ -5,11 +5,11 @@
     <description>Most recent changes with links to updates</description>
     <language>en</language>
     <item>
-      <title>Application 1.1.0</title>
-      <pubDate>Fri, 05 Sep 2025 16:05:58 +00:00</pubDate>
-      <sparkle:version>1.1.0</sparkle:version>
-      <sparkle:shortVersionString>1.1.0</sparkle:shortVersionString>
-      <enclosure url="https://github.com/destinesia6/JabberJay/releases/download/1.1.0/JabberJay.7z" sparkle:version="1.1.0" sparkle:shortVersionString="1.1.0" length="387336389" sparkle:os="windows" type="application/x-7z-compressed" sparkle:criticalUpdate="false" sparkle:signature="ngU3V0sxowXWMXao8pTA4+SWGeq2DU8ieHLUW+EeC2gbBnahmxOalBIUFPOlY99/+w8qGWaAhS+P5CyJp4ZwDQ==" />
+      <title>Application 1.1.1</title>
+      <pubDate>Tue, 09 Sep 2025 15:39:25 +00:00</pubDate>
+      <sparkle:version>1.1.1</sparkle:version>
+      <sparkle:shortVersionString>1.1.1</sparkle:shortVersionString>
+      <enclosure url="https://github.com/destinesia6/JabberJay/releases/download/1.1.1/JabberJay.7z" sparkle:version="1.1.1" sparkle:shortVersionString="1.1.1" length="387386536" sparkle:os="windows" type="application/x-7z-compressed" sparkle:criticalUpdate="false" sparkle:signature="Ov7p18OQCeaf5QUC4+NyATwhAinAcqMlrRx1hehTWlmCvHeHQtA20jgFYMp0cAtuIqW95+cl1fx5Bh+su0PIBA==" />
     </item>
   </channel>
 </rss>
