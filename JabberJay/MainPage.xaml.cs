@@ -644,30 +644,14 @@ public partial class MainPage : ContentPage
             if (res.Success)
             {
                 MainThread.BeginInvokeOnMainThread(() => DownloadStatusLabel.Text = "Locating File...");
-                string[] outputLines = res.Data.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
-                string? downloadedFilePath = null;
-                const string destinationPrefix = "[ExtractAudio] Destination: ";
-                string? potentialPathLine =
-                    outputLines.LastOrDefault(line => line.StartsWith(destinationPrefix) || line.EndsWith(".mp3"));
-                if (potentialPathLine != null)
-                {
-                    if (potentialPathLine.Contains(destinationPrefix))
-                    {
-                        downloadedFilePath =
-                            potentialPathLine[
-                                (potentialPathLine.IndexOf(destinationPrefix, StringComparison.Ordinal) +
-                                 destinationPrefix.Length)..].Trim();
-                    }
-                    else if (File.Exists(Path.Combine(_soundsFolderName, potentialPathLine)))
-                    {
-                        downloadedFilePath = Path.Combine(_soundsFolderName, potentialPathLine);
-                    }
-                }
+                string expectedFilename = $"{newSoundName}.mp3";
+                string downloadedFilePath = Path.Combine(_soundsFolderName, expectedFilename);
 
+                // Check if the file exists using the expected path
                 if (string.IsNullOrEmpty(downloadedFilePath) || !File.Exists(downloadedFilePath))
                 {
-                    await DisplayAlert("Error", "Could not find downloaded file.", "OK");
-                    return;
+	                await DisplayAlert("Error", "Could not find downloaded file at expected path.", "OK");
+	                return;
                 }
 
                 if (File.Exists(downloadedFilePath))
