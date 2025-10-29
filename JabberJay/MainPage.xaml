@@ -8,18 +8,20 @@
 
     <Grid x:Name="PageContainer" RowDefinitions="Auto, *, Auto">
        
-        <HorizontalStackLayout x:Name="Header" Grid.Row="0" HeightRequest="70">
-            <Image Source="jabberjaylogo.png" WidthRequest="50" HeightRequest="60" Margin="10, 10, 10, 0">
+        <Grid x:Name="Header" Grid.Row="0" HeightRequest="70" ColumnDefinitions="Auto, *, Auto"> 
+            <Image Source="jabberjaylogo.png" WidthRequest="50" HeightRequest="60" Margin="10, 10, 10, 0" Grid.Column="0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Tapped="ShowSettings" />
                 </Image.GestureRecognizers>
             </Image>
             
-            <VerticalStackLayout x:Name="ProgressLayout" IsVisible="False" Margin="10,20,10,10" HorizontalOptions="End">
+            <VerticalStackLayout x:Name="ProgressLayout" IsVisible="False" Margin="10,20,10,10" HorizontalOptions="Start" VerticalOptions="Start" Grid.Column="1">
                 <Label x:Name="DownloadStatusLabel" Text="Starting download..." HorizontalOptions="Center" />
                 <ProgressBar x:Name="DownloadProgressBar" Progress="0" />
             </VerticalStackLayout>
-        </HorizontalStackLayout>
+            
+            <FlexLayout x:Name="StopContainer" AlignItems="Center" Padding="0 ,0,10 ,0" Margin="0 , 0 , 10, 0" Grid.Column="2"></FlexLayout>
+        </Grid>
 
         <ScrollView Grid.Row="1">
             <FlexLayout x:Name="SoundButtonPanel"

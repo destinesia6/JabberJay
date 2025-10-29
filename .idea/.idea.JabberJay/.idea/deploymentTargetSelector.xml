@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="SoundboardMAUI">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-09-05T10:23:24.296634900Z">
+        <DropdownSelection timestamp="2025-10-29T14:46:23.584120200Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=10AE59243D000UA" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\CharlesShaw\.android\avd\Medium_Phone.avd" />
             </handle>
           </Target>
         </DropdownSelection>

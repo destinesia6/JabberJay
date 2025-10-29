@@ -36,7 +36,6 @@ namespace JabberJay;
 
 public partial class MainPage : ContentPage
 {
-		public static App? CurrentApp => Application.Current as App;
 		private Window? _mainWindow;
     private readonly string _soundsFolderName = "Sounds";
     private readonly string _bindingsFile = "Bindings.bson";
@@ -336,14 +335,14 @@ public partial class MainPage : ContentPage
             }
             else
             {
-                await DisplayAlert("Error", "Could not find import tools. Import feature disabled", "OK");
+                MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", "Could not find import tools. Import feature disabled", "OK"));
                 ImportSound.IsEnabled = false;
             }
         }
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
-            await DisplayAlert("Error", "Error finding import tools. Import feature disabled", "OK");
+            MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", "Error finding import tools. Import feature disabled", "OK"));
             ImportSound.IsEnabled = false;
         }
 
@@ -384,14 +383,17 @@ public partial class MainPage : ContentPage
         SelectedOutputDevice = OutputDevices.First();
     }
     #else
-    private async void AppUpdateDetected(object? sender, UpdateDetectedEventArgs args)
+    private void AppUpdateDetected(object? sender, UpdateDetectedEventArgs args)
     {
         try
         {
-	        if (await DisplayAlert("Update Available", $"An update to version {args.LatestVersion.Version} is available on the JabberJay github", "Update", "Later"))
+	        MainThread.BeginInvokeOnMainThread(async void () =>
 	        {
-		        await Launcher.Default.OpenAsync($"https://github.com/destinesia6/JabberJay/releases/tag/{args.LatestVersion.Version}");
-	        }
+		        if (await DisplayAlert("Update Available", $"An update to version {args.LatestVersion.Version} is available on the JabberJay github", "Update", "Later"))
+		        {
+			        await Launcher.Default.OpenAsync($"https://github.com/destinesia6/JabberJay/releases/tag/{args.LatestVersion.Version}");
+		        }
+	        });
         }
         catch (Exception ex)
         {
@@ -507,7 +509,7 @@ public partial class MainPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"Error picking or moving file: {ex.Message}", "OK");
+            MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", $"Error picking or moving file: {ex.Message}", "OK"));
         }
     }
 
@@ -520,11 +522,11 @@ public partial class MainPage : ContentPage
 	    {
 		    if (String.IsNullOrWhiteSpace(url))
 		    {
-			    await DisplayAlert("Error", "URL cannot be empty.", "OK");
+			    MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", "URL cannot be empty.", "OK"));
 		    }
 		    else
 		    {
-			    await DisplayAlert("Error", "URL is not valid.", "OK");
+			    MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", "URL is not valid.", "OK"));
 		    }
 
 		    return;
@@ -534,7 +536,7 @@ public partial class MainPage : ContentPage
 	    if (String.IsNullOrEmpty(_ytDlpPath) || !File.Exists(_ytDlpPath))
 	    {
 #if WINDOWS
-            await DisplayAlert("Error", "yt-dlp downloader not found or configured. Using remote API, this will not work for youtube links.", "OK");
+            MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", "yt-dlp downloader not found or configured. Using remote API, this will not work for youtube links.", "OK"));
 #endif
 
 		    ProgressLayout.IsVisible = true;
@@ -549,7 +551,7 @@ public partial class MainPage : ContentPage
 			    
 			    if (apiResponse == null || String.IsNullOrEmpty(apiResponse.DownloadUrl))
 			    {
-				    await DisplayAlert("Error", apiResponse?.Message ?? "Failed to get download URL from API.", "OK");
+				    MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", apiResponse?.Message ?? "Failed to get download URL from API.", "OK"));
 				    return;
 			    }
 			    
@@ -565,19 +567,19 @@ public partial class MainPage : ContentPage
 			    
 			    if (String.IsNullOrEmpty(downloadedFilePath) || !File.Exists(downloadedFilePath))
 			    {
-				    await DisplayAlert("Error", "Could not find downloaded file after API request.", "OK");
+				    MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", "Could not find downloaded file after API request.", "OK"));
 				    return;
 			    }
 
 			    MainThread.BeginInvokeOnMainThread(() => DownloadStatusLabel.Text = "Adding button...");
 			    CreateSoundButton(downloadedFilePath); // Your existing method
-			    await DisplayAlert("Download Complete", $"'{Path.GetFileNameWithoutExtension(downloadedFilePath)}' has been downloaded!", "OK");
+			    MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Download Complete", $"'{Path.GetFileNameWithoutExtension(downloadedFilePath)}' has been downloaded!", "OK"));
 
 		    }
 				catch (Exception exception)
 		    {
 			    Console.WriteLine(exception);
-			    await DisplayAlert("Error", $"An unexpected error occurred: {exception.Message}", "OK");
+			    MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", $"An unexpected error occurred: {exception.Message}", "OK"));
 		    }
 		    finally 
 		    {
@@ -610,7 +612,7 @@ public partial class MainPage : ContentPage
                 await ytdl.RunVideoDataFetch(url, ct: new CancellationTokenSource(TimeSpan.FromMinutes(1)).Token);
             if (!metaDataRes.Success || metaDataRes.Data == null || string.IsNullOrEmpty(metaDataRes.Data.Title))
             {
-                await DisplayAlert("Error", "Failed to fetch metadata", "Ok");
+                MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", "Failed to fetch metadata", "OK"));
                 return;
             }
 
@@ -620,7 +622,7 @@ public partial class MainPage : ContentPage
 
             if (File.Exists(Path.Combine(_soundsFolderName, $"{newSoundName}.mp3")))
             {
-                await DisplayAlert("Already Exists", $"The sound {newSoundName} already exists", "Ok");
+                MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Already Exists", $"The sound {newSoundName} already exists", "OK"));
                 return;
             }
 
@@ -650,7 +652,7 @@ public partial class MainPage : ContentPage
                 // Check if the file exists using the expected path
                 if (string.IsNullOrEmpty(downloadedFilePath) || !File.Exists(downloadedFilePath))
                 {
-	                await DisplayAlert("Error", "Could not find downloaded file at expected path.", "OK");
+	                MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", "Could not find downloaded file at expected path.", "OK"));
 	                return;
                 }
 
@@ -852,7 +854,7 @@ public partial class MainPage : ContentPage
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", $"Error loading sound buttons from folder: {ex.Message}", "OK");
+                MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", $"Error loading sound buttons from folder: {ex.Message}", "OK"));
             }
         }
         else
@@ -894,18 +896,24 @@ public partial class MainPage : ContentPage
 
 	private void NewStopButton(string? binding = null)
 	{
+		StopContainer.Clear();
 		Grid container = new()
 		{
 			ColumnDefinitions =
 			{
+				new ColumnDefinition(GridLength.Auto),
 				new ColumnDefinition(GridLength.Auto)
 			},
 			RowDefinitions =
 			{
-				new RowDefinition(GridLength.Auto),
 				new RowDefinition(GridLength.Auto)
 			},
-			Margin = new Thickness(3),
+			
+			#if WINDOWS
+			Margin = new Thickness(0),
+			#else
+			Margin = new Thickness(0, 5, 0, 0),
+			#endif
 			Padding = new Thickness(0)
 		};
 		SoundButton stopButton = CreateStopButton(binding);
@@ -935,11 +943,11 @@ public partial class MainPage : ContentPage
 		TapGestureRecognizer bindTapGesture = new();
 		bindTapGesture.Tapped += (sender, args) => StartKeyBinding(sender, "stop");
 		stopButton.Bind.GestureRecognizers.Add(bindTapGesture);
-		Grid.SetColumn(stopButton.Bind, 0);
-		Grid.SetRow(stopButton.Bind, 1);
+		Grid.SetColumn(stopButton.Bind, 1);
+		Grid.SetRow(stopButton.Bind, 0);
 		container.Children.Add(stopButton.Bind);
 #endif
-		SoundButtonPanel.Add(container);
+		StopContainer.Add(container);
 		_soundButtons.Add("stop", stopButton);
 	}
 	
@@ -1073,7 +1081,7 @@ public partial class MainPage : ContentPage
 			    StrokeShape = new RoundRectangle()
 			    {
 #if WINDOWS
-				    CornerRadius = new CornerRadius(10, 10, 0, 0)
+				    CornerRadius = new CornerRadius(10, 0, 10, 0)
 #else
 						CornerRadius = new CornerRadius(10, 10, 10, 10)
 #endif
@@ -1086,8 +1094,8 @@ public partial class MainPage : ContentPage
 #if WINDOWS
 				    Padding = new Thickness(10, 8, 10, 10),
 #else
-		        Padding = new Thickness(10, 28, 10, 30),
-#endif
+		        Padding = new Thickness(22, 22, 22, 25),
+#endif 
 				    Margin = new Thickness(0),
 				    HorizontalTextAlignment = TextAlignment.Center
 			    }
@@ -1097,7 +1105,7 @@ public partial class MainPage : ContentPage
 		    {
 			    StrokeShape = new RoundRectangle
 			    {
-				    CornerRadius = new CornerRadius(0, 0, 10, 10)
+				    CornerRadius = new CornerRadius(0, 10, 0, 10)
 			    },
 			    StrokeThickness = 1,
 			    Content = new Label
@@ -1329,30 +1337,20 @@ public partial class MainPage : ContentPage
             // Get all network interfaces on the machine.
             foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
             {
-                // We are only interested in active, operational interfaces that are
+	            // We are only interested in active, operational interfaces that are
                 // either Ethernet or Wireless (Wi-Fi).
-                if (networkInterface.OperationalStatus == OperationalStatus.Up &&
-                    (networkInterface.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
-                     networkInterface.NetworkInterfaceType == NetworkInterfaceType.Wireless80211))
-                {
-                    // Get the IP properties for the current interface.
-                    IPInterfaceProperties ipProperties = networkInterface.GetIPProperties();
+                if (networkInterface is not { OperationalStatus: OperationalStatus.Up, NetworkInterfaceType: NetworkInterfaceType.Ethernet or NetworkInterfaceType.Wireless80211 }) continue;
+                // Get the IP properties for the current interface.
+                IPInterfaceProperties ipProperties = networkInterface.GetIPProperties();
 
-                    // Iterate through all the unicast IP addresses assigned to this interface.
-                    foreach (UnicastIPAddressInformation ip in ipProperties.UnicastAddresses)
-                    {
-                        // Check if the address is an IPv4 address.
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                        {
-                            // Ensure the address is not a loopback address (e.g., 127.0.0.1)
-                            // and is not a link-local address. We want a public or private IP.
-                            if (!IPAddress.IsLoopback(ip.Address))
-                            {
-                                // We've found a valid IPv4 address. Return it.
-                                return ip.Address.ToString();
-                            }
-                        }
-                    }
+                // Iterate through all the unicast IP addresses assigned to this interface.
+                foreach (UnicastIPAddressInformation ip in ipProperties.UnicastAddresses)
+                {
+	                // Check if the address is an IPv4 address.
+	                if (ip.Address.AddressFamily != AddressFamily.InterNetwork) continue;
+	                // Ensure the address is not a loopback address (e.g., 127.0.0.1)
+	                // and is not a link-local address. We want a public or private IP.
+	                if (!IPAddress.IsLoopback(ip.Address)) return ip.Address.ToString();
                 }
             }
         }
@@ -1392,7 +1390,7 @@ public partial class MainPage : ContentPage
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", $"Error removing sound: {ex.Message}", "OK");
+                MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error", $"Error removing sound: {ex.Message}", "OK"));
             }
         }
     }
@@ -1426,41 +1424,42 @@ public partial class MainPage : ContentPage
     private async void PlaySound(string filePath)
     {
         #if WINDOWS
-        try
-        {
-            if (_selectedOutputDeviceIndex == -1)
-            {
-                SetDefaultOutputDevice();
-            }
+	    try
+	    {
+		    if (_selectedOutputDeviceIndex == -1)
+		    {
+			    SetDefaultOutputDevice();
+		    }
 
-            if (_selectedOutputDeviceIndex != -1)
-            {
-                WaveOutEvent outputDevice = new() { DeviceNumber = _selectedOutputDeviceIndex };
-                await using AudioFileReader audioFileReader = new(filePath);
-                outputDevice.Init(audioFileReader);
-                _playingSounds.Add(outputDevice);
-                outputDevice.Play();
+		    if (_selectedOutputDeviceIndex != -1)
+		    {
+			    WaveOutEvent outputDevice = new() { DeviceNumber = _selectedOutputDeviceIndex };
+			    await using AudioFileReader audioFileReader = new(filePath);
+			    outputDevice.Init(audioFileReader);
+			    _playingSounds.Add(outputDevice);
+			    outputDevice.Play();
 
-                while (outputDevice.PlaybackState == PlaybackState.Playing)
-                {
-	                await Task.Delay(100);
-                }
-                
-                _playingSounds.Remove(outputDevice);
+			    while (outputDevice.PlaybackState == PlaybackState.Playing)
+			    {
+				    await Task.Delay(100);
+			    }
 
-                outputDevice.Stop();
-                outputDevice.Dispose();
-            }
-            else
-            {
-                await DisplayAlert("Warning", "Voicemeeter Input not found.", "OK");
-            }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Error (Windows/NAudio)", ex.Message, "OK");
-        }
-        #else
+			    _playingSounds.Remove(outputDevice);
+
+			    outputDevice.Stop();
+			    outputDevice.Dispose();
+		    }
+		    else
+		    {
+			    MainThread.BeginInvokeOnMainThread(async void () =>
+				    await DisplayAlert("Warning", "Voicemeeter Input not found.", "OK"));
+		    }
+	    }
+	    catch (Exception ex)
+	    {
+		    MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error (Windows/NAudio)", ex.Message, "OK"));
+	    }
+#else
         try
         {
             var player = _audioManager.CreatePlayer(filePath);
@@ -1476,11 +1475,11 @@ public partial class MainPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error (Audio Manager)", ex.Message, "OK");
+            MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error (Audio Manager)", ex.Message, "OK"));
         }
-        #endif
+#endif
 
-        // Maybe add code to make it play out of speakers on non windows devices
+	    // Maybe add code to make it play out of speakers on non windows devices
     }
 
     #if WINDOWS

@@ -87,7 +87,7 @@ public class SoundboardServer
                 else
                 {
                     // Otherwise, assume the command is a file path to play.
-                    PlaySoundAction?.Invoke(receivedCommand);
+                    if (File.Exists(receivedCommand)) PlaySoundAction?.Invoke(receivedCommand);
                 }
             }
         }
