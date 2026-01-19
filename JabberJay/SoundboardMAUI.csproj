@@ -28,7 +28,7 @@
         <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
         
         <!-- Versions -->
-        <ApplicationDisplayVersion>1.1.3</ApplicationDisplayVersion>
+        <ApplicationDisplayVersion>1.2.0</ApplicationDisplayVersion>
         
         <ApplicationVersion>1</ApplicationVersion>
         <Version>$(ApplicationDisplayVersion)</Version>
@@ -97,7 +97,6 @@
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
         <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
-        <PackageReference Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Microsoft.WindowsAppSDK" Version="1.7.250513003" />
         <PackageReference Include="MongoDB.Bson" Version="3.4.0" />
         <PackageReference Include="NetSparkleUpdater.SparkleUpdater" Version="3.0.3-preview20250505001" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -133,5 +132,17 @@
       <None Remove="Resources\Splash\splash.svg" />
       <MauiSplashScreen Include="Resources\Splash\splash.svg" />
     </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-windows10.0.19041.0'">
+      <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260101001" />
+    </ItemGroup>
+
+    <Target Name="FixHybridWebViewJS" AfterTargets="AddPriPayloadFilesToCopyToOutputDirectoryItems">
+        <ItemGroup>
+            <_ExtraFilesToRemove Include="@(_AllChildProjectItemsWithTargetPath)"
+                                 Condition="'%(Filename)%(Extension)' == 'HybridWebView.js' Or '%(Filename)%(Extension)' == 'WebView2Loader.dll'" />
+            <_AllChildProjectItemsWithTargetPath Remove="@(_ExtraFilesToRemove)" />
+        </ItemGroup>
+    </Target>
 
 </Project>

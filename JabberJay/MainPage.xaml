@@ -36,7 +36,7 @@
         <VerticalStackLayout Grid.Row="2">
             <HorizontalStackLayout>
                 <Border x:Name="AddSound"
-                        StrokeShape="{RoundRectangle CornerRadius=10}"
+                        StrokeShape="{RoundRectangle CornerRadius=5}"
                         Margin="10, 10, 5, 0">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="AddSoundButton_Clicked" />
@@ -49,7 +49,7 @@
                 </Border>
 
                 <Border x:Name="ImportSound"
-                        StrokeShape="{RoundRectangle CornerRadius=10}"
+                        StrokeShape="{RoundRectangle CornerRadius=5}"
                         Margin="5, 10, 10, 0">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ImportSoundButton_Clicked" />

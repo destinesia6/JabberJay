@@ -968,7 +968,7 @@ public partial class MainPage : ContentPage
                 new RowDefinition(GridLength.Auto),
                 new RowDefinition(GridLength.Auto)
             },
-            Margin = new Thickness(3), // Keep a small margin around the entire merged button
+            Margin = new Thickness(2), // Keep a small margin around the entire merged button
             Padding = new Thickness(0)
         };
         
@@ -980,7 +980,7 @@ public partial class MainPage : ContentPage
 	    {
 		    StrokeShape = new RoundRectangle
 		    {
-			    CornerRadius = new CornerRadius(10, 10, 10, 10)
+			    CornerRadius = new CornerRadius(5, 5, 5, 5)
 		    },
 		    StrokeThickness = 1, // Optional border
 		    Content = new Label
@@ -1081,9 +1081,9 @@ public partial class MainPage : ContentPage
 			    StrokeShape = new RoundRectangle()
 			    {
 #if WINDOWS
-				    CornerRadius = new CornerRadius(10, 0, 10, 0)
+				    CornerRadius = new CornerRadius(5, 0, 5, 0)
 #else
-						CornerRadius = new CornerRadius(10, 10, 10, 10)
+						CornerRadius = new CornerRadius(5, 5, 5, 5)
 #endif
 			    },
 			    StrokeThickness = 1,
@@ -1105,7 +1105,7 @@ public partial class MainPage : ContentPage
 		    {
 			    StrokeShape = new RoundRectangle
 			    {
-				    CornerRadius = new CornerRadius(0, 10, 0, 10)
+				    CornerRadius = new CornerRadius(0, 5, 0, 5)
 			    },
 			    StrokeThickness = 1,
 			    Content = new Label
@@ -1131,17 +1131,24 @@ public partial class MainPage : ContentPage
 		        {
 			        StrokeShape = new RoundRectangle
 			        {
-				        CornerRadius = new CornerRadius(10, 10, 0, 0)
+				        CornerRadius = new CornerRadius(5, 5, 0, 0)
 			        },
 			        StrokeThickness = 1, // Optional border
 			        Content = new Label
 			        {
 				        ClassId = "PlayButton",
 				        Text = "▶  " + Path.GetFileNameWithoutExtension(filePath),
+
 #if WINDOWS
 				        Padding = new Thickness(10, 8, 10, 10),
+				        WidthRequest = 250,
+				        LineBreakMode = LineBreakMode.HeadTruncation,
 #else
-								Padding = new Thickness(10, 28, 10, 30),
+								Padding = new Thickness(5, 28, 5, 30),
+								WidthRequest = 150,
+								VerticalTextAlignment = TextAlignment.Center,
+								MaxLines = 2,
+								HeightRequest = 100,
 #endif
 				        Margin = new Thickness(0), // Remove internal margin
 				        HorizontalTextAlignment = TextAlignment.Center
@@ -1152,7 +1159,7 @@ public partial class MainPage : ContentPage
             {
                 StrokeShape = new RoundRectangle
                 {
-                    CornerRadius = new CornerRadius(0, 0, 10, 0)
+                    CornerRadius = new CornerRadius(0, 0, 5, 0)
                 },
                 StrokeThickness = 1,
                 Content = new Label
@@ -1172,7 +1179,7 @@ public partial class MainPage : ContentPage
 #else
 			        StrokeShape = new RoundRectangle()
 			        {
-				        CornerRadius = new CornerRadius(0, 0, 10, 0)
+				        CornerRadius = new CornerRadius(0, 0, 5, 0)
 			        },
 #endif
 			        StrokeThickness = 1,
@@ -1189,7 +1196,7 @@ public partial class MainPage : ContentPage
 		        {
 			        StrokeShape = new RoundRectangle
 			        {
-				        CornerRadius = new CornerRadius(0, 0, 0, 10)
+				        CornerRadius = new CornerRadius(0, 0, 0, 5)
 			        },
 			        StrokeThickness = 1, // Optional border
 			        Stroke = Colors.Gray, // Optional border color
