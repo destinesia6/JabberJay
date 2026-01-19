@@ -27,7 +27,10 @@ jobs:
       id: get_commit_message
       run: |
         commit_message=$(git log --no-merges -1 --format=%B)
-        echo "commit_message=$(echo "$commit_message" | sed 's/"/\\"/g')" >> $GITHUB_OUTPUT
+    
+        echo "commit_message<<EOF" >> $GITHUB_OUTPUT
+        echo "$commit_message" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Setup .NET 8 SDK
