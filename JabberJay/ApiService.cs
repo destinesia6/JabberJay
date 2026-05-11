@@ -7,9 +7,13 @@ namespace JabberJay;
 
 public class ApiService
 {
-	private readonly HttpClient _httpClient = new() { BaseAddress = new Uri(_cloudRunBaseUrl) };
-	// IMPORTANT: Replace with your actual Cloud Run service URL
-	private const string _cloudRunBaseUrl = "https://yt-dlp-api-service-339817114185.us-east1.run.app";
+	private readonly HttpClient _httpClient = new() { BaseAddress = new Uri(_cloudRunBaseUrl)};
+	private const string _cloudRunBaseUrl = "https://jabberjay.aurorahub.uk";
+
+	public ApiService()
+	{
+		_httpClient.DefaultRequestHeaders.Add("X-API-Key", Config.ApiKey);
+	}
 
 	/// <summary>
 	/// Requests a signed download URL from the Cloud Run API.
@@ -70,7 +74,11 @@ public class ApiService
 			}
 
 			string originalFileName = WebUtility.UrlDecode(Path.GetFileName(fileUrl));
-			originalFileName = originalFileName[..originalFileName.LastIndexOf('?')];
+			int queryIndex = originalFileName.LastIndexOf('?');
+			if (queryIndex > 0)
+			{
+				originalFileName = originalFileName[..queryIndex];
+			}
 			string nameWithoutExtension = Path.GetFileNameWithoutExtension(originalFileName);
 			int fileNameLength = nameWithoutExtension.LastIndexOf('_');
 			const int fileNameMaxLength = 35;
