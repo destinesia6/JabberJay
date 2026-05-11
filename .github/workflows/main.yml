@@ -43,6 +43,16 @@ jobs:
       with:
         dotnet-version: '9.0.x'
 
+    - name: Inject Secret API Key into Config.cs
+      shell: pwsh
+      env:
+        SECRET_KEY: ${{ secrets.JABBERJAY_API_KEY }}
+      run: |
+        $templatePath = "JabberJay/Config.template.cs" 
+        $configPath = "JabberJay/Config.cs"
+        
+        (Get-Content $templatePath) -replace 'YOUR_API_KEY_HERE', $env:SECRET_KEY | Set-Content $configPath    
+
     - name: Restore dependencies
       run: |
         dotnet restore JabberJay/SoundboardMAUI.csproj /p:TargetFrameworks=net9.0-windows /p:NoWarn=NU1605
