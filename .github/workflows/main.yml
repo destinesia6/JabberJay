@@ -76,9 +76,18 @@ jobs:
       run: New-Item -ItemType Directory -Force -Path "./temp_release_staging"
       shell: pwsh
 
+    - name: Hard Clean Workspace
+      shell: pwsh
+      run: |
+        if (Test-Path "JabberJay/obj") { Remove-Item -Path "JabberJay/obj" -Recurse -Force }
+        if (Test-Path "JabberJay/bin") { Remove-Item -Path "JabberJay/bin" -Recurse -Force }
+      
+    - name: Restore Workloads
+      run: dotnet workload restore JabberJay/SoundboardMAUI.csproj 
+
     - name: Publish JabberJay (MAUI, .NET 8)
       run: |
-        dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./JabberJay --self-contained true --runtime win-x64 --framework net9.0-windows10.0.19041.0 /p:TargetPlatformVersion=10.0.26100.0 /p:SupportedOSPlatformVersion=10.0.26100.0 /p:NoWarn=NU1605
+        dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./JabberJay --self-contained true --runtime win-x64 /p:TargetFrameworks=net9.0-windows10.0.19041.0 --framework net9.0-windows10.0.19041.0 /p:TargetPlatformVersion=10.0.26100.0 /p:SupportedOSPlatformVersion=10.0.26100.0 /p:NoWarn=NU1605
         Copy-Item -Path "./JabberJay" -Destination "./temp_release_staging/" -Recurse -Force
       shell: pwsh
 
