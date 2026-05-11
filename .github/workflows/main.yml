@@ -103,10 +103,23 @@ jobs:
         Write-Host "Files staged in ./temp_release_staging/"
 
     - name: Publish Installer (.NET 9)
-      run: |
-        dotnet publish Installer/Installer.csproj -c Release -o ./Installer --self-contained true --runtime win-x64 /p:NoWarn=NU1605
-        Copy-Item -Path "./Installer" -Destination "./temp_release_staging/" -Recurse -Force
       shell: pwsh
+      run: |
+        # 1. Force a restore to make sure all dependencies are mapped
+        dotnet restore Installer/Installer.csproj --runtime win-x64
+
+        # 2. Publish with explicit output
+        dotnet publish Installer/Installer.csproj `
+          -c Release `
+          -o ./Installer_Output `
+          --self-contained true `
+          --runtime win-x64 `
+          -p:Platform=x64 `
+          /p:NoWarn=NU1605
+
+        # 3. Copy from the specific output folder
+        if (!(Test-Path "./temp_release_staging")) { New-Item -ItemType Directory -Path "./temp_release_staging" }
+        Copy-Item -Path "./Installer_Output/*" -Destination "./temp_release_staging/" -Recurse -Force
 
     - name: Publish Uninst (.NET 9)
       run: |
