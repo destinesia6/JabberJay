@@ -76,11 +76,33 @@ jobs:
       run: New-Item -ItemType Directory -Force -Path "./temp_release_staging"
       shell: pwsh
 
-    - name: Publish JabberJay (MAUI, .NET 8)
-      run: |
-        dotnet publish JabberJay/SoundboardMAUI.csproj -c Release --self-contained true --runtime win-x64 /p:TargetFrameworks=net9.0-windows10.0.19041.0 --framework net9.0-windows10.0.19041.0 /p:TargetPlatformVersion=10.0.26100.0 /p:SupportedOSPlatformVersion=10.0.26100.0 /p:NoWarn=NU1605
-        Copy-Item -Path "./SoundboardMAUI/bin/Release/net9.0-windows10.0.19041.0/win10-x64/publish/" -Destination "./temp_release_staging/" -Recurse -Force
+    - name: Publish Windows App
+      run: >
+        dotnet publish JabberJay/SoundboardMAUI.csproj 
+        -c Release 
+        --self-contained true 
+        --runtime win-x64 
+        -f net9.0-windows10.0.19041.0 
+        -p:TargetPlatformVersion=10.0.26100.0 
+        -p:SupportedOSPlatformVersion=10.0.26100.0
+
+    - name: Copy Files to Staging
       shell: pwsh
+      run: |
+        # Use Get-ChildItem to find the actual publish folder 
+        # This avoids "File Not Found" if the project folder name is confusing
+        $publishDir = Get-ChildItem -Path "**/bin/Release/**/win10-x64/publish" -Directory | Select-Object -First 1 -ExpandProperty FullName
+        
+        if ($null -eq $publishDir) {
+            Write-Error "Could not find the publish directory! Check build logs for errors."
+            exit 1
+        }
+
+        Write-Host "Found publish directory at: $publishDir"
+        
+        if (!(Test-Path "./temp_release_staging")) { New-Item -ItemType Directory -Path "./temp_release_staging" }
+        
+        Copy-Item -Path "$publishDir/*" -Destination "./temp_release_staging/" -Recurse -Force
 
     - name: Publish Installer (.NET 9)
       run: |
