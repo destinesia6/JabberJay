@@ -216,6 +216,22 @@ jobs:
           echo "VERSION: $APP_INFORMATIONAL_VERSION"
         shell: bash
 
+      - name: Inject Secret API Key into Config.cs (Ubuntu)
+        shell: bash
+        env:
+          SECRET_KEY: ${{ secrets.JABBERJAY_API_KEY }}
+        run: |
+          TEMPLATE_PATH="JabberJay/Config.template.cs"
+          CONFIG_PATH="JabberJay/Config.cs"
+  
+          # Use sed to replace the class name and the API key
+          # -e 's/old/new/g' performs a global replacement
+          sed -e "s/ConfigTemplate/Config/g" \
+              -e "s/YOUR_API_KEY_HERE/$SECRET_KEY/g" \
+              "$TEMPLATE_PATH" > "$CONFIG_PATH"
+  
+          echo "Config.cs generated successfully."
+
       - name: Setup .NET 8 SDK
         uses: actions/setup-dotnet@v4
         with:
