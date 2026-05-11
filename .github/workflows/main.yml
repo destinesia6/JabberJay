@@ -83,14 +83,24 @@ jobs:
     - name: Copy Files to Staging
       shell: pwsh
       run: |
-        $publishDir = Get-ChildItem -Path "**/bin/Release/**/win10-x64/publish" -Directory | Select-Object -First 1 -ExpandProperty FullName        
+        Write-Host "--- Debug: Listing all directories to find the build output ---"
+        Get-ChildItem -Path . -Recurse -Directory -Filter "publish" | Select-Object FullName
+
+        # Attempt to find the publish directory again with a broader search
+        $publishDir = Get-ChildItem -Path "$pwd" -Recurse -Directory | Where-Object { $_.FullName -like "*bin*Release*publish*" -and $_.FullName -like "*win-x64*" } | Select-Object -First 1 -ExpandProperty FullName
+
         if ($null -eq $publishDir) {
-            Write-Error "Could not find the publish directory! Check build logs for errors."
+            Write-Error "Still could not find the publish directory. Look at the directory list above and find the correct path."
             exit 1
         }
-        Write-Host "Found publish directory at: $publishDir"        
-        if (!(Test-Path "./temp_release_staging")) { New-Item -ItemType Directory -Path "./temp_release_staging" }        
+
+        Write-Host "Success! Found publish directory at: $publishDir"
+        
+        if (!(Test-Path "./temp_release_staging")) { New-Item -ItemType Directory -Path "./temp_release_staging" }
+        
+        # Copy the contents
         Copy-Item -Path "$publishDir/*" -Destination "./temp_release_staging/" -Recurse -Force
+        Write-Host "Files staged in ./temp_release_staging/"
 
     - name: Publish Installer (.NET 9)
       run: |
