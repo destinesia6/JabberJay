@@ -204,7 +204,7 @@ public partial class MainPage : ContentPage
         };
         menu.Add(exitMenuItem);
         FlyoutBase.SetContextFlyout(_trayPopup, menu);
-	  }
+	}
     
     private void StartServer()
     {
