@@ -1,9 +1,8 @@
+#if WINDOWS
 using System;
 using System.Linq;
 using Application = Microsoft.UI.Xaml.Application;
 using Window = Microsoft.Maui.Controls.Window;
-
-#if WINDOWS
 using System.Runtime.InteropServices;
 using Microsoft.UI.Xaml;
 #endif
@@ -24,9 +23,9 @@ public class WindowHelper
     private const int SW_RESTORE = 9;
 #endif
 
-    public static void BrindWindowToFront()
-    {
 #if WINDOWS
+    public static void BringWindowToFront()
+    {
         Window? mauiWindow = Microsoft.Maui.Controls.Application.Current?.Windows.FirstOrDefault();
         if (mauiWindow is null) return;
         
@@ -37,6 +36,6 @@ public class WindowHelper
         
         ShowWindow(hwnd, SW_RESTORE);
         SetForegroundWindow(hwnd);
-#endif
     }
+#endif
 }
