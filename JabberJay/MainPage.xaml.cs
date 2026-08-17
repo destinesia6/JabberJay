@@ -479,7 +479,7 @@ public partial class MainPage : ContentPage
                 PickerTitle = "Select a sound file",
                 FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
                 {
-                    { DevicePlatform.WinUI, [".mp3"] },
+                    { DevicePlatform.WinUI, [".mp3", ".wav"] },
                     { DevicePlatform.Android, ["audio/mpeg"] },
                     { DevicePlatform.iOS, ["public.mp3"] }
                 })
@@ -866,7 +866,7 @@ public partial class MainPage : ContentPage
 
     private List<string> GetFilesList()
     {
-	    return Directory.GetFiles(_soundsFolderName, "*.mp3").ToList();
+	    return Directory.EnumerateFiles(_soundsFolderName, "*.*").Where(file => file.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase) || file.EndsWith(".wav", StringComparison.OrdinalIgnoreCase)).ToList();
     }
 
 #if ANDROID
@@ -1253,7 +1253,8 @@ public partial class MainPage : ContentPage
                 string? newName = await this.ShowPopupAsync(popup) as string;
                 if (!string.IsNullOrEmpty(newName))
                 {
-                    string newPath = Path.Combine(_soundsFolderName, newName + ".mp3");
+	                string fileExtension = filePath.EndsWith(".mp3") ? ".mp3" : ".wav";
+                    string newPath = Path.Combine(_soundsFolderName, newName + fileExtension);
                     Border newPlay = new();
                     #if WINDOWS
                     Border newBind = new();
