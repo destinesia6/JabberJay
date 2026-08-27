@@ -24,7 +24,7 @@ jobs:
             
   build-and-release:
     runs-on: windows-latest
-
+    needs: mirror-code-to-aurorahub
     outputs:
           release_upload_url: ${{ steps.create_release.outputs.upload_url }}
 
