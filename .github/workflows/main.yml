@@ -318,4 +318,4 @@ jobs:
           token: ${{ secrets.FORGEJO_TOKEN }}
           tag_name: "v${{ env.APP_INFORMATIONAL_VERSION }}"
           name: "v${{ env.APP_INFORMATIONAL_VERSION }}"
-          files: JabberJay-Android.apk
+          files: ${{ env.APK_PATH }}
