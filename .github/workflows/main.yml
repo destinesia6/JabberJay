@@ -8,6 +8,19 @@ on:
       - 'docs/**'
 
 jobs: 
+  mirror-code-to-aurorahub:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+        - name: Push Code & Tags to Forgejo
+          run: |
+            git remote add forgejo https://destinesia:${{ secrets.FORGEJO_TOKEN }}@code.aurorahub.uk/destinesia/JabberJay.git
+            # This safely maps GitHub's refs directly to Forgejo, bypassing detached HEAD issues
+            git push forgejo '+refs/remotes/origin/*:refs/heads/*' --force
+            git push forgejo '+refs/tags/*:refs/tags/*' --force
+            
   build-and-release:
     runs-on: windows-latest
 
@@ -210,6 +223,15 @@ jobs:
         committer_email: actions@github.com
         default_author: github_actions
 
+    - name: Publish Windows Release to Forgejo
+      uses: akkuman/gitea-release-action@v1
+      with:
+        server_url: https://code.aurorahub.uk
+        repository: destinesia/JabberJay
+        token: ${{ secrets.FORGEJO_TOKEN }}
+        tag_name: "v${{ env.APP_INFORMATIONAL_VERSION }}"
+        name: "v${{ env.APP_INFORMATIONAL_VERSION }}"
+        files: JabberJay.7z
         
   build-android-release:
     runs-on: ubuntu-latest
@@ -286,3 +308,13 @@ jobs:
           asset_path: ${{ env.APK_PATH }}
           asset_name: JabberJay-Android.apk
           asset_content_type: application/vnd.android.package-archive
+
+      - name: Publish Android Release to Forgejo
+        uses: akkuman/gitea-release-action@v1
+        with:
+          server_url: https://code.aurorahub.uk
+          repository: destinesia/JabberJay
+          token: ${{ secrets.FORGEJO_TOKEN }}
+          tag_name: "v${{ env.APP_INFORMATIONAL_VERSION }}"
+          name: "v${{ env.APP_INFORMATIONAL_VERSION }}"
+          files: JabberJay-Android.apk
