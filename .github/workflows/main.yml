@@ -16,7 +16,8 @@ jobs:
             fetch-depth: 0
         - name: Push Code & Tags to Forgejo
           run: |
-            git remote add forgejo https://destinesia:${{ secrets.FORGEJO_TOKEN }}@code.aurorahub.uk/destinesia/JabberJay.git
+            git config --global credential.helper '!f() { echo "username=destinesia"; echo "password=${{ secrets.FORGEJO_TOKEN }}"; }; f'
+            git remote add forgejo https://code.aurorahub.uk/destinesia/JabberJay.git
             # This safely maps GitHub's refs directly to Forgejo, bypassing detached HEAD issues
             git push forgejo '+refs/remotes/origin/*:refs/heads/*' --force
             git push forgejo '+refs/tags/*:refs/tags/*' --force
