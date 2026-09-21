@@ -1,3 +1,4 @@
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -6,35 +7,32 @@ public class SoundboardServer
 {
     private TcpListener? _listener;
     private CancellationTokenSource _cancellationTokenSource;
-    public Action<string> PlaySoundAction;
-    public Action StopSoundAction;
+    public Action<string>? PlaySoundAction;
+    public Action? StopSoundAction;
     private readonly Func<List<string>> _getSoundFilesAction;
 
     public SoundboardServer(Func<List<string>> getSoundFilesAction)
     {
-        // This function provides the list of available sound files to send to the client.
         _getSoundFilesAction = getSoundFilesAction;
         _cancellationTokenSource = new CancellationTokenSource();
     }
 
-    // Starts the TCP server, listening for client connections.
     public async Task StartAsync(int port = 5000)
     {
         try
         {
-	          _cancellationTokenSource = new CancellationTokenSource();
+            _cancellationTokenSource = new CancellationTokenSource();
             _listener = new TcpListener(IPAddress.Any, port);
             _listener.Start();
             Console.WriteLine($"Server started. Listening on port {port}...");
-
-            //StartDiscoveryBroadcasting();
 
             while (!_cancellationTokenSource.Token.IsCancellationRequested)
             {
                 TcpClient client = await _listener.AcceptTcpClientAsync(_cancellationTokenSource.Token);
                 Console.WriteLine("Client connected.");
                 
-                await HandleClientAsync(client);
+                // Process client connection without blocking new connections
+                _ = HandleClientAsync(client);
             }
         }
         catch (OperationCanceledException)
@@ -51,43 +49,43 @@ public class SoundboardServer
         }
     }
 
-    // Handles the communication with a single connected client.
     private async Task HandleClientAsync(TcpClient client)
     {
         try
         {
-            await using var stream = client.GetStream();
-            var buffer = new byte[1024];
-            
+            using var stream = client.GetStream();
+            using var reader = new StreamReader(stream, Encoding.UTF8);
+            using var writer = new StreamWriter(stream, Encoding.UTF8) { AutoFlush = true };
+
             while (client.Connected && !_cancellationTokenSource.Token.IsCancellationRequested)
             {
-                int bytesRead = await stream.ReadAsync(buffer, _cancellationTokenSource.Token);
-                if (bytesRead == 0)
+                string? receivedCommand = await reader.ReadLineAsync(_cancellationTokenSource.Token);
+                if (receivedCommand == null)
                 {
                     Console.WriteLine("Client disconnected.");
                     break;
                 }
 
-                string receivedCommand = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
+                receivedCommand = receivedCommand.Trim();
                 Console.WriteLine($"Received command: {receivedCommand}");
 
                 if (receivedCommand == "GET_SOUND_LIST")
                 {
-                    // If the client requests the sound list, send it back.
                     var soundFiles = _getSoundFilesAction.Invoke();
                     var fileListString = string.Join("|", soundFiles);
-                    var fileListBytes = Encoding.UTF8.GetBytes(fileListString);
-                    await stream.WriteAsync(fileListBytes);
-                    Console.WriteLine("Sent sound file list to client.");
+                    
+                    // Send entire list as a single line terminated by a newline
+                    await writer.WriteLineAsync(fileListString);
+                    Console.WriteLine($"Sent {soundFiles.Count} sound files to client.");
                 }
                 else if (receivedCommand == "STOP")
                 {
-	                  StopSoundAction?.Invoke();
+                    StopSoundAction?.Invoke();
                 }
                 else
                 {
-                    // Otherwise, assume the command is a file path to play.
-                    if (File.Exists(receivedCommand)) PlaySoundAction?.Invoke(receivedCommand);
+                    if (File.Exists(receivedCommand)) 
+                        PlaySoundAction?.Invoke(receivedCommand);
                 }
             }
         }
@@ -101,13 +99,11 @@ public class SoundboardServer
         }
     }
 
-    // Stops the TCP server.
     public void Stop()
     {
         _cancellationTokenSource.Cancel();
     }
 
-    // A utility method to get the local IP address for the server.
     public static string GetLocalIpAddress()
     {
         var host = Dns.GetHostEntry(Dns.GetHostName());

@@ -1,55 +1,54 @@
+using System.IO;
 using System.Net.Sockets;
 using System.Text;
 
-// This service is intended to be run in your Android MAUI app.
-// It connects to the Windows server and sends commands over the network.
 public class SoundboardClient
 {
     private TcpClient? _client;
     private NetworkStream? _stream;
-    
-    // Connects to the server.
-    // The serverIpAddress must be the IP address of the PC running the Windows app.
+    private StreamReader? _reader;
+    private StreamWriter? _writer;
+
     public async Task<bool> ConnectAsync(string serverIpAddress, int port = 5000)
     {
         try
         {
             if (_client?.Connected == true)
             {
-                // Already connected.
                 await UpdateSoundListAsync();
                 return true;
             }
-            
+
+            Disconnect(); // Reset any existing dead connection state
+
             _client = new TcpClient();
             await _client.ConnectAsync(serverIpAddress, port);
-            
+
             if (_client.Connected)
             {
                 _stream = _client.GetStream();
-                Console.WriteLine("Connected to server.");
+                _reader = new StreamReader(_stream, Encoding.UTF8);
+                _writer = new StreamWriter(_stream, Encoding.UTF8) { AutoFlush = true };
                 
-                // Call the new function to get the initial list of sounds.
-                await UpdateSoundListAsync();
+                Console.WriteLine("Connected to server.");
 
+                await UpdateSoundListAsync();
                 return true;
             }
-            
+
             return false;
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Connection error: {ex.Message}");
-            _client?.Close();
-            _client = null;
+            Disconnect();
             return false;
         }
     }
-    
-    // NEW: Function to explicitly request and update the list of sound files from the server.
+
     public async Task<List<string>?> UpdateSoundListAsync()
     {
-        if (_stream == null)
+        if (_writer == null || _reader == null)
         {
             Console.WriteLine("Not connected to server to update list.");
             return null;
@@ -57,15 +56,16 @@ public class SoundboardClient
 
         try
         {
-            // Send a specific command to the server requesting the list of files.
-            await _stream.WriteAsync("GET_SOUND_LIST"u8.ToArray());
+            // Send request command as a single line
+            await _writer.WriteLineAsync("GET_SOUND_LIST");
 
-            // Read the response from the server.
-            byte[] buffer = new byte[8192];
-            int bytesRead = await _stream.ReadAsync(buffer);
-            if (bytesRead > 0)
+            // ReadLineAsync automatically waits until the entire line (\n) arrives across all TCP packets
+            string? response = await _reader.ReadLineAsync();
+            if (!string.IsNullOrEmpty(response))
             {
-                return Encoding.UTF8.GetString(buffer, 0, bytesRead).Split('|').ToList();
+                var sounds = response.Split('|').ToList();
+                Console.WriteLine($"Received {sounds.Count} sounds from server.");
+                return sounds;
             }
         }
         catch (Exception ex)
@@ -75,11 +75,10 @@ public class SoundboardClient
         }
         return null;
     }
-    
-    // Sends a command (which is now the full file path) to the server.
+
     public async Task SendCommandAsync(string command)
     {
-        if (_stream == null)
+        if (_writer == null)
         {
             Console.WriteLine("Not connected to server.");
             return;
@@ -87,11 +86,7 @@ public class SoundboardClient
 
         try
         {
-            // Encode the command into a byte array.
-            byte[] data = Encoding.UTF8.GetBytes(command);
-            
-            // Send the data over the network stream.
-            await _stream.WriteAsync(data);
+            await _writer.WriteLineAsync(command);
             Console.WriteLine($"Sent command: {command}");
         }
         catch (Exception ex)
@@ -100,10 +95,13 @@ public class SoundboardClient
             Disconnect();
         }
     }
-    
-    // Disconnects from the server.
+
     public void Disconnect()
     {
+        _reader?.Dispose();
+        _reader = null;
+        _writer?.Dispose();
+        _writer = null;
         _stream?.Dispose();
         _stream = null;
         _client?.Close();
