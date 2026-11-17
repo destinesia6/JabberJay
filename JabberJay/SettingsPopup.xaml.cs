@@ -1,9 +1,18 @@
 // MyCustomPopup.xaml.cs
+
+using System.IO.Compression;
 using CommunityToolkit.Maui.Views;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
+using SoundboardMAUI;
+using System.IO.Compression;
+#if WINDOWS
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using WinRT.Interop;
+#endif
 
 namespace JabberJay; // Replace YourAppName with your actual namespace
 
@@ -53,7 +62,153 @@ public partial class SettingsPopup : Popup
         }
     }
 
-    private void OnSubmitClicked(object sender, EventArgs e)
+    private async void OnExportClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            string appDataDir = FileSystem.AppDataDirectory;
+
+            if (!Directory.Exists(appDataDir) || !Directory.EnumerateFileSystemEntries(appDataDir).Any())
+            {
+                await Shell.Current.DisplayAlert("Warning", "The AppData directory is empty or does not exist.", "OK");
+                return;
+            }
+
+            string zipName = $"JabberJay_Config_{DateTime.Now:yyyyMMdd_HHmmss}.zip";
+
+    #if WINDOWS
+            FileSavePicker savePicker = new() { SuggestedStartLocation = PickerLocationId.DocumentsLibrary };
+            savePicker.FileTypeChoices.Add("ZIP Archive", new List<string> { ".zip" });
+            savePicker.SuggestedFileName = zipName;
+            
+            MauiWinUIWindow? window = Application.Current?.Windows.FirstOrDefault()?.Handler?.PlatformView as MauiWinUIWindow;
+            if (window != null) InitializeWithWindow.Initialize(savePicker, window.WindowHandle);
+
+            StorageFile? file = await savePicker.PickSaveFileAsync();
+            if (file == null) return;
+
+            if (File.Exists(file.Path)) File.Delete(file.Path);
+            
+            ZipFile.CreateFromDirectory(appDataDir, file.Path, CompressionLevel.Optimal, includeBaseDirectory: false);
+            await Shell.Current.DisplayAlert("Success", $"AppData backup successfully saved to:\n{file.Path}", "OK");
+
+    #elif ANDROID
+            string tempZipPath = Path.Combine(FileSystem.CacheDirectory, zipName);
+            if (File.Exists(tempZipPath)) File.Delete(tempZipPath);
+
+            ZipFile.CreateFromDirectory(appDataDir, tempZipPath, CompressionLevel.Optimal, includeBaseDirectory: false);
+
+            await Share.Default.RequestAsync(new ShareFileRequest
+            {
+                Title = "Save AppData Backup",
+                File = new ShareFile(tempZipPath)
+            });
+    #endif
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", $"Failed to create backup: {ex.Message}", "OK");
+        }
+    }
+
+    private async void OnImportClicked(object sender, EventArgs e)
+    {
+      try
+      {
+        string zipFilePath = string.Empty;
+
+    #if WINDOWS
+        FileOpenPicker openPicker = new()
+        {
+          ViewMode = PickerViewMode.Thumbnail,
+          SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+        };
+        openPicker.FileTypeFilter.Add(".zip");
+
+        MauiWinUIWindow? window = Application.Current?.Windows.FirstOrDefault()?.Handler?.PlatformView as MauiWinUIWindow;
+        if (window != null) InitializeWithWindow.Initialize(openPicker, window.WindowHandle);
+
+        StorageFile? file = await openPicker.PickSingleFileAsync();
+        if (file == null) return;
+        zipFilePath = file.Path;
+
+    #elif ANDROID
+            // Use MAUI's cross-platform FilePicker for Android
+            var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+            {
+                { DevicePlatform.Android, new[] { "application/zip", "application/x-zip-compressed" } }
+            });
+
+            var pickResult = await FilePicker.Default.PickAsync(new PickOptions
+            {
+                PickerTitle = "Select AppData Backup Zip",
+                FileTypes = customFileType
+            });
+
+            if (pickResult == null) return;
+            zipFilePath = pickResult.FullPath;
+
+            // Handle Android content URIs by copying to a local cache file stream if needed
+            if (zipFilePath.StartsWith("content://", StringComparison.OrdinalIgnoreCase))
+            {
+                string cachePath = Path.Combine(FileSystem.CacheDirectory, "import_temp.zip");
+                using (var inputStream = await pickResult.OpenReadAsync())
+                using (var outputStream = File.Create(cachePath))
+                {
+                    await inputStream.CopyToAsync(outputStream);
+                }
+                zipFilePath = cachePath;
+            }
+    #endif
+
+        // Validate Zip contents safely across platforms
+        using (ZipArchive archive = ZipFile.OpenRead(zipFilePath))
+        {
+          List<string> entryNames = archive.Entries.Select(e => e.FullName).ToList();
+          
+          bool hasSoundsFolder = entryNames.Any(n =>
+            String.Equals(n, "Sounds/", StringComparison.OrdinalIgnoreCase) ||
+            String.Equals(n, "Sounds", StringComparison.OrdinalIgnoreCase) ||
+            n.StartsWith("Sounds/", StringComparison.OrdinalIgnoreCase));
+
+          if (!hasSoundsFolder)
+          {
+            await Shell.Current.DisplayAlert("Invalid Backup", "The selected backup is invalid.", "OK");
+            return;
+          }
+        }
+
+        bool confirm = await Shell.Current.DisplayAlert("Confirm Restore",
+          "Restoring a backup will replace your current app data files. Do you want to continue?", "Yes", "No");
+
+        if (!confirm) return;
+        
+        string appDataDir = FileSystem.AppDataDirectory;
+            
+        foreach (string filePath in Directory.GetFiles(appDataDir))
+        {
+          File.Delete(filePath);
+        }
+        foreach (string dirPath in Directory.GetDirectories(appDataDir))
+        {
+          Directory.Delete(dirPath, recursive: true);
+        }
+            
+        ZipFile.ExtractToDirectory(zipFilePath, appDataDir, overwriteFiles: true);
+
+        await Shell.Current.DisplayAlert("Success", "AppData successfully restored from backup!", "OK");
+
+        Close();
+            
+        if (Application.Current != null) Application.Current.Windows[0].Page = new AppShell();
+      }
+      catch (Exception ex)
+      {
+        await Shell.Current.DisplayAlert("Error", $"Failed to restore backup: {ex.Message}", "OK");
+      }
+    }
+
+  private void OnSubmitClicked(object sender, EventArgs e)
     {
         // Update config object from textbox values
         if (int.TryParse(PortInput.Text, out int port))

@@ -14,11 +14,18 @@
             VerticalOptions="Center"
             MaximumWidthRequest="300">
         <VerticalStackLayout Spacing="15">
-            <Label Text="Enter Details"
+            <Label Text="Settings"
                    FontSize="Title"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
                    TextColor="White"/>
+            
+            <HorizontalStackLayout Spacing="5">
+                <Button Text="Export" Clicked="OnExportClicked" BackgroundColor="MediumPurple" TextColor="White"
+                        CornerRadius="10" />
+                <Button Text="Import" Clicked="OnImportClicked" BackgroundColor="MediumPurple" TextColor="White"
+                        CornerRadius="10" />
+            </HorizontalStackLayout>
 
             <Entry x:Name="PortInput"
                    Placeholder="Enter a port"
