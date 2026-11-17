@@ -284,7 +284,7 @@ jobs:
         run: dotnet workload restore
 
       - name: Restore dependencies
-        run: dotnet restore JabberJay.sln /p:TargetFrameworks=net9.0-android /p:NoWarn=NU1605 /p:EnableWindowsTargeting=true
+        run: dotnet restore JabberJay.sln /p:TargetFrameworks=net9.0-android /p:NoWarn=NU1605 /p:EnableWindowsTargeting=true /p:CheckEolTargetFramework=false
         
       - name: Publish for Android
         run: dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./android_release -f:net9.0-android /p:NoWarn=NU1605 /p:EnableWindowsTargeting=true /p:AndroidEnableAot=false /p:AndroidLinkMode=None
