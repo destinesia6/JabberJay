@@ -87,16 +87,25 @@ public partial class SettingsPopup : Popup
             StorageFile? file = await savePicker.PickSaveFileAsync();
             if (file == null) return;
 
+            ExportButton.Text = "Loading...";
+            await Task.Yield();
+            
             if (File.Exists(file.Path)) File.Delete(file.Path);
             
             ZipFile.CreateFromDirectory(appDataDir, file.Path, CompressionLevel.Optimal, includeBaseDirectory: false);
+            
+            ExportButton.Text = "Export";
             await Shell.Current.DisplayAlert("Success", $"AppData backup successfully saved to:\n{file.Path}", "OK");
-
     #elif ANDROID
+            ExportButton.Text = "Loading...";
+            await Task.Yield();
+
             string tempZipPath = Path.Combine(FileSystem.CacheDirectory, zipName);
             if (File.Exists(tempZipPath)) File.Delete(tempZipPath);
 
             ZipFile.CreateFromDirectory(appDataDir, tempZipPath, CompressionLevel.Optimal, includeBaseDirectory: false);
+
+            ExportButton.Text = "Export";
 
             await Share.Default.RequestAsync(new ShareFileRequest
             {
@@ -160,7 +169,9 @@ public partial class SettingsPopup : Popup
                 zipFilePath = cachePath;
             }
     #endif
-
+        
+        ImportButton.Text = "Validating...";
+        await Task.Yield();
         // Validate Zip contents safely across platforms
         using (ZipArchive archive = ZipFile.OpenRead(zipFilePath))
         {
@@ -174,14 +185,22 @@ public partial class SettingsPopup : Popup
           if (!hasSoundsFolder)
           {
             await Shell.Current.DisplayAlert("Invalid Backup", "The selected backup is invalid.", "OK");
+            ImportButton.Text = "Import";
+            await Task.Yield();
             return;
           }
         }
+
+        ImportButton.Text = "Import";
+        await Task.Yield();
 
         bool confirm = await Shell.Current.DisplayAlert("Confirm Restore",
           "Restoring a backup will replace your current app data files. Do you want to continue?", "Yes", "No");
 
         if (!confirm) return;
+        
+        ImportButton.Text = "Restoring...";
+        await Task.Yield();
         
         string appDataDir = FileSystem.AppDataDirectory;
             
@@ -198,6 +217,9 @@ public partial class SettingsPopup : Popup
 
         await Shell.Current.DisplayAlert("Success", "AppData successfully restored from backup!", "OK");
 
+        ImportButton.Text = "Import";
+        await Task.Yield();
+        
         Close();
             
         if (Application.Current != null) Application.Current.Windows[0].Page = new AppShell();
