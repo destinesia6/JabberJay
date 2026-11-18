@@ -57,6 +57,9 @@ jobs:
       with:
         dotnet-version: '9.0.x'
 
+    - name: Install required workloads
+      run: dotnet workload restore
+
     - name: Inject Secret API Key into Config.cs
       shell: pwsh
       env:
@@ -72,6 +75,7 @@ jobs:
         dotnet restore JabberJay/SoundboardMAUI.csproj /p:TargetFrameworks=net9.0-windows /p:NoWarn=NU1605
         dotnet restore Installer/Installer.csproj /p:NoWarn=NU1605
         dotnet restore Uninstaller/Uninstaller.csproj /p:NoWarn=NU1605
+        
     - name: Get App Version
       id: get_version
       run: |
