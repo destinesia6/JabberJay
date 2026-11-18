@@ -222,7 +222,15 @@ public partial class SettingsPopup : Popup
         
         Close();
             
-        if (Application.Current != null) Application.Current.Windows[0].Page = new AppShell();
+#if WINDOWS
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            await Task.Delay(100);
+            if (Application.Current?.Windows.FirstOrDefault() is { } window) window.Page = new AppShell();
+        });
+#else
+        if (Application.Current != null && Application.Current.Windows.Count > 0) Application.Current.Windows[0].Page = new AppShell();
+#endif
       }
       catch (Exception ex)
       {
