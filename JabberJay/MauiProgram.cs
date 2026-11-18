@@ -52,7 +52,7 @@ public static class MauiProgram
     #if WINDOWS
     builder.Services.AddSingleton<IKeyboardListener, KeyboardListenerWinUI>();
     #endif
-	  builder.Services.AddSingleton<ApiService>();
+	builder.Services.AddSingleton<ApiService>();
     builder.Services.AddTransient<MainPage>();
     
     #if WINDOWS
