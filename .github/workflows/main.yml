@@ -284,7 +284,7 @@ jobs:
         run: dotnet workload restore
 
       - name: Install MAUI Workloads
-        run: dotnet workload install maui
+        run: dotnet workload install maui-android
 
       - name: Restore dependencies
         run: dotnet restore JabberJay.sln /p:TargetFrameworks=net9.0-android /p:NoWarn=NU1605 /p:EnableWindowsTargeting=true /p:CheckEolTargetFramework=false /p:CheckEolWorkloads=false
