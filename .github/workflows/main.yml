@@ -283,11 +283,14 @@ jobs:
       - name: Install required workloads
         run: dotnet workload restore
 
+      - name: Install MAUI Workloads
+        run: dotnet workload install maui
+
       - name: Restore dependencies
         run: dotnet restore JabberJay.sln /p:TargetFrameworks=net9.0-android /p:NoWarn=NU1605 /p:EnableWindowsTargeting=true /p:CheckEolTargetFramework=false /p:CheckEolWorkloads=false
         
       - name: Publish for Android
-        run: dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./android_release -f:net9.0-android /p:NoWarn=NU1605 /p:EnableWindowsTargeting=true /p:AndroidEnableAot=false /p:AndroidLinkMode=None /p:CheckEolTargetFramework=false /p:CheckEolWorkloads=false
+        run: dotnet publish JabberJay/SoundboardMAUI.csproj -c Release -o ./android_release -f:net9.0-android /p:NoWarn=NU1605 /p:EnableWindowsTargeting=true /p:AndroidEnableAot=false /p:AndroidLinkMode=None
   
       - name: Get APK path
         id: get_apk_path
