@@ -7,40 +7,55 @@
                CanBeDismissedByTappingOutsideOfPopup="True">
 
     <Border BackgroundColor="Black"
-            Padding="20"
+            Padding="24"
             StrokeShape="RoundRectangle 15"
             StrokeThickness="0"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            MaximumWidthRequest="300">
+            WidthRequest="460"
+            MaximumWidthRequest="600"
+            HorizontalOptions="Fill"
+            VerticalOptions="Center">
         <VerticalStackLayout Spacing="15">
             <Label Text="Settings"
                    FontSize="Title"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
-                   TextColor="White"/>
-            
-            <HorizontalStackLayout Spacing="5">
-                <Button x:Name="ExportButton" Text="Export" Clicked="OnExportClicked" BackgroundColor="MediumPurple" TextColor="White"
-                        CornerRadius="10" />
-                <Button x:Name="ImportButton" Text="Import" Clicked="OnImportClicked" BackgroundColor="MediumPurple" TextColor="White"
-                        CornerRadius="10" />
-            </HorizontalStackLayout>
+                   TextColor="White" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button x:Name="ExportButton"
+                        Grid.Column="0"
+                        Text="Export"
+                        Clicked="OnExportClicked"
+                        BackgroundColor="MediumPurple"
+                        TextColor="White"
+                        CornerRadius="10"
+                        HorizontalOptions="Fill" />
+
+                <Button x:Name="ImportButton"
+                        Grid.Column="1"
+                        Text="Import"
+                        Clicked="OnImportClicked"
+                        BackgroundColor="MediumPurple"
+                        TextColor="White"
+                        CornerRadius="10"
+                        HorizontalOptions="Fill" />
+            </Grid>
 
             <Entry x:Name="PortInput"
                    Placeholder="Enter a port"
                    Keyboard="Numeric"
                    ClearButtonVisibility="WhileEditing"
                    TextColor="White"
-                   PlaceholderColor="Gray"/>
+                   PlaceholderColor="Gray"
+                   HorizontalOptions="Fill" />
 
-            
             <Entry x:Name="IPInput"
                    Placeholder="Enter IP Address"
                    Keyboard="Text"
                    ClearButtonVisibility="WhileEditing"
                    TextColor="White"
-                   PlaceholderColor="Gray">
+                   PlaceholderColor="Gray"
+                   HorizontalOptions="Fill">
                 <Entry.IsVisible>
                     <OnPlatform x:TypeArguments="x:Boolean">
                         <On Platform="Android" Value="True" />
@@ -53,7 +68,8 @@
                     Clicked="OnSubmitClicked"
                     BackgroundColor="MediumPurple"
                     TextColor="White"
-                    CornerRadius="10"/>
+                    CornerRadius="10"
+                    HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </Border>
 </toolkit:Popup>

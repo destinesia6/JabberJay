@@ -76,23 +76,25 @@ public class SoundboardClient
         return null;
     }
 
-    public async Task SendCommandAsync(string command)
+    public async Task<bool> SendCommandAsync(string command)
     {
         if (_writer == null)
         {
             Console.WriteLine("Not connected to server.");
-            return;
+            return false;
         }
 
         try
         {
             await _writer.WriteLineAsync(command);
             Console.WriteLine($"Sent command: {command}");
+            return true;
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error sending command: {ex.Message}");
             Disconnect();
+            return false;
         }
     }
 

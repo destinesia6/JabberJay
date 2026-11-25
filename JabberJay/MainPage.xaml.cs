@@ -118,33 +118,33 @@ public partial class MainPage : ContentPage
 
 
 #else
-    AudioManager _audioManager = new();
-    private SoundboardClient _soundboardClient;
-    public ObservableCollection<object> OutputDevices { get; set; } = [];
-    public string SelectedOutputDevice { get; set; } = "";
-    public string ProductName { get; set; } = "";
-		private List<IAudioPlayer> _playingSounds = new();
+  AudioManager _audioManager = new();
+  private SoundboardClient _soundboardClient;
+  public ObservableCollection<object> OutputDevices { get; set; } = [];
+  public string SelectedOutputDevice { get; set; } = "";
+  public string ProductName { get; set; } = "";
+  private List<IAudioPlayer> _playingSounds = new();
 
-    private bool _clientToggle;
+  private bool _clientToggle;
 
-    public bool ClientToggle
+  public bool ClientToggle
+  {
+    get => _clientToggle;
+    set
     {
-	    get  => _clientToggle;
-	    set
-	    {
-		    if (value == _clientToggle) return;
-		    _clientToggle = value;
-		    OnPropertyChanged();
-		    if (_clientToggle)
-		    {
-			    Task.Run(ConnectClient);
-		    }
-		    else
-		    {
-			    Task.Run(DisconnectClient);
-		    }
-	    }
+      if (value == _clientToggle) return;
+      _clientToggle = value;
+      OnPropertyChanged();
+      if (_clientToggle)
+      {
+        Task.Run(ConnectClient);
+      }
+      else
+      {
+        Task.Run(DisconnectClient);
+      }
     }
+  }
 
 #endif
   private Updater _appUpdater = new();
@@ -250,28 +250,28 @@ public partial class MainPage : ContentPage
   }
 
 #else
-    public MainPage(ApiService apiService)
-    {
-        InitializeComponent();
-        _appUpdater.UpdateDetected += AppUpdateDetected;
-        OutputPickerContainer.IsVisible = false;
-        AutoStartContainer.IsVisible = false;
-        ServerStartContainer.IsVisible = false;
-        _soundsFolderName = Path.Combine(FileSystem.AppDataDirectory, _soundsFolderName);
-        _bindingsFile = Path.Combine(FileSystem.AppDataDirectory, _bindingsFile);
-        _outputDeviceFile = Path.Combine(FileSystem.AppDataDirectory, _outputDeviceFile);
-				_netSettingsFile = Path.Combine(FileSystem.AppDataDirectory, _netSettingsFile);
-        VersionLabel.Text = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "Unknown";
-        LoadSoundButtons();
-        AnimationExtensions.SetupPointerEffects(AddSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"),
-            Color.FromArgb("#786af7"));
-        AnimationExtensions.SetupPointerEffects(ImportSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"),
-            Color.FromArgb("#786af7"));
-        BindingContext = this;
-        ConfigureNetSettings();
-        _apiService = apiService;
-        _soundboardClient = new SoundboardClient();
-    }
+  public MainPage(ApiService apiService)
+  {
+    InitializeComponent();
+    _appUpdater.UpdateDetected += AppUpdateDetected;
+    OutputPickerContainer.IsVisible = false;
+    AutoStartContainer.IsVisible = false;
+    ServerStartContainer.IsVisible = false;
+    _soundsFolderName = Path.Combine(FileSystem.AppDataDirectory, _soundsFolderName);
+    _bindingsFile = Path.Combine(FileSystem.AppDataDirectory, _bindingsFile);
+    _outputDeviceFile = Path.Combine(FileSystem.AppDataDirectory, _outputDeviceFile);
+    _netSettingsFile = Path.Combine(FileSystem.AppDataDirectory, _netSettingsFile);
+    VersionLabel.Text = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "Unknown";
+    LoadSoundButtons();
+    AnimationExtensions.SetupPointerEffects(AddSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"),
+      Color.FromArgb("#786af7"));
+    AnimationExtensions.SetupPointerEffects(ImportSound, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"),
+      Color.FromArgb("#786af7"));
+    BindingContext = this;
+    ConfigureNetSettings();
+    _apiService = apiService;
+    _soundboardClient = new SoundboardClient();
+  }
 #endif
 
 #if WINDOWS
@@ -385,23 +385,23 @@ public partial class MainPage : ContentPage
     SelectedOutputDevice = OutputDevices.First();
   }
 #else
-    private void AppUpdateDetected(object? sender, UpdateDetectedEventArgs args)
+  private void AppUpdateDetected(object? sender, UpdateDetectedEventArgs args)
+  {
+    try
     {
-        try
+      MainThread.BeginInvokeOnMainThread(async void () =>
+      {
+        if (await DisplayAlert("Update Available", $"An update to version {args.LatestVersion.Version} is available on the JabberJay github", "Update", "Later"))
         {
-	        MainThread.BeginInvokeOnMainThread(async void () =>
-	        {
-		        if (await DisplayAlert("Update Available", $"An update to version {args.LatestVersion.Version} is available on the JabberJay github", "Update", "Later"))
-		        {
-			        await Launcher.Default.OpenAsync($"https://github.com/destinesia6/JabberJay/releases/tag/{args.LatestVersion.Version}");
-		        }
-	        });
+          await Launcher.Default.OpenAsync($"https://github.com/destinesia6/JabberJay/releases/tag/{args.LatestVersion.Version}");
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+      });
     }
+    catch (Exception ex)
+    {
+      Console.WriteLine(ex.Message);
+    }
+  }
 #endif
 
   private void UpdatePort()
@@ -422,7 +422,7 @@ public partial class MainPage : ContentPage
         if (config == null) return;
         _port = config.Port;
 #if ANDROID
-				_ipConfig = config.IpAddress;
+        _ipConfig = config.IpAddress;
 #endif
       }
       catch (Exception ex)
@@ -456,7 +456,7 @@ public partial class MainPage : ContentPage
           _ipConfig = GetLocalIPAddress();
           ServerStart = config.ServerStarted;
 #else
-					_ipConfig = config.IpAddress;
+          _ipConfig = config.IpAddress;
 #endif
         }
       }
@@ -518,7 +518,9 @@ public partial class MainPage : ContentPage
 
   private async void ImportSoundButton_Clicked(object sender, EventArgs e)
   {
-    string url = await DisplayPromptAsync("Video URL", "Enter a video URL:", "Download", "Cancel");
+    string url = await DisplayPromptAsync("Video URL", "Enter a video URL:", "Download");
+
+    if (url is null) return;
 
     if (String.IsNullOrWhiteSpace(url) || !Uri.TryCreate(url, UriKind.Absolute, out _))
     {
@@ -590,8 +592,6 @@ public partial class MainPage : ContentPage
     else
     {
 #if WINDOWS
-
-
       ProgressLayout.IsVisible = true;
       DownloadProgressBar.Progress = 0;
       DownloadStatusLabel.Text = "Initializing...";
@@ -678,82 +678,64 @@ public partial class MainPage : ContentPage
   private void ToggleClient_Clicked(object sender, EventArgs e)
   {
 #if ANDROID
-	    if (ClientToggle)
-	    {
-		    ToggleClientLabel.Text = "Disconnecting...";
-		    ClientToggle = false;
-	    }
-	    else
-	    {
-		    ToggleClientLabel.Text = "Finding server...";
-		    ClientToggle = true;
-	    }
+    if (ClientToggle)
+    {
+      ToggleClientLabel.Text = "Disconnecting...";
+      ClientToggle = false;
+    }
+    else
+    {
+      ToggleClientLabel.Text = "Finding server...";
+      ClientToggle = true;
+    }
 #endif
   }
 
 #if ANDROID
-    private async Task ConnectClient()
+  private async Task ConnectClient()
+  {
+    UpdatePort();
+
+    string serverIp = _ipConfig;
+    if (String.IsNullOrWhiteSpace(serverIp))
     {
-	    UpdatePort();
-	    
-	    string serverIp = _ipConfig;
-	    if (String.IsNullOrWhiteSpace(serverIp))
-	    {
-		    await Application.Current?.Dispatcher.DispatchAsync(async () =>
-		    {
-			    serverIp = await DisplayPromptAsync("Enter PC IP address", "Enter the computers IP address:", "Connect");
-		    })!;
-	    }
-
-	    if (!String.IsNullOrEmpty(serverIp))
-	    {
-		    Application.Current?.Dispatcher.Dispatch(() =>
-		    {
-			    ToggleClientLabel.Text = "Connecting...";
-		    });
-		    bool isConnected = await _soundboardClient.ConnectAsync(serverIp, _port);
-		    if (isConnected)
-		    {
-			    Application.Current?.Dispatcher.Dispatch(() =>
-			    {
-				    ToggleClientLabel.Text = "Stop Remote";
-			    });
-			    if (Application.Current != null) await Application.Current.Dispatcher.DispatchAsync(async () => { await LoadServerButtons(); });
-			    return;
-		    }
-
-		    Application.Current?.Dispatcher.Dispatch(() =>
-		    {
-			    ToggleClientLabel.Text = "Connection failed";
-		    });
-	    }
-	    else
-	    {
-		    Application.Current?.Dispatcher.Dispatch(() =>
-		    {
-			    ToggleClientLabel.Text = "Server not found";
-		    });
-	    }
-
-	    _clientToggle = false;
-
-	    await Task.Delay(5000);
-
-	    Application.Current?.Dispatcher.Dispatch(() =>
-	    {
-		    ToggleClientLabel.Text = "Start Remote";
-	    });
+      await Application.Current?.Dispatcher.DispatchAsync(async () => { serverIp = await DisplayPromptAsync("Enter PC IP address", "Enter the computers IP address:", "Connect"); })!;
     }
 
-    private async Task DisconnectClient()
+    if (!String.IsNullOrEmpty(serverIp))
     {
-	    _soundboardClient.Disconnect();
-	    await Application.Current?.Dispatcher.DispatchAsync(async () =>
-	    {
-		    await LoadSoundButtons();
-		    ToggleClientLabel.Text = "Start Remote";
-	    })!;
+      Application.Current?.Dispatcher.Dispatch(() => { ToggleClientLabel.Text = "Connecting..."; });
+      bool isConnected = await _soundboardClient.ConnectAsync(serverIp, _port);
+      if (isConnected)
+      {
+        Application.Current?.Dispatcher.Dispatch(() => { ToggleClientLabel.Text = "Stop Remote"; });
+        if (Application.Current != null) await Application.Current.Dispatcher.DispatchAsync(async () => { await LoadServerButtons(); });
+        return;
+      }
+
+      Application.Current?.Dispatcher.Dispatch(() => { ToggleClientLabel.Text = "Connection failed"; });
     }
+    else
+    {
+      Application.Current?.Dispatcher.Dispatch(() => { ToggleClientLabel.Text = "Server not found"; });
+    }
+
+    _clientToggle = false;
+
+    await Task.Delay(5000);
+
+    Application.Current?.Dispatcher.Dispatch(() => { ToggleClientLabel.Text = "Start Remote"; });
+  }
+
+  private async Task DisconnectClient()
+  {
+    _soundboardClient.Disconnect();
+    await Application.Current?.Dispatcher.DispatchAsync(async () =>
+    {
+      await LoadSoundButtons();
+      ToggleClientLabel.Text = "Start Remote";
+    })!;
+  }
 #else
   private void HandleDownloadProgress(YoutubeDLSharp.DownloadProgress p)
   {
@@ -821,7 +803,7 @@ public partial class MainPage : ContentPage
       NewStopButton();
     }
 #else
-	NewStopButton();
+    NewStopButton();
 #endif
     // Loads sounds
     if (Directory.Exists(_soundsFolderName))
@@ -846,12 +828,12 @@ public partial class MainPage : ContentPage
           }
 #else
           KeyValuePair<string, SoundButton>? bindingEntry = bindings?.FirstOrDefault(kvp =>
-                      String.Equals(kvp.Key, filePath, StringComparison.OrdinalIgnoreCase));
+            String.Equals(kvp.Key, filePath, StringComparison.OrdinalIgnoreCase));
           if (bindingEntry is { Value: not null })
           {
             CreateSoundButton(filePath, volume: bindingEntry.Value.Value.Volume);
           }
-          else 
+          else
           {
             CreateSoundButton(filePath);
           }
@@ -876,28 +858,28 @@ public partial class MainPage : ContentPage
   }
 
 #if ANDROID
-    private async Task LoadServerButtons()
+  private async Task LoadServerButtons()
+  {
+    Dictionary<string, SoundButton> bindings = new();
+    try
     {
-	    Dictionary<string, SoundButton> bindings = new();
-	    try
-	    {
-		    SoundButtonPanel.Clear();
-		    _soundButtons = new Dictionary<string, SoundButton>();
-		    NewStopButton();
-		    List<string>? mp3Files = await _soundboardClient.UpdateSoundListAsync();
-		    if (mp3Files is { Count: > 0 })
-		    {
-			    foreach (string filePath in mp3Files)
-			    {
-				    CreateSoundButton(filePath);
-			    }
-		    }
-	    }
-	    catch (Exception ex)
-	    {
-		    Console.WriteLine(ex.Message);
-	    }
+      SoundButtonPanel.Clear();
+      _soundButtons = new Dictionary<string, SoundButton>();
+      NewStopButton();
+      List<string>? mp3Files = await _soundboardClient.UpdateSoundListAsync();
+      if (mp3Files is { Count: > 0 })
+      {
+        foreach (string filePath in mp3Files)
+        {
+          CreateSoundButton(filePath);
+        }
+      }
     }
+    catch (Exception ex)
+    {
+      Console.WriteLine(ex.Message);
+    }
+  }
 #endif
 
   private void NewStopButton(string? binding = null)
@@ -918,7 +900,7 @@ public partial class MainPage : ContentPage
 #if WINDOWS
       Margin = new Thickness(0),
 #else
-			Margin = new Thickness(0, 5, 0, 0),
+      Margin = new Thickness(0, 5, 0, 0),
 #endif
       Padding = new Thickness(0)
     };
@@ -930,14 +912,14 @@ public partial class MainPage : ContentPage
 #if WINDOWS
     stopGesture.Tapped += (sender, args) => StopPlayback();
 #else
-      if (ClientToggle)
-      {
-        stopGesture.Tapped += async (sender, args) => await _soundboardClient.SendCommandAsync("STOP");
-      }
-      else
-      {
-	      stopGesture.Tapped += (sender, args) => StopPlayback();
-      }
+    if (ClientToggle)
+    {
+      stopGesture.Tapped += async (sender, args) => await _soundboardClient.SendCommandAsync("STOP");
+    }
+    else
+    {
+      stopGesture.Tapped += (sender, args) => StopPlayback();
+    }
 #endif
     stopButton.Play.GestureRecognizers.Add(stopGesture);
     Grid.SetColumn(stopButton.Play, 0);
@@ -982,27 +964,30 @@ public partial class MainPage : ContentPage
 #if WINDOWS
     SoundButton newSound = NewButton(filePath, volume, binding);
 #else
-	    string androidFriendlyPath = filePath.Replace('\\', '/');
-	    SoundButton newSound = new() { Play = new Border
-	    {
-		    StrokeShape = new RoundRectangle
-		    {
-			    CornerRadius = new CornerRadius(5, 5, 5, 5)
-		    },
-		    StrokeThickness = 1, // Optional border
-		    Content = new Label
-		    {
-			    ClassId = "PlayButton",
-			    Text = "▶  " + Path.GetFileNameWithoutExtension(androidFriendlyPath),
-			    Padding = new Thickness(10, 28, 10, 30),
-			    Margin = new Thickness(0), // Remove internal margin
-			    HorizontalTextAlignment = TextAlignment.Center
-		    }
-	    }};
-		    if (!ClientToggle)
-				{
-					newSound = NewButton(filePath, volume);
-				}
+    string androidFriendlyPath = filePath.Replace('\\', '/');
+    SoundButton newSound = new()
+    {
+      Play = new Border
+      {
+        StrokeShape = new RoundRectangle
+        {
+          CornerRadius = new CornerRadius(5, 5, 5, 5)
+        },
+        StrokeThickness = 1, // Optional border
+        Content = new Label
+        {
+          ClassId = "PlayButton",
+          Text = "▶  " + Path.GetFileNameWithoutExtension(androidFriendlyPath),
+          Padding = new Thickness(10, 28, 10, 30),
+          Margin = new Thickness(0), // Remove internal margin
+          HorizontalTextAlignment = TextAlignment.Center
+        }
+      }
+    };
+    if (!ClientToggle)
+    {
+      newSound = NewButton(filePath, volume);
+    }
 #endif
 
 
@@ -1012,14 +997,33 @@ public partial class MainPage : ContentPage
 #if WINDOWS
     playTapGesture.Tapped += (sender, args) => PlaySound(filePath);
 #else
-        if (ClientToggle)
+    if (ClientToggle)
+    {
+      playTapGesture.Tapped += async (sender, args) =>
+      {
+        bool success = await _soundboardClient.SendCommandAsync(filePath);
+        if (success)
         {
-	        playTapGesture.Tapped += async (sender, args) => await _soundboardClient.SendCommandAsync(filePath);
+          _soundButtons.TryGetValue(filePath, out SoundButton? sound);
+          Label? playLabel = sound?.GetPlayLabel;
+          string? originalText = playLabel?.Text;
+          if (playLabel == null || originalText == null) return;
+          try
+          {
+            MainThread.BeginInvokeOnMainThread(() => playLabel.Text = "Playing");
+            await Task.Delay(5000);
+          }
+          finally
+          {
+            MainThread.BeginInvokeOnMainThread(() => playLabel.Text = originalText);
+          }
         }
-        else
-        {
-	        playTapGesture.Tapped += (sender, args) => PlaySound(filePath);
-        }
+      };
+    }
+    else
+    {
+      playTapGesture.Tapped += (sender, args) => PlaySound(filePath);
+    }
 #endif
 
     newSound.Play.GestureRecognizers.Add(playTapGesture);
@@ -1027,7 +1031,7 @@ public partial class MainPage : ContentPage
 #if WINDOWS
     Grid.SetColumnSpan(newSound.Play, 4);
 #else
-        Grid.SetColumnSpan(newSound.Play, 3);
+    Grid.SetColumnSpan(newSound.Play, 3);
 #endif
     Grid.SetRow(newSound.Play, 0);
     container.Children.Add(newSound.Play);
@@ -1047,17 +1051,14 @@ public partial class MainPage : ContentPage
     {
       AnimationExtensions.SetupPointerEffects(newSound.SetVolume, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"), Color.FromArgb("#786af7"));
       TapGestureRecognizer volumeTapGesture = new();
-    
-      volumeTapGesture.Tapped += async (sender, args) =>
-      {
-        await SetVolume(filePath);
-      };
+
+      volumeTapGesture.Tapped += async (sender, args) => { await SetVolume(filePath); };
 
       newSound.SetVolume.GestureRecognizers.Add(volumeTapGesture);
 #if WINDOWS
       Grid.SetColumn(newSound.SetVolume, 2);
 #else
-    Grid.SetColumn(newSound.SetVolume, 1);
+      Grid.SetColumn(newSound.SetVolume, 1);
 #endif
       Grid.SetRow(newSound.SetVolume, 1);
       container.Children.Add(newSound.SetVolume);
@@ -1073,7 +1074,7 @@ public partial class MainPage : ContentPage
 #if WINDOWS
       Grid.SetColumn(newSound.Rename, 1);
 #else
-		    Grid.SetColumn(newSound.Rename, 0);
+      Grid.SetColumn(newSound.Rename, 0);
 #endif
       Grid.SetRow(newSound.Rename, 1);
       container.Children.Add(newSound.Rename);
@@ -1089,7 +1090,7 @@ public partial class MainPage : ContentPage
 #if WINDOWS
       Grid.SetColumn(newSound.Remove, 3);
 #else
-		    Grid.SetColumn(newSound.Remove, 2);
+      Grid.SetColumn(newSound.Remove, 2);
 #endif
       Grid.SetRow(newSound.Remove, 1);
       container.Children.Add(newSound.Remove);
@@ -1110,7 +1111,7 @@ public partial class MainPage : ContentPage
 #if WINDOWS
           CornerRadius = new CornerRadius(5, 0, 5, 0)
 #else
-						CornerRadius = new CornerRadius(5, 5, 5, 5)
+          CornerRadius = new CornerRadius(5, 5, 5, 5)
 #endif
         },
         StrokeThickness = 1,
@@ -1121,7 +1122,7 @@ public partial class MainPage : ContentPage
 #if WINDOWS
           Padding = new Thickness(10, 8, 10, 10),
 #else
-		        Padding = new Thickness(22, 22, 22, 25),
+          Padding = new Thickness(22, 22, 22, 25),
 #endif
           Margin = new Thickness(0),
           HorizontalTextAlignment = TextAlignment.Center
@@ -1171,11 +1172,11 @@ public partial class MainPage : ContentPage
           WidthRequest = 250,
           LineBreakMode = LineBreakMode.HeadTruncation,
 #else
-								Padding = new Thickness(5, 28, 5, 30),
-								WidthRequest = 150,
-								VerticalTextAlignment = TextAlignment.Center,
-								MaxLines = 2,
-								HeightRequest = 100,
+          Padding = new Thickness(5, 28, 5, 30),
+          WidthRequest = 150,
+          VerticalTextAlignment = TextAlignment.Center,
+          MaxLines = 2,
+          HeightRequest = 100,
 #endif
           Margin = new Thickness(0), // Remove internal margin
           HorizontalTextAlignment = TextAlignment.Center
@@ -1199,39 +1200,39 @@ public partial class MainPage : ContentPage
         }
       },
 #endif
-        Rename = new Border
-        {
+      Rename = new Border
+      {
 #if WINDOWS // As there is no bind button this will be the bottom left on mobile, hence the rounded corner needed
-          StrokeShape = new Rectangle(),
+        StrokeShape = new Rectangle(),
 #else
-			        StrokeShape = new RoundRectangle()
-			        {
-				        CornerRadius = new CornerRadius(0, 0, 5, 0)
-			        },
-#endif
-          StrokeThickness = 1,
-          Content = new Label
-          {
-            ClassId = "RenameButton",
-            Text = "\u270F",
-            Padding = new Thickness(10, 8, 10, 10),
-            Margin = new Thickness(0), // Remove margin
-            HorizontalTextAlignment = TextAlignment.Center
-          }
-        },
-        SetVolume = new Border
+        StrokeShape = new RoundRectangle()
         {
-          StrokeShape = new Rectangle(),
-          StrokeThickness = 1,
-          Content = new Label
-          {
-            ClassId = "VolumeButton",
-            Text = $"{volume}%",
-            Padding = new Thickness(10, 8, 10, 10),
-            Margin = new Thickness(0),
-            HorizontalTextAlignment = TextAlignment.Center
-          }
+          CornerRadius = new CornerRadius(0, 0, 5, 0)
         },
+#endif
+        StrokeThickness = 1,
+        Content = new Label
+        {
+          ClassId = "RenameButton",
+          Text = "\u270F",
+          Padding = new Thickness(10, 8, 10, 10),
+          Margin = new Thickness(0), // Remove margin
+          HorizontalTextAlignment = TextAlignment.Center
+        }
+      },
+      SetVolume = new Border
+      {
+        StrokeShape = new Rectangle(),
+        StrokeThickness = 1,
+        Content = new Label
+        {
+          ClassId = "VolumeButton",
+          Text = $"{volume}%",
+          Padding = new Thickness(10, 8, 10, 10),
+          Margin = new Thickness(0),
+          HorizontalTextAlignment = TextAlignment.Center
+        }
+      },
       Remove = new Border
       {
         StrokeShape = new RoundRectangle
@@ -1279,7 +1280,7 @@ public partial class MainPage : ContentPage
     UpdateBindingsFile();
   }
 #endif
-  
+
   private async Task SetVolume(string filePath)
   {
     SoundButton selectedSound = _soundButtons[filePath];
@@ -1293,49 +1294,47 @@ public partial class MainPage : ContentPage
     {
       volumeButton.Text = $"{selectedSound.Volume}%";
     }
+
     UpdateBindingsFile();
   }
-  
+
   private async Task<int?> ShowVolumeSliderDialogAsync(string title, int currentVolume)
-{
+  {
     var tcs = new TaskCompletionSource<int?>();
 
     Label titleLabel = new()
     {
-        Text = title,
-        FontAttributes = FontAttributes.Bold,
-        FontSize = 18,
-        HorizontalOptions = LayoutOptions.Center
+      Text = title,
+      FontAttributes = FontAttributes.Bold,
+      FontSize = 18,
+      HorizontalOptions = LayoutOptions.Center
     };
 
     Label valueLabel = new()
     {
-        Text = $"{currentVolume}%",
-        FontSize = 16,
-        HorizontalOptions = LayoutOptions.Center,
-        Margin = new Thickness(0, 5, 0, 0)
+      Text = $"{currentVolume}%",
+      FontSize = 16,
+      HorizontalOptions = LayoutOptions.Center,
+      Margin = new Thickness(0, 5, 0, 0)
     };
 
     Slider slider = new()
     {
-        Minimum = 0,
-        Maximum = 100,
-        Value = currentVolume,
-        Margin = new Thickness(0, 10, 0, 10)
+      Minimum = 0,
+      Maximum = 100,
+      Value = currentVolume,
+      Margin = new Thickness(0, 10, 0, 10)
     };
 
-    slider.ValueChanged += (s, e) =>
-    {
-        valueLabel.Text = $"{(int)Math.Round(e.NewValue)}%";
-    };
+    slider.ValueChanged += (s, e) => { valueLabel.Text = $"{(int)Math.Round(e.NewValue)}%"; };
 
     Button okButton = new() { Text = "OK" };
     Button cancelButton = new() { Text = "Cancel" };
 
     Grid buttonGrid = new()
     {
-        ColumnDefinitions = { new ColumnDefinition(GridLength.Star), new ColumnDefinition(GridLength.Star) },
-        ColumnSpacing = 10
+      ColumnDefinitions = { new ColumnDefinition(GridLength.Star), new ColumnDefinition(GridLength.Star) },
+      ColumnSpacing = 10
     };
     Grid.SetColumn(cancelButton, 0);
     Grid.SetColumn(okButton, 1);
@@ -1344,40 +1343,40 @@ public partial class MainPage : ContentPage
 
     Border card = new()
     {
-        StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 10 },
-        Padding = new Thickness(20),
-        WidthRequest = 300,
-        HorizontalOptions = LayoutOptions.Center,
-        VerticalOptions = LayoutOptions.Center,
-        BackgroundColor = Application.Current?.RequestedTheme == AppTheme.Dark ? Color.FromArgb("#2a2a2a") : Colors.White,
-        Content = new VerticalStackLayout
-        {
-            Spacing = 10,
-            Children = { titleLabel, valueLabel, slider, buttonGrid }
-        }
+      StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 10 },
+      Padding = new Thickness(20),
+      WidthRequest = 300,
+      HorizontalOptions = LayoutOptions.Center,
+      VerticalOptions = LayoutOptions.Center,
+      BackgroundColor = Application.Current?.RequestedTheme == AppTheme.Dark ? Color.FromArgb("#2a2a2a") : Colors.White,
+      Content = new VerticalStackLayout
+      {
+        Spacing = 10,
+        Children = { titleLabel, valueLabel, slider, buttonGrid }
+      }
     };
 
     ContentPage modalPage = new()
     {
-        BackgroundColor = Color.FromRgba(0, 0, 0, 0.5f), // Dimmed background backdrop
-        Content = card
+      BackgroundColor = Color.FromRgba(0, 0, 0, 0.5f), // Dimmed background backdrop
+      Content = card
     };
 
     okButton.Clicked += async (s, e) =>
     {
-        tcs.TrySetResult((int)Math.Round(slider.Value));
-        await Navigation.PopModalAsync();
+      tcs.TrySetResult((int)Math.Round(slider.Value));
+      await Navigation.PopModalAsync();
     };
 
     cancelButton.Clicked += async (s, e) =>
     {
-        tcs.TrySetResult(null);
-        await Navigation.PopModalAsync();
+      tcs.TrySetResult(null);
+      await Navigation.PopModalAsync();
     };
 
     await Navigation.PushModalAsync(modalPage);
     return await tcs.Task;
-}
+  }
 
   private async void RenameButton(object sender, string filePath)
   {
@@ -1432,10 +1431,7 @@ public partial class MainPage : ContentPage
 #endif
                 case "VolumeButton":
                   TapGestureRecognizer newVolumeTapGesture = new();
-                  newVolumeTapGesture.Tapped += async (sender, args) =>
-                  {
-                    await SetVolume(newPath);
-                  };
+                  newVolumeTapGesture.Tapped += async (sender, args) => { await SetVolume(newPath); };
                   border.GestureRecognizers.Clear();
                   border.GestureRecognizers.Add(newVolumeTapGesture);
                   AnimationExtensions.SetupPointerEffects(border, Color.FromArgb("#5e4dff"), Color.FromArgb("#341efa"),
@@ -1492,44 +1488,69 @@ public partial class MainPage : ContentPage
 
   public static string GetLocalIPAddress()
   {
-    // Use a preprocessor directive to compile this code only on Windows.
-    // This ensures the code is not included in other platform builds,
-    // which might use a different method or might not require this feature.
 #if WINDOWS
     try
     {
-      // Get all network interfaces on the machine.
+      List<(IPAddress Address, bool HasGateway)> candidates = [];
+
       foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
       {
-        // We are only interested in active, operational interfaces that are
-        // either Ethernet or Wireless (Wi-Fi).
-        if (networkInterface is not { OperationalStatus: OperationalStatus.Up, NetworkInterfaceType: NetworkInterfaceType.Ethernet or NetworkInterfaceType.Wireless80211 }) continue;
-        // Get the IP properties for the current interface.
-        IPInterfaceProperties ipProperties = networkInterface.GetIPProperties();
-
-        // Iterate through all the unicast IP addresses assigned to this interface.
-        foreach (UnicastIPAddressInformation ip in ipProperties.UnicastAddresses)
+        if (networkInterface is not
+            {
+              OperationalStatus: OperationalStatus.Up,
+              NetworkInterfaceType: NetworkInterfaceType.Ethernet or NetworkInterfaceType.Wireless80211
+            })
         {
-          // Check if the address is an IPv4 address.
-          if (ip.Address.AddressFamily != AddressFamily.InterNetwork) continue;
-          // Ensure the address is not a loopback address (e.g., 127.0.0.1)
-          // and is not a link-local address. We want a public or private IP.
-          if (!IPAddress.IsLoopback(ip.Address)) return ip.Address.ToString();
+          continue;
         }
+
+        // Skip common virtual/VPN adapter names if needed
+        string desc = networkInterface.Description.ToLowerInvariant();
+        if (desc.Contains("virtual") || desc.Contains("vpn") || desc.Contains("tap") || desc.Contains("wintun"))
+        {
+          continue;
+        }
+
+        IPInterfaceProperties ipProperties = networkInterface.GetIPProperties();
+        bool hasGateway = ipProperties.GatewayAddresses.Any(g => g.Address.AddressFamily == AddressFamily.InterNetwork);
+
+        candidates.AddRange(from ip in ipProperties.UnicastAddresses where ip.Address.AddressFamily == AddressFamily.InterNetwork where !IPAddress.IsLoopback(ip.Address) where IsPrivateIPv4(ip.Address) select (ip.Address, hasGateway));
+      }
+
+      // Prefer an interface with a default gateway (active LAN/Wi-Fi connection)
+      var bestMatch = candidates.FirstOrDefault(c => c.HasGateway).Address
+                      ?? candidates.FirstOrDefault().Address;
+
+      if (bestMatch != null)
+      {
+        return bestMatch.ToString();
       }
     }
     catch (Exception ex)
     {
-      // In a real application, you might want to log this exception
-      // for debugging purposes. For now, we'll just return "Error".
       Console.WriteLine($"Error getting IP address: {ex.Message}");
       return "Error";
     }
 #endif
 
-    // If no suitable IP address was found on Windows, or if the code is running on
-    // a non-Windows platform, this line will be executed.
     return "Not Found";
+  }
+
+  private static bool IsPrivateIPv4(IPAddress address)
+  {
+    byte[] bytes = address.GetAddressBytes();
+    if (bytes.Length != 4) return false;
+
+    // 10.0.0.0 - 10.255.255.255
+    if (bytes[0] == 10) return true;
+
+    // 172.16.0.0 - 172.31.255.255
+    if (bytes[0] == 172 && bytes[1] >= 16 && bytes[1] <= 31) return true;
+
+    // 192.168.0.0 - 192.168.255.255
+    if (bytes[0] == 192 && bytes[1] == 168) return true;
+
+    return false;
   }
 
   private async void RemoveSoundButton(Grid containerToRemove, string filePathToRemove)
@@ -1589,7 +1610,10 @@ public partial class MainPage : ContentPage
   private async void PlaySound(string filePath)
   {
     int volume = _soundButtons.TryGetValue(filePath, out SoundButton? sound) ? sound.Volume : 100;
+    Label? playLabel = sound?.GetPlayLabel;
+    string? originalButtonText = playLabel?.Text == "Playing..." ? null : playLabel?.Text;
 #if WINDOWS
+    WaveOutEvent outputDevice = null;
     try
     {
       if (_selectedOutputDeviceIndex == -1)
@@ -1599,57 +1623,64 @@ public partial class MainPage : ContentPage
 
       if (_selectedOutputDeviceIndex != -1)
       {
-        WaveOutEvent outputDevice = new() { DeviceNumber = _selectedOutputDeviceIndex };
+        outputDevice = new WaveOutEvent { DeviceNumber = _selectedOutputDeviceIndex };
         await using AudioFileReader audioFileReader = new(filePath);
         audioFileReader.Volume = volume / 100f;
         outputDevice.Init(audioFileReader);
         _playingSounds.Add(outputDevice);
         outputDevice.Play();
 
+        if (playLabel != null && originalButtonText != null) MainThread.BeginInvokeOnMainThread(() => playLabel.Text = "Playing...");
+
         while (outputDevice.PlaybackState == PlaybackState.Playing)
         {
           await Task.Delay(100);
         }
-
-        _playingSounds.Remove(outputDevice);
-
-        outputDevice.Stop();
-        outputDevice.Dispose();
       }
       else
       {
-        MainThread.BeginInvokeOnMainThread(async void () =>
-          await DisplayAlert("Warning", "Voicemeeter Input not found.", "OK"));
+        MainThread.BeginInvokeOnMainThread(() => _ = DisplayAlert("Warning", "Output not found.", "OK"));
       }
     }
     catch (Exception ex)
     {
-      MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error (Windows/NAudio)", ex.Message, "OK"));
+      MainThread.BeginInvokeOnMainThread(() => _ = DisplayAlert("Error (Windows/NAudio)", ex.Message, "OK"));
+    }
+    finally
+    {
+      if (outputDevice != null)
+      {
+        _playingSounds.Remove(outputDevice);
+        outputDevice.Stop();
+        outputDevice.Dispose();
+      }
+      if (playLabel != null && originalButtonText != null) MainThread.BeginInvokeOnMainThread(() => playLabel.Text = originalButtonText);
     }
 #else
-        try
-        {
-            var player = _audioManager.CreatePlayer(filePath);
-            player.Volume = volume / 100.0;
-            _playingSounds.Add(player);
+    try
+    {
+      IAudioPlayer player = _audioManager.CreatePlayer(filePath);
+      player.Volume = volume / 100.0;
+      _playingSounds.Add(player);
+      if (playLabel != null && originalButtonText != null) MainThread.BeginInvokeOnMainThread(() => playLabel.Text = "Playing...");
 
-            player.PlaybackEnded += (s, e) =>
-            {
-	            _playingSounds.Remove(player);
-	            player.Dispose();
-            };
-            
-            player.Play();
-        }
-        catch (Exception ex)
-        {
-            MainThread.BeginInvokeOnMainThread(async void () => await DisplayAlert("Error (Audio Manager)", ex.Message, "OK"));
-        }
+      player.PlaybackEnded += (s, e) =>
+      {
+        _playingSounds.Remove(player);
+        player.Dispose();
+        if (playLabel != null && originalButtonText != null) MainThread.BeginInvokeOnMainThread(() => playLabel.Text = originalButtonText);
+      };
+
+      player.Play();
+    }
+    catch (Exception ex)
+    {
+      MainThread.BeginInvokeOnMainThread(() => _ = DisplayAlert("Error (Audio Manager)", ex.Message, "OK"));
+      if (playLabel != null && originalButtonText != null) MainThread.BeginInvokeOnMainThread(() => playLabel.Text = originalButtonText);
+    }
 #endif
-
-    // Maybe add code to make it play out of speakers on non windows devices
   }
-  
+
   private void UpdateBindingsFile()
   {
     try
@@ -1664,7 +1695,7 @@ public partial class MainPage : ContentPage
       Console.WriteLine(ex.Message);
     }
   }
-  
+
   private Dictionary<string, SoundButton>? GetBoundSounds()
   {
     try
@@ -1807,6 +1838,7 @@ public partial class MainPage : ContentPage
     [JsonIgnore] public Border? Remove;
     public string? Binding;
     public int Volume { get; set; } = 100;
+    public Label? GetPlayLabel => Play.Content as Label;
   }
 }
 
