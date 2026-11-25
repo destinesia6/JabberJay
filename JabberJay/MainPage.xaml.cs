@@ -124,6 +124,7 @@ public partial class MainPage : ContentPage
   public string SelectedOutputDevice { get; set; } = "";
   public string ProductName { get; set; } = "";
   private List<IAudioPlayer> _playingSounds = new();
+  private TaskCompletionSource _stopPressed;
 
   private bool _clientToggle;
 
@@ -914,7 +915,11 @@ public partial class MainPage : ContentPage
 #else
     if (ClientToggle)
     {
-      stopGesture.Tapped += async (sender, args) => await _soundboardClient.SendCommandAsync("STOP");
+      stopGesture.Tapped += async (sender, args) =>
+      {
+        _stopPressed.TrySetResult();
+        return await _soundboardClient.SendCommandAsync("STOP");
+      };
     }
     else
     {
@@ -1010,8 +1015,11 @@ public partial class MainPage : ContentPage
           if (playLabel == null || originalText == null) return;
           try
           {
+            _eventTcs = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            Task stopTask = _eventTcs.Task;
+            Task timeout = Task.Delay(5000);
             MainThread.BeginInvokeOnMainThread(() => playLabel.Text = "Playing");
-            await Task.Delay(5000);
+            await Task.WhenAny(stopTask, timeout);
           }
           finally
           {
